@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace hathor
+namespace Hathor
 {
     class Program
     {
