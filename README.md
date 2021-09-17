@@ -1,5 +1,5 @@
 # hathor
-[Hathor](https://en.wikipedia.org/wiki/Hathor), the hacky swiss-army knife of music management.
+[Hathor](https://en.wikipedia.org/wiki/Hathor), her beneficent side represented music, dance, joy, love, and sexuality. Case in point, never stop enjoying yourselves.
 (Thank you [Gina](https://www.quora.com/In-mythology-who-is-the-god-of-music) at Quora for help with the name.)
 
 ## Contribute
