@@ -11,6 +11,8 @@ See [issues](https://github.com/oscar230/hathor/issues), any help is welcomed!
 None of this is mandatory, whoevere can contribute whenever.
 You do not have to be the best, just show your passion.
 For questions please message me [github/oscar230](https://github.com/oscar230), the email is in the section to the left.
+### Resources for development
+* Icon set, [Iconify documentation](https://icon-sets.iconify.design/oi/box/).
 
 ## Use
 See [releases](https://github.com/oscar230/hathor/releases), choose the latest one and follow the instruction.
