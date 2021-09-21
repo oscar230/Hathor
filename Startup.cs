@@ -28,7 +28,9 @@ namespace hathor
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddHttpClient();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<SliderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
