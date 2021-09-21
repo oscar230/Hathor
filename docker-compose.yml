@@ -3,5 +3,5 @@ services:
   web:
     build: .
     ports:
-      - "127.0.0.1:21314:17543"
+      - "127.0.0.1:21314:5000"
     restart: always
