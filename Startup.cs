@@ -29,7 +29,6 @@ namespace hathor
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddHttpClient();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<SliderService>();
         }
 
