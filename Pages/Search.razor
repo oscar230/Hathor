@@ -23,7 +23,8 @@ else
             <tr>
                 <th>Title</th>
                 <th>Duration</th>
-                <th>Download</th>
+                <th>Add to crate</th>
+                <th>Direct download</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,7 @@ else
                 <tr>
                     <td>@track.FullTitle</td>
                     <td>@track.DurationInSeconds</td>
+                    <td><a href='@track.DownloadUri'>Add to crate</a></td>
                     <td><a href='@track.DownloadUri'>Download</a></td>
                 </tr>
             }
