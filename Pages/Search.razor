@@ -2,14 +2,29 @@
 @using hathor.Data
 @inject SliderService SliderService
 
+<h1>Search tracks</h1>
+<p>Find tracks by querying artists and track titles.</p>
+
 <form action="/search" method="post">
-    <input
-        type="text"
-        name="searchQuery"
-        id="formSearchQuery"
-        placeholder="Search query"
-    >
-    <input type="submit" value="Search">
+    <div class="form-group">
+        <label for="formSearchQuery">Search query</label>
+        <input
+            class="form-control"
+            type="text"
+            name="searchQuery"
+            id="formSearchQuery"
+            placeholder="Search query"
+            aria-describedby="searchQueryHelp"
+        >
+        <small id="searchQueryHelp" class="form-text text-muted">
+            Search queryies are strctured as "Artist - Track title", the complete title is not needed but use whole words.
+        </small>
+        <input
+            type="submit"
+            value="Search"
+            class="btn btn-primary"
+        >
+    </div>
 </form>
 
 @if (tracks == null)
