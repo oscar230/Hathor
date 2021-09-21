@@ -1,0 +1,49 @@
+@page "/search"
+@using hathor.Data
+@inject SliderService SliderService
+
+<form action="/search" method="post">
+    <input
+        type="text"
+        name="searchQuery"
+        id="formSearchQuery"
+        placeholder="Search query"
+    >
+    <input type="submit" value="Search">
+</form>
+
+@if (tracks == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Track track in tracks)
+            {
+                <tr>
+                    <td>@track.FullTitle</td>
+                    <td>@track.DurationInSeconds</td>
+                    <td><a href='@track.DownloadUri'>Download</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Track> tracks;
+
+    protected override void OnInitialized()
+    {
+        this.tracks = SliderService.SearchTracks("Avicii");
+    }
+}

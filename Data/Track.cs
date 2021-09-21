@@ -33,12 +33,12 @@ namespace hathor.Data
         public Uri DownloadUri =>
             new Uri(
                 string.Format(
-                    "{0}{1}/{2}/{3}.mp3?extra={4}",
+                    "{0}download/{1}/{2}/{3}/{4}.mp3?extra={5}",
                     sliderBaseUri,
                     this.sliderId,
                     this.sliderDuration,
                     this.sliderUrl,
-                    HttpUtility.UrlEncodeUnicode(this.sliderTitArt),
+                    HttpUtility.UrlEncode(this.sliderTitArt),
                     this.sliderExtra
                 )
             ); 
