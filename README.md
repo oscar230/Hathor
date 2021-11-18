@@ -18,7 +18,7 @@ For questions please message me [github/oscar230](https://github.com/oscar230), 
 See [releases](https://github.com/oscar230/hathor/releases), choose the latest one and follow the instruction.
 
 ## Build
-See the build instructions in [BUILD.md](https://github.com/oscar230/hathor/blob/main/BUILD.md).
+TODO
 
 ## Legal
 Complaints are directed at [github/oscar230](https://github.com/oscar230), the email is in the section to the left.
