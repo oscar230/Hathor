@@ -1,0 +1,5 @@
+*.swp
+*.*~
+project.lock.json
+.vs/
+.gitignore
