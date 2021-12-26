@@ -1,5 +1,7 @@
 *.swp
 *.*~
 project.lock.json
+.DS_Store
+.vscode
 .vs/
-.gitignore
+node_modules
