@@ -1,5 +1,5 @@
-# hathor
-[Hathor](https://en.wikipedia.org/wiki/Hathor), her beneficent side represented music, dance, joy, love, and sexuality. Case in point, never stop enjoying yourselves.
+# Hathor
+A music tool! (and also [a goddess](https://en.wikipedia.org/wiki/Hathor)).
 
 ## Contribute
 * See [issues on Github](https://github.com/oscar230/hathor/issues) for any open issues, any help is welcomed!
