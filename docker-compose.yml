@@ -1,7 +1,0 @@
-version: "3.0"
-services:
-  web:
-    build: .
-    ports:
-      - "127.0.0.1:21314:80"
-    restart: always
