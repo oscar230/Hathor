@@ -4,8 +4,11 @@ namespace WebApi.Models
 {
     public class Track
     {
-        [JsonPropertyName("Id")]
-        public int Id { get; private set; }
+        [JsonPropertyName("Guid")]
+        public Guid Guid { get; private set; }
+
+        [JsonPropertyName("TrackProviderId")]
+        public int TrackProviderId { get; private set; }
 
         [JsonPropertyName("DisplayName")]
         public string DisplayName { get; private set; }
@@ -13,11 +16,20 @@ namespace WebApi.Models
         [JsonPropertyName("DownloadUri")]
         public Uri DownloadUri { get; private set; }
 
-        public Track(int id, string displayName, Uri downloadUri)
+        [JsonPropertyName("TrackProviderName")]
+        public string TrackProviderName { get;}
+
+        public Track(int trackProviderId, string displayName, Uri downloadUri, string trackProviderName)
         {
-            Id = id;
-            DisplayName = displayName ?? throw new ArgumentNullException(nameof(displayName));
-            DownloadUri = downloadUri ?? throw new ArgumentNullException(nameof(downloadUri));
+            Guid = Guid.NewGuid();
+            TrackProviderId = trackProviderId;
+            DisplayName = displayName;
+            DownloadUri = downloadUri;
+            TrackProviderName = trackProviderName;
         }
+
+        public override string? ToString() => $"Track {DisplayName} ({Guid})";
+
+        public override int GetHashCode() => Guid.GetHashCode();
     }
 }
