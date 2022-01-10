@@ -1,3 +1,5 @@
+using WebApi.Services;
+
 namespace WebApi
 {
     class Program
@@ -7,12 +9,12 @@ namespace WebApi
             var builder = WebApplication.CreateBuilder(args);
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
+            builder.Services.AddScoped<ITrackProvider, SliderTrackProviderService>();
+            builder.Services.AddScoped<ITrackProvider, BtdigTrackProviderService>();
 
             var app = builder.Build();
-            var slider = new SliderFacade(app.Logger);
 
             app.MapGet("/", () => "Hathor!");
-            app.MapGet("/search/{query:required}", (string query) => slider.Search(query));
 
             app.Run();
         }

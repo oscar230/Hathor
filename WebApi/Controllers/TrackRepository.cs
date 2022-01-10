@@ -1,29 +1,41 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Helpers;
+using WebApi.Models;
+using WebApi.Services;
 
 namespace WebApi.Controllers
 {
     public class TrackRepository : Controller
     {
-        // GET: TrackRepository
-        public ActionResult Index()
+        private readonly ILogger<TrackRepository> _logger;
+        private readonly List<ITrackProvider> _trackProviders;
+
+        public TrackRepository(ILogger<TrackRepository> logger, SliderTrackProviderService sliderTrackProviderService, BtdigTrackProviderService btdigTrackProviderService)
         {
-            return View();
+            _logger = logger;
+            _trackProviders = new List<ITrackProvider>
+            {
+                btdigTrackProviderService,
+                sliderTrackProviderService
+            };
         }
 
-        // GET: TrackRepository/Details/5
+        public ActionResult<List<Track>> Index(string? query = null)
+        {
+            return TrackProvidersHelper.Index(_trackProviders, query);
+        }
+
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: TrackRepository/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TrackRepository/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -38,13 +50,11 @@ namespace WebApi.Controllers
             }
         }
 
-        // GET: TrackRepository/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: TrackRepository/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -59,13 +69,11 @@ namespace WebApi.Controllers
             }
         }
 
-        // GET: TrackRepository/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: TrackRepository/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
