@@ -1,6 +1,9 @@
-﻿namespace WebApi.Helpers
+﻿using System.Web;
+
+namespace WebApi.Helpers
 {
-    public class HttpHelper
+    public static class HttpHelper
     {
+        public static string UrlEncode(string str) => HttpUtility.UrlEncode(str);
     }
 }
