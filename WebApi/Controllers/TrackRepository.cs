@@ -9,12 +9,12 @@ namespace WebApi.Controllers
     public class TrackRepository : Controller
     {
         private readonly ILogger<TrackRepository> _logger;
-        private readonly List<ITrackProvider> _trackProviders;
+        private readonly List<ITrackProviderService> _trackProviders;
 
         public TrackRepository(ILogger<TrackRepository> logger, SliderTrackProviderService sliderTrackProviderService, BtdigTrackProviderService btdigTrackProviderService)
         {
             _logger = logger;
-            _trackProviders = new List<ITrackProvider>
+            _trackProviders = new List<ITrackProviderService>
             {
                 btdigTrackProviderService,
                 sliderTrackProviderService

@@ -9,8 +9,8 @@ namespace WebApi
             var builder = WebApplication.CreateBuilder(args);
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
-            builder.Services.AddScoped<ITrackProvider, SliderTrackProviderService>();
-            builder.Services.AddScoped<ITrackProvider, BtdigTrackProviderService>();
+            builder.Services.AddScoped<ITrackProviderService, SliderTrackProviderService>();
+            builder.Services.AddScoped<ITrackProviderService, BtdigTrackProviderService>();
 
             var app = builder.Build();
 

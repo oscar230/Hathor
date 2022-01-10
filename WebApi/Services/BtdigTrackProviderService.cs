@@ -2,34 +2,32 @@
 
 namespace WebApi.Services
 {
-    public class BtdigTrackProviderService : IBtdigTrackProviderService
+    public class BtdigTrackProviderService : ITrackProviderService
     {
         private const string NAME = "btdig";
         private const string BASEURI = "https://btdig.com";
         private const string LOGOURI = "https://upload.wikimedia.org/wikipedia/commons/3/3b/BTDigg_logo.png";
         private readonly ILogger<BtdigTrackProviderService> _logger;
-        private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public Uri HomepageUri;
-        public Uri LogoUri;
+        public Uri homepageUri;
+        public Uri logoUri;
 
-        public BtdigTrackProviderService(ILogger<BtdigTrackProviderService> logger, IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        public BtdigTrackProviderService(ILogger<BtdigTrackProviderService> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
-            _configuration = configuration;
             _httpClientFactory = httpClientFactory;
-            HomepageUri = new(BASEURL);
-            LogoUri = new(LOGOURI);
+            homepageUri = new(BASEURI);
+            logoUri = new(LOGOURI);
             _logger.LogDebug("Constructing btdig track provider service.");
         }
-        public List<Track> Index(string query)
+        public Task<List<Track>> Index(string? query = null)
         {
             throw new NotImplementedException();
         }
 
-        public override int GetHashCode() => Name.GetHashCode();
+        public override int GetHashCode() => NAME.GetHashCode();
 
-        public override string? ToString() => Name;
+        public override string? ToString() => NAME;
     }
 }
