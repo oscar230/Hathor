@@ -1,22 +1,23 @@
-using WebApi.Services;
+var builder = WebApplication.CreateBuilder(args);
 
-namespace WebApi
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-            builder.Logging.ClearProviders();
-            builder.Logging.AddConsole();
-            builder.Services.AddScoped<ITrackProviderService, SliderTrackProviderService>();
-            builder.Services.AddScoped<ITrackProviderService, BtdigTrackProviderService>();
-
-            var app = builder.Build();
-
-            app.MapGet("/", () => "Hathor!");
-
-            app.Run();
-        }
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
