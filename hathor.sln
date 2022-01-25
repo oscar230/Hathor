@@ -9,6 +9,11 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "WebGui", "WebGui\WebGui.njs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{97C5F23A-1710-4658-9718-73D92B13BF35}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B7F46E7-C7D7-4135-AC62-36D298648303}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
