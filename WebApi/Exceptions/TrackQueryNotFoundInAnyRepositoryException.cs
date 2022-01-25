@@ -1,20 +1,18 @@
-﻿using System.Linq;
-using System.Runtime.Serialization;
-using WebApi.Models;
+﻿using WebApi.Models;
 using WebApi.Services;
 
 namespace WebApi.Exceptions
 {
-    public class TrackQueryNotFoundException : Exception, IUserExceptions
+    public class TrackQueryNotFoundInAnyRepositoryException : Exception, IUserExceptions
     {
         private string _query;
         private List<IRepository> _repositories;
 
-        public TrackQueryNotFoundException(string query, List<ITrackRepositoryService> repositoryServices) : this(query, repositoryServices.Select(service => service.repository).ToList()) { }
+        public TrackQueryNotFoundInAnyRepositoryException(string? query, List<ITrackRepositoryService> repositoryServices) : this(query, repositoryServices.Select(service => service.Repository).ToList()) { }
 
-        public TrackQueryNotFoundException(string query, List<IRepository> repositories) : base($"Query: {query} found no tracks.")
+        public TrackQueryNotFoundInAnyRepositoryException(string? query, List<IRepository> repositories) : base($"Query: {query} found no tracks at all, in any repository (number of repositories {repositories.Count}).")
         {
-            _query = query;
+            _query = query ?? string.Empty;
             _repositories = repositories;
         }
 
