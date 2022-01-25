@@ -5,9 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient();
 builder.Services.AddLogging();
 builder.Services.AddScoped<ISliderTrackRepositoryService, SliderTrackRepositoryService>();
+builder.Services.AddHttpClient<ISliderTrackRepositoryService, SliderTrackRepositoryService>("SliderHttpClient", configureClient =>
+{
+    configureClient.Timeout = new TimeSpan(0, 1, 30); // 1 minute and 30 seconds timeout
+});
 
 var app = builder.Build();
 
