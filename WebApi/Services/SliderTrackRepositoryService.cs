@@ -6,7 +6,7 @@ using WebApi.Models.Slider;
 
 namespace WebApi.Services
 {
-    public class SliderTrackRepositoryService : ITrackRepositoryService
+    public class SliderTrackRepositoryService : ISliderTrackRepositoryService
     {
         private const string SLIDER_API_QUERY = "https://slider.wonky.se/";
         private readonly ILogger<SliderTrackRepositoryService> _logger;

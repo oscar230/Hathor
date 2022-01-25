@@ -10,10 +10,10 @@ namespace WebApi.Controllers
     [ApiController]
     public class TrackController : ControllerBase
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<TrackController> _logger;
         private readonly List<ITrackRepositoryService> _trackRepositoryServices;
 
-        public TrackController(ILogger logger, SliderTrackRepositoryService sliderTrackRepositoryService)
+        public TrackController(ILogger<TrackController> logger, ISliderTrackRepositoryService sliderTrackRepositoryService)
         {
             _logger = logger;
             _trackRepositoryServices = new List<ITrackRepositoryService>();
