@@ -20,21 +20,30 @@ namespace WebApi.Exceptions
         {
             string s = new("");
             var c = _repositories.Count;
+            if (c > 1)
+            {
+                s = $"{s} either";
+            }
+            s = $"{s} repository";
             foreach (var repository in _repositories)
             {
                 if (c > 1)
                 {
                     s = $"{s}, {repository.DisplayName}";
                 }
-                else if (c > 0)
+                else if (c > 0 && _repositories.Count > 1)
                 {
                     s = $"{s} nor {repository.DisplayName}";
+                }
+                else
+                {
+                    s = $"{s} {repository.DisplayName}";
                 }
                 c--;
             }
             return s;
         }
 
-        public string UserMessage => $"No tracks from query {_query} found in either repository {PrintRepositories()}.";
+        public string UserMessage => $"No tracks {(_query.Length > 0 ? $"from search query {_query}" : "from no search query" )} found in{PrintRepositories()}.";
     }
 }
