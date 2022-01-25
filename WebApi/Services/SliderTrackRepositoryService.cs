@@ -34,9 +34,9 @@ namespace WebApi.Services
             {
                 if (httpResponseMessage.IsSuccessStatusCode)
                 {
-                    var content = await httpResponseMessage.Content.ReadAsStreamAsync();
+                    var content = await httpResponseMessage.Content.ReadAsStringAsync();
                     var tracks = JsonSerializer.Deserialize<SliderTrackQueryResult>(content);
-                    if (tracks?.SliderTrackList?.SliderTracks?.Count > 0)
+                    if (tracks?.SliderTrackList?.SliderTracks?.Count > 0 && tracks?.SliderTrackList?.SliderTracks?.FirstOrDefault()?.SliderId != null)
                     {
                         stopWatch.Stop();
                         var ts = stopWatch.Elapsed;
