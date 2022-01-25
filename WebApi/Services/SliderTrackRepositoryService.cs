@@ -41,7 +41,7 @@ namespace WebApi.Services
                     }
                     else
                     {
-                        _logger.LogWarning($"Query failed (status: {httpResponseMessage.StatusCode})! uri: {uri}");
+                        _logger.LogWarning($"Query failed! uri: {uri}, status: {httpResponseMessage.StatusCode} ({((int)httpResponseMessage.StatusCode)})");
                     }
                 }
             }
