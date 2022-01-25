@@ -28,6 +28,6 @@ namespace WebApi.Models.Slider
 
         public string DisplayName => FullTitle ?? throw new Exception("No full title.");
 
-        public IRepository FromRepository = new SliderRepository();
+        public IRepository FromRepository => new SliderRepository();
     }
 }
