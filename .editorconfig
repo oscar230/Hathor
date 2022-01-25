@@ -2,3 +2,6 @@
 
 # IDE0063: Use simple 'using' statement
 dotnet_diagnostic.IDE0063.severity = none
+
+# CA2254: Template should be a static expression
+dotnet_diagnostic.CA2254.severity = none
