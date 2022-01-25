@@ -10,6 +10,7 @@ builder.Services.AddScoped<ISliderTrackRepositoryService, SliderTrackRepositoryS
 builder.Services.AddHttpClient<ISliderTrackRepositoryService, SliderTrackRepositoryService>("SliderHttpClient", configureClient =>
 {
     configureClient.Timeout = new TimeSpan(0, 1, 30); // 1 minute and 30 seconds timeout
+    configureClient.DefaultRequestHeaders.Add("User-Agent", "WebApi");
 });
 
 var app = builder.Build();
