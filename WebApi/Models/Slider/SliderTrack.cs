@@ -27,5 +27,7 @@ namespace WebApi.Models.Slider
         public string InternalId => SliderId ?? throw new Exception("No slider id.");
 
         public string DisplayName => FullTitle ?? throw new Exception("No full title.");
+
+        public IRepository FromRepository = new SliderRepository();
     }
 }
