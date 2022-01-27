@@ -29,7 +29,7 @@
     <None Update="Resources\UserAgents\Firefox.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\UserAgents\Internet+Explorer.txt">
+    <None Update="Resources\UserAgents\IE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\UserAgents\Opera.txt">
