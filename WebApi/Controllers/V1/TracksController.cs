@@ -8,12 +8,12 @@ namespace WebApi.Controllers
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class TrackController : ControllerBase
+    public class TracksController : ControllerBase
     {
-        private readonly ILogger<TrackController> _logger;
+        private readonly ILogger<TracksController> _logger;
         private readonly List<ITrackRepositoryService> _trackRepositoryServices;
 
-        public TrackController(ILogger<TrackController> logger, ISliderTrackRepositoryService sliderTrackRepositoryService)
+        public TracksController(ILogger<TracksController> logger, ISliderTrackRepositoryService sliderTrackRepositoryService)
         {
             _logger = logger;
             _trackRepositoryServices = new List<ITrackRepositoryService>();
