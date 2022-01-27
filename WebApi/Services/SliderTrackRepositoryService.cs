@@ -23,7 +23,6 @@ namespace WebApi.Services
             _httpClientDirectSlider = httpClientFactory.CreateClient(DIRECT_SLIDER_HTTP_CLIENT_NAME);
             _httpClientProxiedSlider = httpClientFactory.CreateClient(PROXIED_SLIDER_HTTP_CLIENT_NAME);
             _userAgentService = userAgentService;
-            var a = _userAgentService.RandomOne();
         }
 
         public IRepository Repository => new SliderRepository();
