@@ -27,7 +27,7 @@ namespace WebApi.Services
 
         public IRepository Repository => new SliderRepository();
 
-        public async Task<byte[]> GetTrackAsFile(Uri uri)
+        public async Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken)
         {
             var stopWatch = new Stopwatch();
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
@@ -41,9 +41,21 @@ namespace WebApi.Services
             stopWatch.Start();
             using (var httpResponseMessage = await _httpClientDirectSlider.SendAsync(httpRequestMessage))
             {
-
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    var stream = await httpResponseMessage.Content.ReadAsStreamAsync(cancellationToken);
+                    stopWatch.Stop();
+                    var ts = stopWatch.Elapsed;
+                    _logger.LogDebug($"Stream track file took {ts.TotalSeconds} seconds (total {ts.Milliseconds} ms).");
+                }
+                else
+                {
+                    stopWatch.Stop();
+                    var ts = stopWatch.Elapsed;
+                    _logger.LogWarning($"Stream track file failed! uri: {httpRequestMessage.RequestUri}, status: {httpResponseMessage.StatusCode} ({((int)httpResponseMessage.StatusCode)}), took {ts.TotalSeconds} seconds.");
+                }
             }
-            return null;
+            throw new TrackStreamTrackFileRepositoryException(uri);
         }
 
         public async Task<List<ITrack>> Query(string? query)
@@ -56,8 +68,8 @@ namespace WebApi.Services
             }
             else
             {
-                var uri = new Uri(HttpUtility.UrlEncode(query));
-                httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+                query = HttpUtility.UrlEncode(query);
+                httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, query);
             }
             stopWatch.Start();
             using (var httpResponseMessage = await _httpClientProxiedSlider.SendAsync(httpRequestMessage))

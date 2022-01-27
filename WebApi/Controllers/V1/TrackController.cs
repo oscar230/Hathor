@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
+using System.Net.Mime;
+using WebApi.Exceptions;
 using WebApi.Helpers;
 using WebApi.Services;
 
@@ -19,10 +22,10 @@ namespace WebApi.Controllers.V1
             _trackRepositoryServices.Add(sliderTrackRepositoryService);
         }
 
-        [HttpGet("Download")]
-        public async Task<ActionResult> Download([FromQuery] Guid repositoryGuid, [FromQuery] string downloadUriBase64)
+        [HttpGet("Download"), DisableRequestSizeLimit]
+        public async Task<ActionResult<HttpResponseMessage>> Download([FromQuery] Guid repositoryGuid, [FromQuery] string downloadUriBase64)
         {
-            const string contentType = "audio/mpeg";
+            CancellationToken cancellationToken = default(CancellationToken);
             var repository = _trackRepositoryServices.Find(r => r.Repository.Guid.Equals(repositoryGuid));
             if (repository != null)
             {
@@ -32,11 +35,21 @@ namespace WebApi.Controllers.V1
                     var downloadUriAsString = Base64Helper.Decode(downloadUriBase64);
                     uri = new Uri(downloadUriAsString);
                 }
+                catch (TrackStreamTrackFileRepositoryException ex)
+                {
+                    _logger.LogDebug($"{ex}");
+                    return NotFound(ex.UserMessage);
+                }
                 catch (Exception)
                 {
                     return BadRequest("The download uri was badly formatted.");
                 }
-                return File(await repository.GetTrackAsFile(uri), contentType);
+                var httpResponseMessage = new HttpResponseMessage();
+                httpResponseMessage.Content = new StreamContent(await repository.StreamTrackFile(uri, cancellationToken));
+                httpResponseMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("audio/mpeg");
+                httpResponseMessage.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                httpResponseMessage.Content.Headers.ContentDisposition.FileName = $"{DateTime.Now}.mp3";
+                return Ok(httpResponseMessage);
             }
             else
             {

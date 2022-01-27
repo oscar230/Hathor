@@ -8,6 +8,6 @@ namespace WebApi.Services
 
         Task<List<ITrack>> Query(string? query);
 
-        Task<byte[]> GetTrackAsFile(Uri uri);
+        Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken);
     }
 }
