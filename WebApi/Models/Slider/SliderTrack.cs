@@ -1,9 +1,13 @@
 ﻿using System.Text.Json.Serialization;
+using System.Web;
+using WebApi.Helpers;
 
 namespace WebApi.Models.Slider
 {
     public class SliderTrack : ITrack
     {
+        private const string DOWNLOAD_BASE_URI = "https://slider.kz/download";
+
         [JsonInclude]
         [JsonPropertyName("id")]
         public string? SliderId { get; set; }
@@ -29,5 +33,9 @@ namespace WebApi.Models.Slider
         public string DisplayName => FullTitle ?? throw new Exception("No full title.");
 
         public IRepository FromRepository => new SliderRepository();
+
+        public string DownloadUriBase64 => Base64Helper.Encode(DownloadUri.AbsoluteUri);
+
+        public Uri DownloadUri => new ($"{DOWNLOAD_BASE_URI}/{SliderId}/{Duration}/{Url}/{HttpUtility.UrlEncode(FullTitle)}.mp3?extra={(ExtraInformation != null ? HttpUtility.UrlEncode(ExtraInformation.ToString()) : "null")}");
     }
 }

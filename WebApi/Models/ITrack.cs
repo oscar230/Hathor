@@ -7,5 +7,9 @@
         string DisplayName { get; }
 
         IRepository FromRepository { get; }
+
+        string DownloadUriBase64 { get; }
+
+        Uri DownloadUri { get; }
     }
 }
