@@ -6,6 +6,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
+builder.Services.AddScoped<IUserAgentService, UserAgentService>();
 builder.Services.AddScoped<ISliderTrackRepositoryService, SliderTrackRepositoryService>();
 builder.Services.AddHttpClient<ISliderTrackRepositoryService, SliderTrackRepositoryService>("SliderHttpClient", configureClient =>
 {
