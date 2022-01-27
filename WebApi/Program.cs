@@ -11,7 +11,7 @@ builder.Services.AddSingleton<ISliderTrackRepositoryService, SliderTrackReposito
 builder.Services.AddHttpClient(SliderTrackRepositoryService.PROXIED_SLIDER_HTTP_CLIENT_NAME, configureClient =>
 {
     configureClient.BaseAddress = new Uri("https://slider.wonky.se/");
-    configureClient.Timeout = new TimeSpan(0, 1, 30); // 1m 30s
+    configureClient.Timeout = new TimeSpan(0, 0, 30); // 30s
     configureClient.DefaultRequestHeaders.Add("User-Agent", "WebApi");
 });
 builder.Services.AddHttpClient(SliderTrackRepositoryService.DIRECT_SLIDER_HTTP_CLIENT_NAME, configureClient =>
