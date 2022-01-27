@@ -12,15 +12,33 @@ namespace WebApi.Services
         private const string SLIDER_API_QUERY = "https://slider.wonky.se/";
         private readonly ILogger<SliderTrackRepositoryService> _logger;
         private readonly HttpClient _httpClient;
+        private readonly IUserAgentService _userAgentService;
 
-        public SliderTrackRepositoryService(ILogger<SliderTrackRepositoryService> logger, HttpClient httpClient)
+        public SliderTrackRepositoryService(ILogger<SliderTrackRepositoryService> logger, HttpClient httpClient, IUserAgentService userAgentService)
         {
             _logger = logger;
             _httpClient = httpClient;
+            _userAgentService = userAgentService;
             _logger.LogDebug($"SliderTrackRepositoryService constructed, got HttpClient with timeout of {_httpClient.Timeout.Seconds} seconds.");
+            var a = _userAgentService.RandomOne();
         }
 
         public IRepository Repository => new SliderRepository();
+
+        public Task<byte[]> GetTrackAsFile(Uri uri)
+        {
+            var stopWatch = new Stopwatch();
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+            httpRequestMessage.Headers.Add("Accept", "audio/mpeg");
+            httpRequestMessage.Headers.Add("Accept-Encoding", "gzip, deflate, br");
+            httpRequestMessage.Headers.Add("Accept-Language", "en-US");
+            httpRequestMessage.Headers.Add("Connection", "keep-alive");
+            httpRequestMessage.Headers.Add("Host", "slider.kz");
+            httpRequestMessage.Headers.Add("Upgrade-Insecure-Requests", "1");
+            httpRequestMessage.Headers.Add("User-Agent", _userAgentService.RandomOne());
+            stopWatch.Start();
+            return null;
+        }
 
         public async Task<List<ITrack>> Query(string? query)
         {

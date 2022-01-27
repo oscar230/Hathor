@@ -7,7 +7,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
 builder.Services.AddSingleton<IUserAgentService, UserAgentService>();
-builder.Services.AddScoped<ISliderTrackRepositoryService, SliderTrackRepositoryService>();
+builder.Services.AddSingleton<ISliderTrackRepositoryService, SliderTrackRepositoryService>();
 builder.Services.AddHttpClient<ISliderTrackRepositoryService, SliderTrackRepositoryService>("SliderHttpClient", configureClient =>
 {
     configureClient.Timeout = new TimeSpan(0, 1, 30); // 1 minute and 30 seconds timeout

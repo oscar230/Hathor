@@ -7,5 +7,7 @@ namespace WebApi.Services
         IRepository Repository { get; }
 
         Task<List<ITrack>> Query(string? query);
+
+        Task<byte[]> GetTrackAsFile(Uri uri);
     }
 }

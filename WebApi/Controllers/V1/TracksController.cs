@@ -20,7 +20,7 @@ namespace WebApi.Controllers
             _trackRepositoryServices.Add(sliderTrackRepositoryService);
         }
 
-        [HttpGet]
+        [HttpGet("Query")]
         public async Task<ActionResult<List<ITrack>>> Query([FromQuery] string? query)
         {
             var tracks = new List<ITrack>();
