@@ -9,23 +9,26 @@ namespace WebApi.Services
 {
     public class SliderTrackRepositoryService : ISliderTrackRepositoryService
     {
-        private const string SLIDER_API_QUERY = "https://slider.wonky.se/";
+        public const string DIRECT_SLIDER_HTTP_CLIENT_NAME = "DirectSliderKzHttpClient";
+        public const string PROXIED_SLIDER_HTTP_CLIENT_NAME = "ProxiedSliderKzHttpClient";
+
         private readonly ILogger<SliderTrackRepositoryService> _logger;
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient _httpClientDirectSlider;
+        private readonly HttpClient _httpClientProxiedSlider;
         private readonly IUserAgentService _userAgentService;
 
-        public SliderTrackRepositoryService(ILogger<SliderTrackRepositoryService> logger, HttpClient httpClient, IUserAgentService userAgentService)
+        public SliderTrackRepositoryService(ILogger<SliderTrackRepositoryService> logger, IHttpClientFactory httpClientFactory, IUserAgentService userAgentService)
         {
             _logger = logger;
-            _httpClient = httpClient;
+            _httpClientDirectSlider = httpClientFactory.CreateClient(DIRECT_SLIDER_HTTP_CLIENT_NAME);
+            _httpClientProxiedSlider = httpClientFactory.CreateClient(PROXIED_SLIDER_HTTP_CLIENT_NAME);
             _userAgentService = userAgentService;
-            _logger.LogDebug($"SliderTrackRepositoryService constructed, got HttpClient with timeout of {_httpClient.Timeout.Seconds} seconds.");
             var a = _userAgentService.RandomOne();
         }
 
         public IRepository Repository => new SliderRepository();
 
-        public Task<byte[]> GetTrackAsFile(Uri uri)
+        public async Task<byte[]> GetTrackAsFile(Uri uri)
         {
             var stopWatch = new Stopwatch();
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
@@ -37,18 +40,28 @@ namespace WebApi.Services
             httpRequestMessage.Headers.Add("Upgrade-Insecure-Requests", "1");
             httpRequestMessage.Headers.Add("User-Agent", _userAgentService.RandomOne());
             stopWatch.Start();
+            using (var httpResponseMessage = await _httpClientDirectSlider.SendAsync(httpRequestMessage))
+            {
+
+            }
             return null;
         }
 
         public async Task<List<ITrack>> Query(string? query)
         {
             var stopWatch = new Stopwatch();
-            query = query ?? string.Empty;
-            query = HttpUtility.UrlEncode(query);
-            var uri = new Uri($"{SLIDER_API_QUERY}{query}");
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+            HttpRequestMessage httpRequestMessage;
+            if (query == null)
+            {
+                httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, string.Empty);
+            }
+            else
+            {
+                var uri = new Uri(HttpUtility.UrlEncode(query));
+                httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+            }
             stopWatch.Start();
-            using (var httpResponseMessage = await _httpClient.SendAsync(httpRequestMessage))
+            using (var httpResponseMessage = await _httpClientProxiedSlider.SendAsync(httpRequestMessage))
             {
                 if (httpResponseMessage.IsSuccessStatusCode)
                 {
@@ -66,7 +79,7 @@ namespace WebApi.Services
                 {
                     stopWatch.Stop();
                     var ts = stopWatch.Elapsed;
-                    _logger.LogWarning($"Query failed! uri: {uri}, status: {httpResponseMessage.StatusCode} ({((int)httpResponseMessage.StatusCode)}), took {ts.TotalSeconds} seconds.");
+                    _logger.LogWarning($"Query failed! uri: {httpRequestMessage.RequestUri}, status: {httpResponseMessage.StatusCode} ({((int)httpResponseMessage.StatusCode)}), took {ts.TotalSeconds} seconds.");
                 }
             }
             throw new TrackQueryNotFoundInThisRepositoryException(query, Repository);

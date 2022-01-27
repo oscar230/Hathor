@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Helpers;
-using WebApi.Models;
 using WebApi.Services;
 
 namespace WebApi.Controllers.V1
