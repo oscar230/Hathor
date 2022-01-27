@@ -30,3 +30,7 @@ Using a ASP .NET Core 5.0 backend located in `WebApi`.
 
 ## Legal & Complaints
 Complaints and legal considerations are directed to [github/oscar230](https://github.com/oscar230), the email is in the section to the left.
+
+### Dependencies
+* The user agents located at [`\hathor\WebApi\Resources\UserAgents\`](https://github.com/oscar230/hathor/tree/main/WebApi/Resources/UserAgents) are from [tamimibrahim17/List-of-user-agents](https://github.com/tamimibrahim17/List-of-user-agents) repo, at [commit 0f5e980e898054d8b769dd17b1db0c1c429e5e37](https://github.com/tamimibrahim17/List-of-user-agents/commit/0f5e980e898054d8b769dd17b1db0c1c429e5e37) where the content was licenced under MIT license, as seen in [this LICENSE file](https://github.com/tamimibrahim17/List-of-user-agents/commit/d6358528c91b21656597072b8f61a1b2a9224aba).
+  * Read the MIT license more [here](https://en.wikipedia.org/wiki/MIT_License).
