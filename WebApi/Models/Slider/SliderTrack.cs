@@ -7,26 +7,34 @@ namespace WebApi.Models.Slider
     public class SliderTrack : ITrack
     {
         private const string DOWNLOAD_BASE_URI = "https://slider.kz/download";
+        private readonly Guid _guid;
+
+        public SliderTrack()
+        {
+            _guid = Guid.NewGuid();
+        }
+
+        public Guid Guid { get => _guid; }
 
         [JsonInclude]
         [JsonPropertyName("id")]
-        public string? SliderId { get; set; }
+        public string? SliderId { get; }
 
         [JsonInclude]
         [JsonPropertyName("duration")]
-        public long Duration { get; set; }
+        public long Duration { get; }
 
         [JsonInclude]
         [JsonPropertyName("tit_art")]
-        public string? FullTitle { get; set; }
+        public string? FullTitle { get; }
 
         [JsonInclude]
         [JsonPropertyName("url")]
-        public string? Url { get; set; }
+        public string? Url { get; }
 
         [JsonInclude]
         [JsonPropertyName("extra")]
-        public object? ExtraInformation { get; set; }
+        public object? ExtraInformation { get; }
 
         public string InternalId => SliderId ?? throw new Exception("No slider id.");
 

@@ -2,6 +2,8 @@
 {
     public interface ITrack
     {
+        Guid Guid { get; }
+
         string InternalId { get; }
         
         string DisplayName { get; }
