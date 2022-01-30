@@ -7,27 +7,28 @@ namespace WebApi.Models.Slider
     {
         private const string DOWNLOAD_BASE_URI = "https://slider.kz/download";
 
-        public Guid Guid { get => Guid.NewGuid(); }
+        [JsonIgnore]
+        public Guid Guid { get; } = Guid.NewGuid();
 
         [JsonInclude]
         [JsonPropertyName("id")]
-        public string? SliderID { get; }
+        public string? SliderID { get; set;  }
 
         [JsonInclude]
         [JsonPropertyName("duration")]
-        public long Duration { get; }
+        public long Duration { get; set; }
 
         [JsonInclude]
         [JsonPropertyName("tit_art")]
-        public string? FullTitle { get; }
+        public string? FullTitle { get; set; }
 
         [JsonInclude]
         [JsonPropertyName("url")]
-        public string? Url { get; }
+        public string? Url { get; set; }
 
         [JsonInclude]
         [JsonPropertyName("extra")]
-        public object? ExtraInformation { get; }
+        public object? ExtraInformation { get; set; }
 
         public string InternalID => SliderID ?? throw new Exception("No slider id.");
 
