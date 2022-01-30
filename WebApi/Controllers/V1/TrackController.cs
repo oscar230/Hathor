@@ -24,8 +24,8 @@ namespace WebApi.Controllers.V1
 
         [HttpGet("Download"), DisableRequestSizeLimit]
         public async Task<ActionResult<HttpResponseMessage>> Download([FromQuery] Guid repositoryGuid, [FromQuery] string downloadUriBase64)
-        {
-            CancellationToken cancellationToken = default(CancellationToken);
+        {   
+            var cancellationToken = new CancellationToken();
             var repository = _trackRepositoryServices.Find(r => r.Repository.Guid.Equals(repositoryGuid));
             if (repository != null)
             {
