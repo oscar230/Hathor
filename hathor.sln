@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{053C3069-BDF9-40E2-A5F4-15C16CBA367E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{053C3069-BDF9-40E2-A5F4-15C16CBA367E}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "WebGui", "WebGui\WebGui.njsproj", "{4955E3D2-BE24-4F08-98CA-721A9DA0A842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{97C5F23A-1710-4658-9718-73D92B13BF35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{97C5F23A-1710-4658-9718-73D92B13BF35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B7F46E7-C7D7-4135-AC62-36D298648303}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "HathorData", "HathorData\HathorData.sqlproj", "{21AB3F6F-1FE0-43C6-A6D7-1BC3EA5F2BAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,12 @@ Global
 		{97C5F23A-1710-4658-9718-73D92B13BF35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97C5F23A-1710-4658-9718-73D92B13BF35}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97C5F23A-1710-4658-9718-73D92B13BF35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21AB3F6F-1FE0-43C6-A6D7-1BC3EA5F2BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21AB3F6F-1FE0-43C6-A6D7-1BC3EA5F2BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21AB3F6F-1FE0-43C6-A6D7-1BC3EA5F2BAD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{21AB3F6F-1FE0-43C6-A6D7-1BC3EA5F2BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21AB3F6F-1FE0-43C6-A6D7-1BC3EA5F2BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21AB3F6F-1FE0-43C6-A6D7-1BC3EA5F2BAD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
