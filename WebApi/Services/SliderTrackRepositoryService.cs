@@ -78,7 +78,7 @@ namespace WebApi.Services
                 {
                     var content = await httpResponseMessage.Content.ReadAsStringAsync();
                     var tracks = JsonSerializer.Deserialize<SliderTrackQueryResult>(content);
-                    if (tracks?.SliderTrackList?.SliderTracks?.Count > 0 && tracks?.SliderTrackList?.SliderTracks?.FirstOrDefault()?.SliderId != null)
+                    if (tracks?.SliderTrackList?.SliderTracks?.Count > 0 && tracks?.SliderTrackList?.SliderTracks?.FirstOrDefault()?.SliderID != null)
                     {
                         stopWatch.Stop();
                         var ts = stopWatch.Elapsed;

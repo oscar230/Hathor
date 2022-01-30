@@ -18,7 +18,7 @@ namespace WebApi.Models.Slider
 
         [JsonInclude]
         [JsonPropertyName("id")]
-        public string? SliderId { get; }
+        public string? SliderID { get; }
 
         [JsonInclude]
         [JsonPropertyName("duration")]
@@ -36,7 +36,7 @@ namespace WebApi.Models.Slider
         [JsonPropertyName("extra")]
         public object? ExtraInformation { get; }
 
-        public string InternalId => SliderId ?? throw new Exception("No slider id.");
+        public string InternalID => SliderID ?? throw new Exception("No slider id.");
 
         public string DisplayName => FullTitle ?? throw new Exception("No full title.");
 
@@ -44,6 +44,6 @@ namespace WebApi.Models.Slider
 
         public string DownloadUriBase64 => Base64Helper.Encode(DownloadUri.AbsoluteUri);
 
-        public Uri DownloadUri => new ($"{DOWNLOAD_BASE_URI}/{SliderId}/{Duration}/{Url}/{HttpUtility.UrlEncode(FullTitle)}.mp3?extra={(ExtraInformation != null ? HttpUtility.UrlEncode(ExtraInformation.ToString()) : "null")}");
+        public Uri DownloadUri => new ($"{DOWNLOAD_BASE_URI}/{SliderID}/{Duration}/{Url}/{HttpUtility.UrlEncode(FullTitle)}.mp3?extra={(ExtraInformation != null ? HttpUtility.UrlEncode(ExtraInformation.ToString()) : "null")}");
     }
 }

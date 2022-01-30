@@ -4,7 +4,7 @@
     {
         Guid Guid { get; }
 
-        string InternalId { get; }
+        string InternalID { get; }
         
         string DisplayName { get; }
 
