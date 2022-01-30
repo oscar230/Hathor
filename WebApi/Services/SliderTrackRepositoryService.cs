@@ -77,13 +77,16 @@ namespace WebApi.Services
                 if (httpResponseMessage.IsSuccessStatusCode)
                 {
                     var content = await httpResponseMessage.Content.ReadAsStringAsync();
-                    var tracks = JsonSerializer.Deserialize<SliderTrackQueryResult>(content);
-                    if (tracks?.SliderTrackList?.SliderTracks?.Count > 0 && tracks?.SliderTrackList?.SliderTracks?.FirstOrDefault()?.SliderID != null)
+                    var sliderTrackQueryResult = JsonSerializer.Deserialize<SliderTrackQueryResult>(content);
+                    if (sliderTrackQueryResult?.SliderTrackList?.SliderTracks?.Count > 0 && sliderTrackQueryResult?.SliderTrackList?.SliderTracks?.FirstOrDefault()?.SliderID != null)
                     {
                         stopWatch.Stop();
                         var ts = stopWatch.Elapsed;
                         _logger.LogDebug($"Query took {ts.TotalSeconds} seconds (total {ts.Milliseconds} ms).");
-                        return tracks.SliderTrackList.SliderTracks.ToList<ITrack>();
+                        var sliderTracks = sliderTrackQueryResult.SliderTrackList.SliderTracks.ToList();
+                        //await _dbContext.AddRangeAsync(sliderTracks);
+                        var tracks = sliderTracks.ToList<ITrack>();
+                        return tracks;
                     }
                 }
                 else

@@ -6,8 +6,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
-builder.Services.AddSingleton<IUserAgentService, UserAgentService>();
-builder.Services.AddSingleton<ISliderTrackRepositoryService, SliderTrackRepositoryService>();
 builder.Services.AddHttpClient(SliderTrackRepositoryService.PROXIED_SLIDER_HTTP_CLIENT_NAME, configureClient =>
 {
     configureClient.BaseAddress = new Uri("https://slider.wonky.se/");
@@ -20,6 +18,9 @@ builder.Services.AddHttpClient(SliderTrackRepositoryService.DIRECT_SLIDER_HTTP_C
     configureClient.Timeout = new TimeSpan(0, 3, 0); // 3m
     configureClient.DefaultRequestHeaders.Add("User-Agent", UserAgentService.DEFAULT_USER_AGENT);
 });
+builder.Services.AddSingleton<IUserAgentService, UserAgentService>();
+builder.Services.AddSingleton<ISliderTrackRepositoryService, SliderTrackRepositoryService>();
+builder.Services.AddSingleton<IDbService, DbService>();
 
 var app = builder.Build();
 
