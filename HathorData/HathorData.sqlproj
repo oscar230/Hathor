@@ -57,4 +57,11 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Track.sql" />
+    <Build Include="SliderTrack.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="HathorData.refactorlog" />
+  </ItemGroup>
 </Project>
