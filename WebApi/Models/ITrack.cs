@@ -9,7 +9,5 @@
         string DisplayName { get; }
 
         IRepository FromRepository { get; }
-
-        Uri DownloadUri { get; }
     }
 }

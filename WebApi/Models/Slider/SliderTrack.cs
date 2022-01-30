@@ -37,9 +37,5 @@ namespace WebApi.Models.Slider
         public IRepository FromRepository => new SliderRepository();
 
         public Uri DownloadUri => new ($"{DOWNLOAD_BASE_URI}/{SliderID}/{Duration}/{Url}/{HttpUtility.UrlEncode(FullTitle)}.mp3?extra={(ExtraInformation != null ? HttpUtility.UrlEncode(ExtraInformation.ToString()) : "null")}");
-
-        public SliderTrack()
-        {
-        }
     }
 }

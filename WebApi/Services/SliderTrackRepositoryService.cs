@@ -16,13 +16,15 @@ namespace WebApi.Services
         private readonly HttpClient _httpClientDirectSlider;
         private readonly HttpClient _httpClientProxiedSlider;
         private readonly IUserAgentService _userAgentService;
+        private readonly IDbService _dbService;
 
-        public SliderTrackRepositoryService(ILogger<SliderTrackRepositoryService> logger, IHttpClientFactory httpClientFactory, IUserAgentService userAgentService)
+        public SliderTrackRepositoryService(ILogger<SliderTrackRepositoryService> logger, IHttpClientFactory httpClientFactory, IUserAgentService userAgentService, IDbService dbService)
         {
             _logger = logger;
             _httpClientDirectSlider = httpClientFactory.CreateClient(DIRECT_SLIDER_HTTP_CLIENT_NAME);
             _httpClientProxiedSlider = httpClientFactory.CreateClient(PROXIED_SLIDER_HTTP_CLIENT_NAME);
             _userAgentService = userAgentService;
+            _dbService = dbService;
         }
 
         public IRepository Repository => new SliderRepository();
@@ -84,7 +86,7 @@ namespace WebApi.Services
                         var ts = stopWatch.Elapsed;
                         _logger.LogDebug($"Query took {ts.TotalSeconds} seconds (total {ts.Milliseconds} ms).");
                         var sliderTracks = sliderTrackQueryResult.SliderTrackList.SliderTracks.ToList();
-                        //await _dbContext.AddRangeAsync(sliderTracks);
+                        _dbService.AddSliderTracks(sliderTracks);
                         var tracks = sliderTracks.ToList<ITrack>();
                         return tracks;
                     }

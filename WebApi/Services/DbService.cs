@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using WebApi.Models.Slider;
 
 namespace WebApi.Services
@@ -14,6 +15,7 @@ namespace WebApi.Services
             _logger = logger;
             var connectionString = configuration.GetConnectionString(CONNECTION_STRING_CONF_KEY);
             _connection = new SqlConnection(connectionString);
+            _connection.Open();
             _logger.LogDebug($"DbService with connection at database {_connection.Database}.");
         }
 
@@ -68,8 +70,24 @@ namespace WebApi.Services
 
         private SqlCommand PrepareAddSliderTrackCommand(SliderTrack sliderTrack)
         {
-            var query = $"INSERT INTO Track (SliderID, Duration, FullTitle, Url, ExtraInformation) VALUES ({sliderTrack.SliderID}, {sliderTrack.Duration}, {sliderTrack.FullTitle}, {sliderTrack.Url}, {sliderTrack.ExtraInformation});";
+            const string query = "INSERT INTO SliderTrack (SliderID, Duration, FullTitle, Url, ExtraInformation) VALUES (@SliderID, @Duration, @FullTitle, @Url, @ExtraInformation);";
             var command = new SqlCommand(query, _connection);
+
+            command.Parameters.Add("@SliderID", SqlDbType.VarChar, 20);
+            command.Parameters["@SliderID"].Value = sliderTrack.SliderID;
+
+            command.Parameters.Add("@Duration", SqlDbType.Int);
+            command.Parameters["@Duration"].Value = Convert.ToInt32(sliderTrack.Duration);
+
+            command.Parameters.Add("@FullTitle", SqlDbType.VarChar, 200);
+            command.Parameters["@FullTitle"].Value = sliderTrack.FullTitle;
+
+            command.Parameters.Add("@Url", SqlDbType.VarChar, 250);
+            command.Parameters["@Url"].Value = sliderTrack.Url;
+
+            command.Parameters.Add("@ExtraInformation", SqlDbType.Bit);
+            command.Parameters["@ExtraInformation"].Value = sliderTrack.ExtraInformation == null ? 0 : 1;
+            
             return command;
         }
 
