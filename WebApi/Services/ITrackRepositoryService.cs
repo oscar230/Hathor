@@ -6,7 +6,7 @@ namespace WebApi.Services
     {
         IRepository Repository { get; }
 
-        Task<List<ITrack>> Query(string? query);
+        Task<List<ITrackAtRepository>> Query(string? query);
 
         Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken);
     }

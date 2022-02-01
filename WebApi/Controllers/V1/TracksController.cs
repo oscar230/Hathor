@@ -21,9 +21,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("Query")]
-        public async Task<ActionResult<List<ITrack>>> Query([FromQuery] string? query)
+        public async Task<ActionResult<List<ITrackAtRepository>>> Query([FromQuery] string? query)
         {
-            var tracks = new List<ITrack>();
+            var tracks = new List<ITrackAtRepository>();
             try
             {
                 foreach (var trackRepositoryService in _trackRepositoryServices)

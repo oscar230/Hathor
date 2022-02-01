@@ -60,7 +60,7 @@ namespace WebApi.Services
             throw new TrackStreamTrackFileRepositoryException(uri);
         }
 
-        public async Task<List<ITrack>> Query(string? query)
+        public async Task<List<ITrackAtRepository>> Query(string? query)
         {
             var stopWatch = new Stopwatch();
             HttpRequestMessage httpRequestMessage;
@@ -87,7 +87,7 @@ namespace WebApi.Services
                         _logger.LogDebug($"Query took {ts.TotalSeconds} seconds (total {ts.Milliseconds} ms).");
                         var sliderTracks = sliderTrackQueryResult.SliderTrackList.SliderTracks.ToList();
                         _dbService.AddSliderTracks(sliderTracks);
-                        var tracks = sliderTracks.ToList<ITrack>();
+                        var tracks = sliderTracks.ToList<ITrackAtRepository>();
                         return tracks;
                     }
                 }

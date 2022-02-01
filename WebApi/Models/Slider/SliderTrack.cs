@@ -3,7 +3,7 @@ using System.Web;
 
 namespace WebApi.Models.Slider
 {
-    public class SliderTrack : ITrack
+    public class SliderTrack : ITrackAtRepository
     {
         private const string DOWNLOAD_BASE_URI = "https://slider.kz/download";
 
@@ -12,7 +12,7 @@ namespace WebApi.Models.Slider
 
         [JsonInclude]
         [JsonPropertyName("id")]
-        public string? SliderID { get; set;  }
+        public string? SliderID { get; set; }
 
         [JsonInclude]
         [JsonPropertyName("duration")]
@@ -36,6 +36,10 @@ namespace WebApi.Models.Slider
 
         public IRepository FromRepository => new SliderRepository();
 
-        public Uri DownloadUri => new ($"{DOWNLOAD_BASE_URI}/{SliderID}/{Duration}/{Url}/{HttpUtility.UrlEncode(FullTitle)}.mp3?extra={(ExtraInformation != null ? HttpUtility.UrlEncode(ExtraInformation.ToString()) : "null")}");
+        public Uri DownloadUri => new($"{DOWNLOAD_BASE_URI}/{SliderID}/{Duration}/{Url}/{HttpUtility.UrlEncode(FullTitle)}.mp3?extra={(ExtraInformation != null ? HttpUtility.UrlEncode(ExtraInformation.ToString()) : "null")}");
+
+        public string Title => FullTitle?.Split(Artist.ARTIST_TRACK_SEPARATOR).LastOrDefault() ?? throw new Exception("No track title.");
+
+        public IEnumerable<IArtist> Artists => FullTitle != null ? Artist.ParseArtistsFromFullTitle(FullTitle) : throw new Exception("No FullTitle set, cannot get artists.");
     }
 }

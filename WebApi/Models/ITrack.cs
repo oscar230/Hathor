@@ -4,10 +4,8 @@
     {
         Guid Guid { get; }
 
-        string InternalID { get; }
-        
-        string DisplayName { get; }
+        string Title { get; }
 
-        IRepository FromRepository { get; }
+        IEnumerable<IArtist> Artists { get; }
     }
 }
