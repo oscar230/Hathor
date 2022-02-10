@@ -20,7 +20,7 @@ Using a ASP .NET Core 5.0 backend located in `WebApi`.
 * Using a web frontend located in `WebUI`.
   * You do not need to open the [Solution (.sln) file](https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/solution-dot-sln-file?view=vs-2022) to develop the frontend, altough it is included in the sulution for the backend developers using Visual Studio.
 * Target browsers, latest stable version of chrome/[chromium](https://www.chromium.org/).
-* **Need help to get rolling?** Why not use [Material Design Icons from the Community](https://materialdesignicons.com/) along with [Svelte](https://svelte.dev/), or maybe cool [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) by Microsoft with all new [Havit](https://havit.blazor.eu/).
+* **Need help to get rolling?** Why not use [Material UI](https://mui.com/) along with [Svelte](https://svelte.dev/), or maybe cool [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) by Microsoft with all new fresh and cool [Havit](https://havit.blazor.eu/).
 
 ## Build
 * **Backend**: open [Solution (.sln) file](https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/solution-dot-sln-file?view=vs-2022) using [Visual Studio (2022 Community is recommended)](https://visualstudio.microsoft.com/).
