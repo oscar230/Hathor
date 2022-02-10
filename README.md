@@ -1,7 +1,7 @@
 # Hathor
 A music tool! (and also [a goddess](https://en.wikipedia.org/wiki/Hathor), ooOooO!).
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Hathor.svg/440px-Hathor.svg.png" alt="A image of Hathor, a ancient Egyptian godess with a red dress and blue hair, holding a cane." width="150vw"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Hathor.svg/440px-Hathor.svg.png" alt="A image of Hathor, a ancient Egyptian godess with a red dress and blue hair, holding a cane." width="100vw"/>
 
 ## Using Hathor
 See [releases](https://github.com/oscar230/hathor/releases), choose the latest one and follow the instruction.
