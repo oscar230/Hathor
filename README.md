@@ -1,7 +1,7 @@
 # Hathor
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Hathor.svg/440px-Hathor.svg.png" alt="A image of Hathor, a ancient Egyptian godess with a red dress and blue hair, holding a cane." width="30vw"/>
 
-[![Build Status](https://drone.wonky.se/api/badges/oscar230/hathor/status.svg?ref=refs/heads/main)](https://drone.wonky.se/oscar230/hathor)
+[![Build Status](https://drone.wonky.se/api/badges/oscar230/Hathor/status.svg)](https://drone.wonky.se/oscar230/Hathor)
 
 ## Using Hathor
 See [releases](https://github.com/oscar230/hathor/releases), choose the latest one and follow the instruction.
