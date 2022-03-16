@@ -1,6 +1,6 @@
 ﻿using WebApi.Models;
 
-namespace WebApi.Services.TrackRepositoryServices
+namespace WebApi.Services.PlaylistRepositoryServices
 {
     public interface IPlaylistRepositoryService
     {

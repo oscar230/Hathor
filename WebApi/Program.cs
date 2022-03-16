@@ -1,4 +1,6 @@
 using WebApi.Services;
+using WebApi.Services.PlaylistRepositoryServices;
+using WebApi.Services.TrackRepositoryServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,10 +26,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
-builder.Services.AddSingleton<IUserAgentService, UserAgentService>();
-builder.Services.AddScoped<ISliderTrackRepositoryService, SliderTrackRepositoryService>();
-builder.Services.AddScoped<IDbService, DbService>();
-builder.Services.AddScoped<IThousandOnePlaylistRepositoryService, ThousandOnePlaylistRepositoryService>();
+builder.Services.AddSingleton<UserAgentService>();
+builder.Services.AddScoped<SliderTrackRepositoryService>();
+builder.Services.AddScoped<DbService>();
+builder.Services.AddScoped<ThousandOnePlaylistRepositoryService>();
 
 var app = builder.Build();
 

@@ -4,7 +4,7 @@ using WebApi.Models.Slider;
 
 namespace WebApi.Services
 {
-    public class DbService : IDbService
+    public class DbService : IDisposable
     {
         const string CONNECTION_STRING_CONF_KEY = "DefaultConnection";
         private readonly ILogger<DbService> _logger;

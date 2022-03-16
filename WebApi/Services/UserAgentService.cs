@@ -2,7 +2,7 @@
 
 namespace WebApi.Services
 {
-    public class UserAgentService : IUserAgentService
+    public class UserAgentService
     {
         public const string DEFAULT_USER_AGENT = "Mozilla/1.22 (compatible; MSIE 2.0; Windows 3.1)";
         private const string STORED_USER_AGENT_PATH = "Resources\\UserAgents\\";

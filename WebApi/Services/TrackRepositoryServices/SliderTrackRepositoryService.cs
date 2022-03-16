@@ -15,10 +15,10 @@ namespace WebApi.Services.TrackRepositoryServices
         private readonly ILogger<SliderTrackRepositoryService> _logger;
         private readonly HttpClient _httpClientDirectSlider;
         private readonly HttpClient _httpClientProxiedSlider;
-        private readonly IUserAgentService _userAgentService;
-        private readonly IDbService _dbService;
+        private readonly UserAgentService _userAgentService;
+        private readonly DbService _dbService;
 
-        public SliderTrackRepositoryService(ILogger<SliderTrackRepositoryService> logger, IHttpClientFactory httpClientFactory, IUserAgentService userAgentService, IDbService dbService)
+        public SliderTrackRepositoryService(ILogger<SliderTrackRepositoryService> logger, IHttpClientFactory httpClientFactory, UserAgentService userAgentService, DbService dbService)
         {
             _logger = logger;
             _httpClientDirectSlider = httpClientFactory.CreateClient(DIRECT_SLIDER_HTTP_CLIENT_NAME);

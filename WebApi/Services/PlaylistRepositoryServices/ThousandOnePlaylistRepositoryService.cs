@@ -2,7 +2,7 @@
 using WebApi.Models;
 using WebApi.Models.ThousandOne;
 
-namespace WebApi.Services.TrackRepositoryServices
+namespace WebApi.Services.PlaylistRepositoryServices
 {
     public class ThousandOnePlaylistRepositoryService : IPlaylistRepositoryService
     {
@@ -10,9 +10,9 @@ namespace WebApi.Services.TrackRepositoryServices
 
         private readonly ILogger<ThousandOnePlaylistRepositoryService> _logger;
         private readonly HttpClient _httpClient;
-        private readonly IDbService _dbService;
+        private readonly DbService _dbService;
 
-        public ThousandOnePlaylistRepositoryService(ILogger<ThousandOnePlaylistRepositoryService> logger, HttpClient httpClient, IDbService dbService)
+        public ThousandOnePlaylistRepositoryService(ILogger<ThousandOnePlaylistRepositoryService> logger, HttpClient httpClient, DbService dbService)
         {
             _logger = logger;
             _httpClient = httpClient;
@@ -21,7 +21,7 @@ namespace WebApi.Services.TrackRepositoryServices
 
         public IEnumerable<IPlaylist> Playlists => throw new NotImplementedException();
 
-        private IPlaylist ParsePlaylistsFromHtml(string html)
+        private static IPlaylist ParsePlaylistsFromHtml(string html)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
@@ -38,7 +38,7 @@ namespace WebApi.Services.TrackRepositoryServices
                         {
                             // TODO
                             throw new NotImplementedException();
-                            return new Playlist();
+                            //return new Playlist();
                         }
                     }
                 }
