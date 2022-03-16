@@ -5,9 +5,9 @@ using WebApi.Exceptions;
 using WebApi.Models;
 using WebApi.Models.Slider;
 
-namespace WebApi.Services
+namespace WebApi.Services.TrackRepositoryServices
 {
-    public class SliderTrackRepositoryService : ISliderTrackRepositoryService
+    public class SliderTrackRepositoryService : ITrackRepositoryService
     {
         public const string DIRECT_SLIDER_HTTP_CLIENT_NAME = "DirectSliderKzHttpClient";
         public const string PROXIED_SLIDER_HTTP_CLIENT_NAME = "ProxiedSliderKzHttpClient";

@@ -2,9 +2,9 @@
 using WebApi.Models;
 using WebApi.Models.ThousandOne;
 
-namespace WebApi.Services
+namespace WebApi.Services.TrackRepositoryServices
 {
-    public class ThousandOnePlaylistRepositoryService : IThousandOnePlaylistRepositoryService
+    public class ThousandOnePlaylistRepositoryService : IPlaylistRepositoryService
     {
         public const string HTTP_CLIENT_NAME = "ThousandOneHttpClient";
 
