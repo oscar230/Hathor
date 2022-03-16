@@ -2,6 +2,7 @@
 using WebApi.Models;
 using WebApi.Services;
 using WebApi.Exceptions;
+using WebApi.Services.TrackRepositoryServices;
 
 namespace WebApi.Controllers
 {
@@ -13,7 +14,7 @@ namespace WebApi.Controllers
         private readonly ILogger<TracksController> _logger;
         private readonly List<ITrackRepositoryService> _trackRepositoryServices;
 
-        public TracksController(ILogger<TracksController> logger, ISliderTrackRepositoryService sliderTrackRepositoryService)
+        public TracksController(ILogger<TracksController> logger, SliderTrackRepositoryService sliderTrackRepositoryService)
         {
             _logger = logger;
             _trackRepositoryServices = new List<ITrackRepositoryService>();
