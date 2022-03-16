@@ -1,4 +1,5 @@
 ﻿using WebApi.Models;
+using WebApi.Models.Common;
 using WebApi.Services;
 using WebApi.Services.TrackRepositoryServices;
 
@@ -7,11 +8,11 @@ namespace WebApi.Exceptions
     public class TrackQueryNotFoundInAnyRepositoryException : Exception, IUserExceptions
     {
         private string _query;
-        private List<IRepository> _repositories;
+        private List<Repository> _repositories;
 
         public TrackQueryNotFoundInAnyRepositoryException(string? query, List<ITrackRepositoryService> repositoryServices) : this(query, repositoryServices.Select(service => service.Repository).ToList()) { }
 
-        public TrackQueryNotFoundInAnyRepositoryException(string? query, List<IRepository> repositories) : base($"Query: {query} found no tracks at all, in any repository (number of repositories {repositories.Count}).")
+        public TrackQueryNotFoundInAnyRepositoryException(string? query, List<Repository> repositories) : base($"Query: {query} found no tracks at all, in any repository (number of repositories {repositories.Count}).")
         {
             _query = query ?? string.Empty;
             _repositories = repositories;

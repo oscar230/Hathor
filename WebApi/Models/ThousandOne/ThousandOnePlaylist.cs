@@ -1,6 +1,8 @@
-﻿namespace WebApi.Models.ThousandOne
+﻿using WebApi.Models.Common;
+
+namespace WebApi.Models.ThousandOne
 {
-    public class Playlist : IPlaylist
+    public class ThousandOnePlaylist : IPlaylist
     {
         public Guid Guid => throw new NotImplementedException();
 
@@ -10,6 +12,6 @@
 
         public Uri Uri => throw new NotImplementedException();
 
-        public IEnumerable<ITrack> Tracks => throw new NotImplementedException();
+        public IEnumerable<Track> Tracks => throw new NotImplementedException();
     }
 }

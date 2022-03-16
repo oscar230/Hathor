@@ -1,13 +1,13 @@
-﻿using WebApi.Models;
+﻿using WebApi.Models.Common;
 
 namespace WebApi.Exceptions
 {
     public class TrackQueryNotFoundInThisRepositoryException : Exception, IUserExceptions
     {
         private string _query;
-        private IRepository _repository;
+        private Repository _repository;
 
-        public TrackQueryNotFoundInThisRepositoryException(string? query, IRepository repository) : base($"Query: {query} found no tracks, in repository: {repository.DisplayName}.")
+        public TrackQueryNotFoundInThisRepositoryException(string? query, Repository repository) : base($"Query: {query} found no tracks, in repository: {repository.DisplayName}.")
         {
             _query = query ?? string.Empty;
             _repository = repository;

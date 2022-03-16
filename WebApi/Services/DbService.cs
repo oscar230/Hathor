@@ -28,7 +28,7 @@ namespace WebApi.Services
             {
                 command.ExecuteNonQuery();
                 transaction.Commit();
-                _logger.LogDebug($"Added track {sliderTrack.FullTitle} to database.");
+                _logger.LogDebug($"Added track {sliderTrack.TitArt} to database.");
             }
             catch (SqlException ex)
             {
@@ -74,13 +74,13 @@ namespace WebApi.Services
             var command = new SqlCommand(query, _connection);
 
             command.Parameters.Add("@SliderID", SqlDbType.VarChar, 20);
-            command.Parameters["@SliderID"].Value = sliderTrack.SliderID;
+            command.Parameters["@SliderID"].Value = sliderTrack.Id;
 
             command.Parameters.Add("@Duration", SqlDbType.Int);
             command.Parameters["@Duration"].Value = Convert.ToInt32(sliderTrack.Duration);
 
             command.Parameters.Add("@FullTitle", SqlDbType.VarChar, 200);
-            command.Parameters["@FullTitle"].Value = sliderTrack.FullTitle;
+            command.Parameters["@FullTitle"].Value = sliderTrack.TitArt;
 
             command.Parameters.Add("@Url", SqlDbType.VarChar, 250);
             command.Parameters["@Url"].Value = sliderTrack.Url;

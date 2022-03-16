@@ -1,12 +1,12 @@
-﻿using WebApi.Models;
+﻿using WebApi.Models.Common;
 
 namespace WebApi.Services.TrackRepositoryServices
 {
     public interface ITrackRepositoryService
     {
-        IRepository Repository { get; }
+        Repository Repository { get; }
 
-        Task<List<ITrackAtRepository>> Query(string? query);
+        Task<IEnumerable<Track>> Query(string? query);
 
         Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken);
     }

@@ -3,6 +3,7 @@ using WebApi.Models;
 using WebApi.Services;
 using WebApi.Exceptions;
 using WebApi.Services.TrackRepositoryServices;
+using WebApi.Models.Common;
 
 namespace WebApi.Controllers
 {
@@ -22,9 +23,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("Query")]
-        public async Task<ActionResult<List<ITrackAtRepository>>> Query([FromQuery] string? query)
+        public async Task<ActionResult<List<Track>>> Query([FromQuery] string? query)
         {
-            var tracks = new List<ITrackAtRepository>();
+            var tracks = new List<Track>();
             try
             {
                 foreach (var trackRepositoryService in _trackRepositoryServices)
@@ -33,7 +34,7 @@ namespace WebApi.Controllers
                     {
                         var tracksFound = await trackRepositoryService.Query(query);
                         tracks.AddRange(tracksFound);
-                        _logger.LogDebug($"Found {tracksFound.Count} tracks in {trackRepositoryService.Repository.DisplayName}.");
+                        _logger.LogDebug($"Found {tracksFound?.Count()} tracks in {trackRepositoryService.Repository.DisplayName}.");
                     }
                     catch (TrackQueryNotFoundInThisRepositoryException ex)
                     {

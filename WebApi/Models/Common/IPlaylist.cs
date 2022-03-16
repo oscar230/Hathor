@@ -1,4 +1,4 @@
-﻿namespace WebApi.Models
+﻿namespace WebApi.Models.Common
 {
     public interface IPlaylist
     {
@@ -10,6 +10,6 @@
 
         Uri Uri { get; }
 
-        IEnumerable<ITrack> Tracks { get; }
+        IEnumerable<Track> Tracks { get; }
     }
 }

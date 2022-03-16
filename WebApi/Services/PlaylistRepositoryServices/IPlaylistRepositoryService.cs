@@ -1,4 +1,4 @@
-﻿using WebApi.Models;
+﻿using WebApi.Models.Common;
 
 namespace WebApi.Services.PlaylistRepositoryServices
 {

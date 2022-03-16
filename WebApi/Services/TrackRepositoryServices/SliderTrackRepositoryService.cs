@@ -2,7 +2,9 @@
 using System.Text.Json;
 using System.Web;
 using WebApi.Exceptions;
+using WebApi.Helpers;
 using WebApi.Models;
+using WebApi.Models.Common;
 using WebApi.Models.Slider;
 
 namespace WebApi.Services.TrackRepositoryServices
@@ -27,7 +29,7 @@ namespace WebApi.Services.TrackRepositoryServices
             _dbService = dbService;
         }
 
-        public IRepository Repository => new SliderRepository();
+        public Repository Repository => RepositoryHelper.GetSliderRepository;
 
         public async Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken)
         {
@@ -60,7 +62,7 @@ namespace WebApi.Services.TrackRepositoryServices
             throw new TrackStreamTrackFileRepositoryException(uri);
         }
 
-        public async Task<List<ITrackAtRepository>> Query(string? query)
+        public async Task<IEnumerable<Track>> Query(string? query)
         {
             var stopWatch = new Stopwatch();
             HttpRequestMessage httpRequestMessage;
@@ -80,15 +82,14 @@ namespace WebApi.Services.TrackRepositoryServices
                 {
                     var content = await httpResponseMessage.Content.ReadAsStringAsync();
                     var sliderTrackQueryResult = JsonSerializer.Deserialize<SliderTrackQueryResult>(content);
-                    if (sliderTrackQueryResult?.SliderTrackList?.SliderTracks?.Count > 0 && sliderTrackQueryResult?.SliderTrackList?.SliderTracks?.FirstOrDefault()?.SliderID != null)
+                    if (sliderTrackQueryResult?.SliderTrackList?.SliderTracks?.Count() > 0 && sliderTrackQueryResult?.SliderTrackList?.SliderTracks?.FirstOrDefault()?.Id is not null)
                     {
                         stopWatch.Stop();
                         var ts = stopWatch.Elapsed;
                         _logger.LogDebug($"Query took {ts.TotalSeconds} seconds (total {ts.Milliseconds} ms).");
-                        var sliderTracks = sliderTrackQueryResult.SliderTrackList.SliderTracks.ToList();
+                        var sliderTracks = sliderTrackQueryResult.SliderTrackList.SliderTracks;
                         _dbService.AddSliderTracks(sliderTracks);
-                        var tracks = sliderTracks.ToList<ITrackAtRepository>();
-                        return tracks;
+                        return sliderTracks.Select(sliderTrack => new Track(sliderTrack));
                     }
                 }
                 else
