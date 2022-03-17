@@ -1,10 +1,10 @@
-﻿using WebApi.Models.Common;
+﻿using HathorCommon.Models;
 
 namespace WebApi.Models.ThousandOne
 {
     public class ThousandOnePlaylist : IPlaylist
     {
-        public Guid Guid => throw new NotImplementedException();
+        public Guid Id => throw new NotImplementedException();
 
         public string? DisplayName => throw new NotImplementedException();
 
@@ -12,6 +12,6 @@ namespace WebApi.Models.ThousandOne
 
         public Uri Uri => throw new NotImplementedException();
 
-        public IEnumerable<Track> Tracks => throw new NotImplementedException();
+        public IEnumerable<ITrack> Tracks => throw new NotImplementedException();
     }
 }

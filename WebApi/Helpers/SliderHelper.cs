@@ -1,5 +1,5 @@
-﻿using System.Web;
-using WebApi.Models.Common;
+﻿using HathorCommon.Models;
+using System.Web;
 using WebApi.Models.Slider;
 
 namespace WebApi.Helpers

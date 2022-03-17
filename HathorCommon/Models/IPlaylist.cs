@@ -1,8 +1,8 @@
-﻿namespace WebApi.Models.Common
+﻿namespace HathorCommon.Models
 {
     public interface IPlaylist
     {
-        Guid Guid { get; }
+        Guid Id { get; }
 
         string? DisplayName { get; }
 
@@ -10,6 +10,6 @@
 
         Uri Uri { get; }
 
-        IEnumerable<Track> Tracks { get; }
+        IEnumerable<ITrack> Tracks { get; }
     }
 }

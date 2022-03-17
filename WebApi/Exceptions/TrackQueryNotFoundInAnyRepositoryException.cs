@@ -1,6 +1,4 @@
-﻿using WebApi.Models;
-using WebApi.Models.Common;
-using WebApi.Services;
+﻿using HathorCommon.Models;
 using WebApi.Services.TrackRepositoryServices;
 
 namespace WebApi.Exceptions

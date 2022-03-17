@@ -1,4 +1,5 @@
-﻿using WebApi.Models.Common;
+﻿using HathorCommon.Models;
+using WebApi.Models;
 
 namespace WebApi.Services.TrackRepositoryServices
 {

@@ -1,4 +1,5 @@
-﻿using WebApi.Helpers;
+﻿using HathorCommon.Helpers;
+using WebApi.Helpers;
 
 namespace WebApi.Services
 {

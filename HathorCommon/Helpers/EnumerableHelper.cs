@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace WebApi.Helpers
+﻿namespace HathorCommon.Helpers
 {
     public static class EnumerableHelper
     {

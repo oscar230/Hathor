@@ -1,7 +1,5 @@
-﻿using HtmlAgilityPack;
-using WebApi.Models;
-using WebApi.Models.Common;
-using WebApi.Models.ThousandOne;
+﻿using HathorCommon.Models;
+using HtmlAgilityPack;
 
 namespace WebApi.Services.PlaylistRepositoryServices
 {

@@ -1,4 +1,4 @@
-﻿namespace WebApi.Models.Common
+﻿namespace HathorCommon.Models
 {
     public class Artist
     {

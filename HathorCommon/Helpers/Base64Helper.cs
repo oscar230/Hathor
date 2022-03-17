@@ -1,4 +1,4 @@
-﻿namespace WebApi.Helpers
+﻿namespace HathorCommon.Helpers
 {
     public static class Base64Helper
     {

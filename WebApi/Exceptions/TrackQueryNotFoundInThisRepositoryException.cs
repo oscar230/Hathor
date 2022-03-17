@@ -1,4 +1,4 @@
-﻿using WebApi.Models.Common;
+﻿using HathorCommon.Models;
 
 namespace WebApi.Exceptions
 {

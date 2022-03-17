@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HathorCommon\HathorCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Resources\UserAgents\Android.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
