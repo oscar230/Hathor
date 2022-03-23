@@ -7,4 +7,7 @@ steps:
   settings:
     token:
       from_secret: codecov_token
-    required: true
+
+trigger:
+  branch:
+  - main
