@@ -25,16 +25,28 @@ namespace WebApiTest
             _sliderTrackRepositoryService = new SliderTrackRepositoryService(new DebugLogger<SliderTrackRepositoryService>(), _flurlClientFactory, _userAgentService);
         }
 
-        [TestMethod]
-        public void QueryAvicii()
+        private void QueryTest(string artist)
         {
-            const string artist = "Avicii";
             IEnumerable<Track> tracks = _sliderTrackRepositoryService.Query(artist).GetAwaiter().GetResult();
             Assert.IsNotNull(tracks);
             Assert.IsTrue(tracks.Any());
             Assert.IsInstanceOfType(tracks.FirstOrDefault(), typeof(Track));
             Assert.IsInstanceOfType(tracks.LastOrDefault(), typeof(Track));
             Assert.IsNotNull(tracks.FirstOrDefault()?.Artists?.FirstOrDefault());
+        }
+
+        [TestMethod]
+        public void QueryAvicii()
+        {
+            const string artist = "Avicii";
+            QueryTest(artist);
+        }
+
+        [TestMethod]
+        public void QueryMartinGarrix()
+        {
+            const string artist = "Martin Garrix";
+            QueryTest(artist);
         }
     }
 }
