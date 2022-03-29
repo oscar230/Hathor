@@ -38,8 +38,8 @@ namespace WebApi.Services.TrackRepositoryServices
 
         public async Task<IEnumerable<Track>> Query(string? query)
         {
-            string pathAndQuery = $"/#{HttpUtility.UrlEncode(query)}";
-            SliderTrackQueryResult trackQueryResult = await _flurlClient.Request(pathAndQuery).AtSlider(_userAgentService).GetJsonAsync<SliderTrackQueryResult>();
+            string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query)}";
+            SliderTrackQueryResult trackQueryResult = await _flurlClient.Request(pathAndQuery).AtSlider(_userAgentService).Deserialize<SliderTrackQueryResult>(logger: _logger);
             if (trackQueryResult is not null && trackQueryResult.SliderTrackList is not null && trackQueryResult.SliderTrackList.SliderTracks is not null && trackQueryResult.SliderTrackList.SliderTracks.Any()) 
             {
                 IEnumerable<Track> tracks = trackQueryResult.SliderTrackList.SliderTracks.Select(sliderTrack => new Track(sliderTrack));
