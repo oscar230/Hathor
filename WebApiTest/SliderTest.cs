@@ -1,0 +1,40 @@
+using Flurl.Http.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
+using WebApi.Models;
+using WebApi.Services;
+using WebApi.Services.TrackRepositoryServices;
+
+namespace WebApiTest
+{
+    [TestClass]
+    public class SliderTest
+    {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private IFlurlClientFactory _flurlClientFactory;
+        private UserAgentService _userAgentService;
+        private SliderTrackRepositoryService _sliderTrackRepositoryService;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _flurlClientFactory = new PerBaseUrlFlurlClientFactory();
+            _userAgentService = new UserAgentService(new DebugLogger<UserAgentService>());
+            _sliderTrackRepositoryService = new SliderTrackRepositoryService(new DebugLogger<SliderTrackRepositoryService>(), _flurlClientFactory, _userAgentService);
+        }
+
+        [TestMethod]
+        public void QueryAvicii()
+        {
+            const string artist = "Avicii";
+            IEnumerable<Track> tracks = _sliderTrackRepositoryService.Query(artist).GetAwaiter().GetResult();
+            Assert.IsNotNull(tracks);
+            Assert.IsTrue(tracks.Any());
+            Assert.IsInstanceOfType(tracks.FirstOrDefault(), typeof(Track));
+            Assert.IsInstanceOfType(tracks.LastOrDefault(), typeof(Track));
+            Assert.IsNotNull(tracks.FirstOrDefault()?.Artists?.FirstOrDefault());
+        }
+    }
+}
