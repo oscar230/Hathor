@@ -13,7 +13,6 @@ builder.Services.AddLogging();
 builder.Services.AddSingleton<UserAgentService>();
 builder.Services.AddScoped<SliderTrackRepositoryService>();
 builder.Services.AddScoped<DbService>();
-builder.Services.AddScoped<ThousandOnePlaylistRepositoryService>();
 
 var app = builder.Build();
 
