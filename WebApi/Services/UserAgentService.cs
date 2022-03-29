@@ -1,5 +1,4 @@
 ﻿using HathorCommon.Helpers;
-using WebApi.Helpers;
 
 namespace WebApi.Services
 {
@@ -16,7 +15,7 @@ namespace WebApi.Services
             _userAgents = LoadStoredUserAgents();
         }
 
-        public string RandomOne(IEnumerable<string>? excludeThese = null)
+        public string GetRandom(IEnumerable<string>? excludeThese = null)
         {
             IEnumerable<string> userAgents = _userAgents;
             if (excludeThese != null)

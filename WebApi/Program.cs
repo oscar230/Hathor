@@ -1,27 +1,11 @@
+using Flurl.Http.Configuration;
 using WebApi.Services;
 using WebApi.Services.PlaylistRepositoryServices;
 using WebApi.Services.TrackRepositoryServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpClient(SliderTrackRepositoryService.PROXIED_SLIDER_HTTP_CLIENT_NAME, configureClient =>
-{
-    configureClient.BaseAddress = new Uri("https://slider.wonky.se/");
-    configureClient.Timeout = new TimeSpan(0, 0, 30); // 30s
-    configureClient.DefaultRequestHeaders.Add("User-Agent", "WebApi");
-});
-builder.Services.AddHttpClient(SliderTrackRepositoryService.DIRECT_SLIDER_HTTP_CLIENT_NAME, configureClient =>
-{
-    configureClient.BaseAddress = new Uri("https://slider.kz/");
-    configureClient.Timeout = new TimeSpan(0, 3, 0); // 3m
-    configureClient.DefaultRequestHeaders.Add("User-Agent", UserAgentService.DEFAULT_USER_AGENT);
-});
-builder.Services.AddHttpClient(ThousandOnePlaylistRepositoryService.HTTP_CLIENT_NAME, configureClient =>
-{
-    configureClient.BaseAddress = new Uri("https://www.1001tracklists.com/");
-    configureClient.Timeout = new TimeSpan(0, 0, 30); // 30s
-    configureClient.DefaultRequestHeaders.Add("User-Agent", UserAgentService.DEFAULT_USER_AGENT);
-});
+builder.Services.AddSingleton<IFlurlClientFactory, PerBaseUrlFlurlClientFactory>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,7 +13,6 @@ builder.Services.AddLogging();
 builder.Services.AddSingleton<UserAgentService>();
 builder.Services.AddScoped<SliderTrackRepositoryService>();
 builder.Services.AddScoped<DbService>();
-builder.Services.AddScoped<ThousandOnePlaylistRepositoryService>();
 
 var app = builder.Build();
 
