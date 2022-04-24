@@ -11,14 +11,14 @@ namespace WebApi.Helpers
         private const char ARTISTS_SEPARATOR = ',';
         private const string DOWNLOAD_BASE_URI = "https://slider.kz/download";
 
-        public static Uri GetDownloadUriFromSliderTrack(SliderTrack sliderTrack)
+        public static Uri GetDownloadUriFromSliderTrack(Track sliderTrack)
         {
             var extraQuery = sliderTrack.ExtraInformation is not null ? HttpUtility.UrlEncode(sliderTrack.ExtraInformation.ToString()) : "null";
             var strUri = $"{DOWNLOAD_BASE_URI}/{sliderTrack.Id}/{sliderTrack.Duration}/{sliderTrack.Url}/{HttpUtility.UrlEncode(sliderTrack.TitArt)}.mp3?extra={extraQuery}";
             return new Uri(strUri);
         }
 
-        public static string GetTitle(SliderTrack sliderTrack)
+        public static string GetTitle(Track sliderTrack)
         {
             if (sliderTrack.TitArt is not null)
             {
@@ -27,7 +27,7 @@ namespace WebApi.Helpers
             throw new Exception("No titArt set, cannot get title.");
         }
 
-        public static IEnumerable<Artist> GetArtistsFromSliderTrack(SliderTrack sliderTrack)
+        public static IEnumerable<Artist> GetArtistsFromSliderTrack(Track sliderTrack)
         {
             if (sliderTrack.TitArt is not null)
             {
@@ -61,6 +61,15 @@ namespace WebApi.Helpers
                 }
             }
             throw new ArgumentException($"Could not parse artists from {titArt}.");
+        }
+
+        public Models.Track GetTrack(Models.Slider.Track sliderTrack)
+        {
+            Id = new Guid();
+            Title = SliderHelper.GetTitle(sliderTrack);
+            Artists = SliderHelper.GetArtistsFromSliderTrack(sliderTrack);
+            RepositoryInternalId = sliderTrack.Id;
+            Repository = RepositoryHelper.GetSliderRepository;
         }
     }
 }
