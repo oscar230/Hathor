@@ -19,7 +19,7 @@ namespace WebApi.Services
             _logger.LogDebug($"DbService with connection at database {_connection.Database}.");
         }
 
-        public bool AddSliderTrack(SliderTrack sliderTrack)
+        public bool AddSliderTrack(Track sliderTrack)
         {
             var transaction = _connection.BeginTransaction("AddSliderTrack");
             var command = PrepareAddSliderTrackCommand(sliderTrack);
@@ -39,7 +39,7 @@ namespace WebApi.Services
             return true;
         }
 
-        public bool AddSliderTracks(IEnumerable<SliderTrack> sliderTracks)
+        public bool AddSliderTracks(IEnumerable<Track> sliderTracks)
         {
             var transaction = _connection.BeginTransaction("AddSliderTracks");
             var commands = new List<SqlCommand>();
@@ -68,7 +68,7 @@ namespace WebApi.Services
 
         private string TransactionSqlExceptionLogString(SqlException ex) => $"Transaction failed, will roll back. Error: {ex}";
 
-        private SqlCommand PrepareAddSliderTrackCommand(SliderTrack sliderTrack)
+        private SqlCommand PrepareAddSliderTrackCommand(Track sliderTrack)
         {
             const string query = "INSERT INTO SliderTrack (SliderID, Duration, FullTitle, Url, ExtraInformation) VALUES (@SliderID, @Duration, @FullTitle, @Url, @ExtraInformation);";
             var command = new SqlCommand(query, _connection);
