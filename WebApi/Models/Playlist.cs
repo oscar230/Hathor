@@ -2,14 +2,10 @@
 {
     public class Playlist
     {
-        Guid Id { get; }
-
-        string? DisplayName { get; }
-
-        string? Description { get; }
-
-        Uri Uri { get; }
-
-        IEnumerable<ITrack> Tracks { get; }
+        public Guid Id { get; }
+        public string? DisplayName { get; }
+        public string? Description { get; }
+        public Uri? Uri { get; }
+        public IEnumerable<Track>? Tracks { get; }
     }
 }

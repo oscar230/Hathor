@@ -1,22 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using HathorCommon.Models;
 
-namespace WebApi.Models.Slider
+namespace WebApi.Models
 {
     public abstract class Track
     {
-        [JsonPropertyName("id")]
-        public string? Id { get; set; }
-
-        [JsonPropertyName("duration")]
-        public long Duration { get; set; }
-
-        [JsonPropertyName("tit_art")]
-        public string? TitArt { get; set; }
-
-        [JsonPropertyName("url")]
-        public string? Url { get; set; }
-
-        [JsonPropertyName("extra")]
-        public object? ExtraInformation { get; set; }
+        public Guid? Id { get; }
+        public string? Title { get; }
+        public IEnumerable<Artist>? Artists { get; }
+        public string? RepositoryInternalId { get; }
+        public Repository? Repository { get; }
     }
 }

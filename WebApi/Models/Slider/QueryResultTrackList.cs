@@ -2,9 +2,9 @@
 
 namespace WebApi.Models.Slider
 {
-    public class TrackList
+    public class QueryResultTrackList
     {
         [JsonPropertyName("")]
-        public IEnumerable<Track>? SliderTracks { get; set; }
+        public IEnumerable<QueriedTrack>? SliderTracks { get; set; }
     }
 }

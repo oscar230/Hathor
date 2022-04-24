@@ -2,7 +2,7 @@
 
 namespace WebApi.Models.Slider
 {
-    public abstract class Track
+    public abstract class QueriedTrack
     {
         [JsonPropertyName("id")]
         public string? Id { get; set; }
