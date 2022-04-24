@@ -1,6 +1,6 @@
-﻿using HathorCommon.Models;
+﻿using Hathor.Api.Models;
 
-namespace WebApi.Exceptions
+namespace Hathor.Api.Exceptions
 {
     public class TrackQueryNotFoundInThisRepositoryException : Exception, IUserExceptions
     {

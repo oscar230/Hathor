@@ -1,4 +1,4 @@
-﻿namespace HathorCommon.Models
+﻿namespace Hathor.Api.Models
 {
     public class Artist
     {

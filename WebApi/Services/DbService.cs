@@ -1,8 +1,8 @@
-﻿using System.Data;
+﻿using Hathor.Api.Models.Slider;
+using System.Data;
 using System.Data.SqlClient;
-using WebApi.Models.Slider;
 
-namespace WebApi.Services
+namespace Hathor.Api.Services
 {
     public class DbService : IDisposable
     {

@@ -1,6 +1,6 @@
-﻿using HathorCommon.Helpers;
+﻿using Hathor.Common.Helpers;
 
-namespace WebApi.Services
+namespace Hathor.Api.Services
 {
     public class UserAgentService
     {

@@ -1,7 +1,6 @@
 using Flurl.Http.Configuration;
-using WebApi.Services;
-using WebApi.Services.PlaylistRepositoryServices;
-using WebApi.Services.TrackRepositoryServices;
+using Hathor.Api.Services;
+using Hathor.Api.Services.TrackRepositoryServices;
 
 var builder = WebApplication.CreateBuilder(args);
 

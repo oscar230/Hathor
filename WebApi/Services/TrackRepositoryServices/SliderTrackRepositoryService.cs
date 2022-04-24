@@ -1,14 +1,14 @@
 ﻿using Flurl.Http;
 using Flurl.Http.Configuration;
-using HathorCommon.Models;
+using Hathor.Api.Exceptions;
+using Hathor.Api.Extensions;
+using Hathor.Api.Helpers;
+using Hathor.Api.Models;
+using Hathor.Api.Models.Slider;
 using System.Web;
-using WebApi.Exceptions;
-using WebApi.Extensions;
-using WebApi.Helpers;
 using WebApi.Models;
-using WebApi.Models.Slider;
 
-namespace WebApi.Services.TrackRepositoryServices
+namespace Hathor.Api.Services.TrackRepositoryServices
 {
     public class SliderTrackRepositoryService : ITrackRepositoryService
     {
@@ -23,7 +23,6 @@ namespace WebApi.Services.TrackRepositoryServices
             _flurlClient = flurlClientFactory.Get(BASE_URL);
             _userAgentService = userAgentService;
         }
-
         public Repository Repository => RepositoryHelper.GetSliderRepository;
 
         public async Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken)
@@ -39,14 +38,17 @@ namespace WebApi.Services.TrackRepositoryServices
         public async Task<IEnumerable<Track>> Query(string? query)
         {
             string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query)}";
-            QueryResult trackQueryResult = await _flurlClient.Request(pathAndQuery).AtSlider(_userAgentService).Deserialize<QueryResult>(logger: _logger);
-            if (trackQueryResult is not null && trackQueryResult.SliderTrackList is not null && trackQueryResult.SliderTrackList.SliderTracks is not null && trackQueryResult.SliderTrackList.SliderTracks.Any()) 
+            QueryResult queryResult = await _flurlClient.Request(pathAndQuery).AtSlider(_userAgentService).GetJsonAsync<QueryResult>();
+            IEnumerable<Track> tracks = SliderHelper.GetTracksFromSliderQueryResult(queryResult);
+            _logger.LogDebug($"Slider query found {tracks.Count()} tracks for query {query}.");
+            if (tracks.Any())
             {
-                IEnumerable<Track> tracks = trackQueryResult.SliderTrackList.SliderTracks.Select(sliderTrack => new Track(sliderTrack));
-                _logger.LogDebug($"Slider query found {tracks.Count()} tracks for query {query}.");
                 return tracks;
             }
-            throw new TrackQueryNotFoundInThisRepositoryException(query, Repository);
+            else
+            {
+                throw new TrackQueryNotFoundInThisRepositoryException(query, Repository);
+            }
         }
     }
 }

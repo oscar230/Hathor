@@ -1,10 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
-namespace WebApi.Models.Slider
+namespace Hathor.Api.Models.Slider
 {
     public class QueryResultTrackList
     {
-        [JsonPropertyName("")]
+        [JsonProperty("")]
         public IEnumerable<QueriedTrack>? SliderTracks { get; set; }
     }
 }

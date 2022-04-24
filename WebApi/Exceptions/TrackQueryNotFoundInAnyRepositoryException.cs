@@ -1,7 +1,7 @@
-﻿using HathorCommon.Models;
-using WebApi.Services.TrackRepositoryServices;
+﻿using Hathor.Api.Models;
+using Hathor.Api.Services.TrackRepositoryServices;
 
-namespace WebApi.Exceptions
+namespace Hathor.Api.Exceptions
 {
     public class TrackQueryNotFoundInAnyRepositoryException : Exception, IUserExceptions
     {

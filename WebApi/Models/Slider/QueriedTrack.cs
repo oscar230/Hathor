@@ -1,22 +1,22 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
-namespace WebApi.Models.Slider
+namespace Hathor.Api.Models.Slider
 {
     public abstract class QueriedTrack
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public string? Id { get; set; }
 
-        [JsonPropertyName("duration")]
+        [JsonProperty("duration")]
         public long Duration { get; set; }
 
-        [JsonPropertyName("tit_art")]
+        [JsonProperty("tit_art")]
         public string? TitArt { get; set; }
 
-        [JsonPropertyName("url")]
+        [JsonProperty("url")]
         public string? Url { get; set; }
 
-        [JsonPropertyName("extra")]
+        [JsonProperty("extra")]
         public object? ExtraInformation { get; set; }
     }
 }

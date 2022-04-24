@@ -1,6 +1,6 @@
-﻿using HathorCommon.Models;
+﻿using Hathor.Api.Models;
 
-namespace WebApi.Helpers
+namespace Hathor.Api.Helpers
 {
     public class RepositoryHelper
     {

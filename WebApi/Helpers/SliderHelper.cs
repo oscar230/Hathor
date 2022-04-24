@@ -1,8 +1,9 @@
-﻿using HathorCommon.Models;
+﻿using Hathor.Api.Models;
+using Hathor.Api.Models.Slider;
 using System.Web;
-using WebApi.Models.Slider;
+using WebApi.Models;
 
-namespace WebApi.Helpers
+namespace Hathor.Api.Helpers
 {
     public static class SliderHelper
     {
@@ -63,13 +64,28 @@ namespace WebApi.Helpers
             throw new ArgumentException($"Could not parse artists from {titArt}.");
         }
 
-        public Models.Track GetTrack(Models.Slider.QueriedTrack sliderTrack)
+        public static Track GetTrackFromSliderQueriedTrack(QueriedTrack queriedTrack)
         {
-            Id = new Guid();
-            Title = SliderHelper.GetTitle(sliderTrack);
-            Artists = SliderHelper.GetArtistsFromSliderTrack(sliderTrack);
-            RepositoryInternalId = sliderTrack.Id;
-            Repository = RepositoryHelper.GetSliderRepository;
+            return new Track()
+            {
+                Id = new Guid(),
+                Title = SliderHelper.GetTitle(queriedTrack),
+                Artists = SliderHelper.GetArtistsFromSliderTrack(queriedTrack),
+                RepositoryInternalId = queriedTrack.Id,
+                Repository = RepositoryHelper.GetSliderRepository
+            };
+        }
+
+        public static IEnumerable<Track> GetTracksFromSliderQueryResult(QueryResult queryResult)
+        {
+            if (queryResult?.TrackList?.SliderTracks is not null && queryResult.TrackList.SliderTracks.Any())
+            {
+                return queryResult.TrackList.SliderTracks.Select(sliderTrack => GetTrackFromSliderQueriedTrack(sliderTrack));
+            }
+            else
+            {
+                return Enumerable.Empty<Track>();
+            }
         }
     }
 }

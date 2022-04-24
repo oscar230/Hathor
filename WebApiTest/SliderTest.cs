@@ -1,12 +1,12 @@
 using Flurl.Http.Configuration;
+using Hathor.Api.Services;
+using Hathor.Api.Services.TrackRepositoryServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using WebApi.Models;
-using WebApi.Services;
-using WebApi.Services.TrackRepositoryServices;
 
-namespace WebApiTest
+namespace Hathor.Api.Test
 {
     [TestClass]
     public class SliderTest

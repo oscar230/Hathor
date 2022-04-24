@@ -1,4 +1,4 @@
-﻿namespace WebApi.Exceptions
+﻿namespace Hathor.Api.Exceptions
 {
     public interface IUserExceptions
     {

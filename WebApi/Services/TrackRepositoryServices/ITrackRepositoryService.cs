@@ -1,7 +1,7 @@
-﻿using HathorCommon.Models;
+﻿using Hathor.Api.Models;
 using WebApi.Models;
 
-namespace WebApi.Services.TrackRepositoryServices
+namespace Hathor.Api.Services.TrackRepositoryServices
 {
     public interface ITrackRepositoryService
     {

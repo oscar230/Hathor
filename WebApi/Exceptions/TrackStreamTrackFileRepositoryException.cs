@@ -1,6 +1,4 @@
-﻿using WebApi.Models;
-
-namespace WebApi.Exceptions
+﻿namespace Hathor.Api.Exceptions
 {
     public class TrackStreamTrackFileRepositoryException : Exception, IUserExceptions
     {

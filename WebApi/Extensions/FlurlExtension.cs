@@ -1,7 +1,7 @@
 ﻿using Flurl.Http;
-using WebApi.Services;
+using Hathor.Api.Services;
 
-namespace WebApi.Extensions
+namespace Hathor.Api.Extensions
 {
     public static class FlurlExtension
     {

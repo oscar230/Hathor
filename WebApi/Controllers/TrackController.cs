@@ -1,16 +1,13 @@
-﻿using HathorCommon.Helpers;
+﻿using Hathor.Api.Exceptions;
+using Hathor.Api.Services.TrackRepositoryServices;
+using Hathor.Common.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
-using System.Net.Mime;
-using WebApi.Exceptions;
-using WebApi.Helpers;
-using WebApi.Services;
-using WebApi.Services.TrackRepositoryServices;
 
-namespace WebApi.Controllers.V1
+namespace Hathor.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/v1/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TrackController : ControllerBase
     {

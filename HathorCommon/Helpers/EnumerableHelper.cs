@@ -1,4 +1,4 @@
-﻿namespace HathorCommon.Helpers
+﻿namespace Hathor.Common.Helpers
 {
     public static class EnumerableHelper
     {

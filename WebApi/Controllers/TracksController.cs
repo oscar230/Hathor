@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hathor.Api.Exceptions;
+using Hathor.Api.Services.TrackRepositoryServices;
+using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
-using WebApi.Exceptions;
-using WebApi.Services.TrackRepositoryServices;
 
-namespace WebApi.Controllers
+namespace Hathor.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/v1/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TracksController : ControllerBase
     {

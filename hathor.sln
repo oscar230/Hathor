@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{053C3069-BDF9-40E2-A5F4-15C16CBA367E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Api", "WebApi\Hathor.Api.csproj", "{053C3069-BDF9-40E2-A5F4-15C16CBA367E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{97C5F23A-1710-4658-9718-73D92B13BF35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Api.Test", "WebApiTest\Hathor.Api.Test.csproj", "{97C5F23A-1710-4658-9718-73D92B13BF35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B7F46E7-C7D7-4135-AC62-36D298648303}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HathorCommon", "HathorCommon\HathorCommon.csproj", "{82481CF1-364B-47CB-B6A6-5FA148F23923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Common", "HathorCommon\Hathor.Common.csproj", "{82481CF1-364B-47CB-B6A6-5FA148F23923}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

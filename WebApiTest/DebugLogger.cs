@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace WebApiTest
+namespace Hathor.Api.Test
 {
     internal class DebugLogger<T> : ILogger<T>
     {
