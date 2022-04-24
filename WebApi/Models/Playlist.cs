@@ -1,6 +1,6 @@
 ﻿namespace HathorCommon.Models
 {
-    public interface IPlaylist
+    public class Playlist
     {
         Guid Id { get; }
 
