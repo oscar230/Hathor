@@ -1,6 +1,4 @@
-﻿using WebApi.Models;
-
-namespace Hathor.Api.Models
+﻿namespace Hathor.Api.Models
 {
     public class Playlist
     {

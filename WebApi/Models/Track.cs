@@ -1,6 +1,4 @@
-﻿using Hathor.Api.Models;
-
-namespace WebApi.Models
+﻿namespace Hathor.Api.Models
 {
     public class Track
     {

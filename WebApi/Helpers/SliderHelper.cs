@@ -1,7 +1,6 @@
 ﻿using Hathor.Api.Models;
 using Hathor.Api.Models.Slider;
 using System.Web;
-using WebApi.Models;
 
 namespace Hathor.Api.Helpers
 {

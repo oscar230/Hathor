@@ -1,6 +1,6 @@
 ﻿using Hathor.Api.Models;
 
-namespace WebApi.Services.PlaylistRepositoryServices
+namespace Hathor.Api.Services.PlaylistRepositoryServices
 {
     public interface IPlaylistRepositoryService
     {
