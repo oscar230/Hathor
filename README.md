@@ -5,6 +5,7 @@
 
 ## Using Hathor
 See [releases](https://github.com/oscar230/hathor/releases), choose the latest one and follow the instruction.
+If you're ecnountering problems with exporting Rekordbox's collection as XML, see [this thread over at Denons forums](https://community.enginedj.com/t/no-more-xml-export-in-rekordbox-6-blocks-denon-prime-users-to-access-their-rekordbox-collection/21170/51), for some reason this conversation isn't happening at Pioneers forum.
 
 ## Contribute
 * See [issues on Github](https://github.com/oscar230/hathor/issues) for any open issues, any help is welcomed!
