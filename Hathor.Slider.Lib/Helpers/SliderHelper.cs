@@ -1,24 +1,23 @@
-﻿using Hathor.Api.Models;
-using Hathor.Api.Models.Slider;
+﻿using Hathor.Common.Models;
+using Hathor.Slider.Lib.Models.Slider;
 using System.Web;
 
-namespace Hathor.Api.Helpers
+namespace Hathor.Slider.Lib.Helpers
 {
     public static class SliderHelper
     {
         private static readonly string DEFAULT_ARTIST = string.Empty;
         private const string ARTIST_TRACK_SEPARATOR = " - ";
         private const char ARTISTS_SEPARATOR = ',';
-        private const string DOWNLOAD_BASE_URI = "https://slider.kz/download";
 
-        public static Uri GetDownloadUriFromSliderTrack(QueriedTrack sliderTrack)
+        public static Uri DownloadUri(Models.Slider.Track sliderTrack)
         {
             var extraQuery = sliderTrack.ExtraInformation is not null ? HttpUtility.UrlEncode(sliderTrack.ExtraInformation.ToString()) : "null";
-            var strUri = $"{DOWNLOAD_BASE_URI}/{sliderTrack.Id}/{sliderTrack.Duration}/{sliderTrack.Url}/{HttpUtility.UrlEncode(sliderTrack.TitArt)}.mp3?extra={extraQuery}";
+            var strUri = $"download/{sliderTrack.Id}/{sliderTrack.Duration}/{sliderTrack.Url}/{HttpUtility.UrlEncode(sliderTrack.TitArt)}.mp3?extra={extraQuery}";
             return new Uri(strUri);
         }
 
-        public static string GetTitle(QueriedTrack sliderTrack)
+        public static string GetTitle(Models.Slider.Track sliderTrack)
         {
             if (sliderTrack.TitArt is not null)
             {
@@ -27,7 +26,7 @@ namespace Hathor.Api.Helpers
             throw new Exception("No titArt set, cannot get title.");
         }
 
-        public static IEnumerable<Artist> GetArtistsFromSliderTrack(QueriedTrack sliderTrack)
+        public static IEnumerable<Artist> GetArtistsFromSliderTrack(Models.Slider.Track sliderTrack)
         {
             if (sliderTrack.TitArt is not null)
             {
@@ -63,27 +62,25 @@ namespace Hathor.Api.Helpers
             throw new ArgumentException($"Could not parse artists from {titArt}.");
         }
 
-        public static Track GetTrackFromSliderQueriedTrack(QueriedTrack queriedTrack)
+        public static Common.Models.Track GetTrackFromSliderQueriedTrack(Models.Slider.Track queriedTrack)
         {
-            return new Track()
+            return new Common.Models.Track()
             {
                 Id = new Guid(),
                 Title = SliderHelper.GetTitle(queriedTrack),
-                Artists = SliderHelper.GetArtistsFromSliderTrack(queriedTrack),
-                RepositoryInternalId = queriedTrack.Id,
-                Repository = RepositoryHelper.GetSliderRepository
+                Artists = SliderHelper.GetArtistsFromSliderTrack(queriedTrack)
             };
         }
 
-        public static IEnumerable<Track> GetTracksFromSliderQueryResult(QueryResult queryResult)
+        public static List<Common.Models.Track> GetTracksFromSliderQueryResult(TrackList queryResult)
         {
-            if (queryResult?.TrackList?.SliderTracks is not null && queryResult.TrackList.SliderTracks.Any())
+            if (queryResult?.SearchResponse?.SliderTracks is not null && queryResult.SearchResponse.SliderTracks.Any())
             {
-                return queryResult.TrackList.SliderTracks.Select(sliderTrack => GetTrackFromSliderQueriedTrack(sliderTrack));
+                return queryResult.SearchResponse.SliderTracks.Select(sliderTrack => GetTrackFromSliderQueriedTrack(sliderTrack)).ToList();
             }
             else
             {
-                return Enumerable.Empty<Track>();
+                return new List<Common.Models.Track>();
             }
         }
     }

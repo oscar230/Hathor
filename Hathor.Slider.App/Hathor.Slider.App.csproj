@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hathor.Slider.Lib\Hathor.Slider.Lib.csproj" />
+    <ProjectReference Include="..\HathorCommon\Hathor.Common.csproj" />
+  </ItemGroup>
+
 </Project>

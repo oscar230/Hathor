@@ -3,9 +3,7 @@ using Flurl.Http.Configuration;
 using Hathor.Api.Exceptions;
 using Hathor.Api.Extensions;
 using Hathor.Api.Helpers;
-using Hathor.Api.Models;
-using Hathor.Api.Models.Slider;
-using System.Web;
+using Hathor.Common.Models;
 
 namespace Hathor.Api.Services.TrackRepositoryServices
 {
@@ -24,6 +22,11 @@ namespace Hathor.Api.Services.TrackRepositoryServices
         }
         public Repository Repository => RepositoryHelper.GetSliderRepository;
 
+        public Task<IEnumerable<Track>> Query(string? query)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken)
         {
             Stream stream = await _flurlClient.Request(uri).AtSlider(_userAgentService).GetStreamAsync(cancellationToken);
@@ -32,22 +35,6 @@ namespace Hathor.Api.Services.TrackRepositoryServices
                 return stream;
             }
             throw new TrackStreamTrackFileRepositoryException(uri);
-        }
-
-        public async Task<IEnumerable<Track>> Query(string? query)
-        {
-            string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query)}";
-            QueryResult queryResult = await _flurlClient.Request(pathAndQuery).AtSlider(_userAgentService).GetJsonAsync<QueryResult>();
-            IEnumerable<Track> tracks = SliderHelper.GetTracksFromSliderQueryResult(queryResult);
-            _logger.LogDebug($"Slider query found {tracks.Count()} tracks for query {query}.");
-            if (tracks.Any())
-            {
-                return tracks;
-            }
-            else
-            {
-                throw new TrackQueryNotFoundInThisRepositoryException(query, Repository);
-            }
         }
     }
 }

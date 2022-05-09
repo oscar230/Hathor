@@ -1,4 +1,4 @@
-﻿namespace Hathor.Api.Models
+﻿namespace Hathor.Common.Models
 {
     public class Repository
     {
