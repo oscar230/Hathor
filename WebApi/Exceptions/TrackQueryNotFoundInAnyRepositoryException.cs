@@ -1,5 +1,5 @@
-﻿using Hathor.Api.Models;
-using Hathor.Api.Services.TrackRepositoryServices;
+﻿using Hathor.Api.Services.TrackRepositoryServices;
+using Hathor.Common.Models;
 
 namespace Hathor.Api.Exceptions
 {

@@ -1,6 +1,6 @@
 ﻿using Hathor.Api.Exceptions;
-using Hathor.Api.Models;
 using Hathor.Api.Services.TrackRepositoryServices;
+using Hathor.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hathor.Api.Controllers

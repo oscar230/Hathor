@@ -1,4 +1,4 @@
-﻿using Hathor.Api.Models;
+﻿using Hathor.Common.Models;
 
 namespace Hathor.Api.Exceptions
 {
