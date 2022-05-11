@@ -10,11 +10,10 @@ namespace Hathor.Slider.Lib.Helpers
         private const string ARTIST_TRACK_SEPARATOR = " - ";
         private const char ARTISTS_SEPARATOR = ',';
 
-        public static Uri DownloadUri(Models.Slider.Track sliderTrack)
+        public static string DownloadPathAndQuery(Models.Slider.Track sliderTrack)
         {
             var extraQuery = sliderTrack.ExtraInformation is not null ? HttpUtility.UrlEncode(sliderTrack.ExtraInformation.ToString()) : "null";
-            var strUri = $"download/{sliderTrack.Id}/{sliderTrack.Duration}/{sliderTrack.Url}/{HttpUtility.UrlEncode(sliderTrack.TitArt)}.mp3?extra={extraQuery}";
-            return new Uri(strUri);
+            return $"download/{sliderTrack.Id}/{sliderTrack.Duration}/{sliderTrack.Url}/{HttpUtility.UrlEncode(sliderTrack.TitArt)}.mp3?extra={extraQuery}";
         }
 
         public static string GetTitle(Models.Slider.Track sliderTrack)

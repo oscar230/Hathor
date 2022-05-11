@@ -65,7 +65,18 @@ async Task<bool> MainMenu()
             break;
         case "Download.":
             // Download
-            throw new NotImplementedException();
+            ConsoleHelper.WriteLine($"Downloading {trackDownloadQueue.Count} tracks.");
+            foreach (Track track in trackDownloadQueue)
+            {
+                ConsoleHelper.WriteLine($"Downloading track: {track.TitArt}");
+                Stream trackStream = await Query.Download(track);
+                ConsoleHelper.WriteLine($"Writing track to disk: {track.TitArt}");
+                using (var fileStream = File.Create($"{track.TitArt}.mp3"))
+                {
+                    await trackStream.CopyToAsync(fileStream);
+                }
+                ConsoleHelper.WriteLine($"Done.");
+            }
             break;
         case "Display download queue.":
             // Display download queue

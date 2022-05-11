@@ -34,6 +34,6 @@ namespace Hathor.Slider.Lib.Models.Slider
 
         public override string? ToString() => $"[{new TimeSpan(0, 0, (int)Duration).ToString(@"mm\:ss")}] {TitArt}";
 
-        public Uri DownloadUri => SliderHelper.DownloadUri(this);
+        public string DownloadPathAndQuery => SliderHelper.DownloadPathAndQuery(this);
     }
 }

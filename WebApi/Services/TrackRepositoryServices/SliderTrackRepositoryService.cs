@@ -27,14 +27,9 @@ namespace Hathor.Api.Services.TrackRepositoryServices
             throw new NotImplementedException();
         }
 
-        public async Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken)
+        public Task<Stream> StreamTrackFile(Uri uri, CancellationToken cancellationToken)
         {
-            Stream stream = await _flurlClient.Request(uri).AtSlider(_userAgentService).GetStreamAsync(cancellationToken);
-            if (stream is not null && !stream.Length.Equals(0))
-            {
-                return stream;
-            }
-            throw new TrackStreamTrackFileRepositoryException(uri);
+            throw new NotImplementedException();
         }
     }
 }

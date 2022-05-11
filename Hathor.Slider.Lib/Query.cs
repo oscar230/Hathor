@@ -21,7 +21,7 @@ namespace Hathor.Slider.Lib
                     .Request(pathAndQuery)
                     .WithTimeout(timeout)
                     .WithHeader("User-Agent", "APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)")
-                    .WithHeader("Accept", "audio/mpeg")
+                    .WithHeader("Accept", "application/json")
                     .WithHeader("Accept-Encoding", "gzip, deflate, br")
                     .WithHeader("Accept-Language", "en-US")
                     .WithHeader("Connection", "keep-alive")
@@ -40,6 +40,24 @@ namespace Hathor.Slider.Lib
                 logger.LogWarning($"Search tracks failed!\nError: {ex.Message}");
             }
             return new();
+        }
+
+        public static async Task<Stream> Download(Track track, CancellationToken cancellationToken = default) => await Download(track.DownloadPathAndQuery, cancellationToken);
+
+        public static async Task<Stream> Download(string pathAndQuery, CancellationToken cancellationToken = default)
+        {
+            TimeSpan timeout = new(0, 1, 0);
+            return await FlurlClient
+                    .Request(pathAndQuery)
+                    .WithTimeout(timeout)
+                    .WithHeader("User-Agent", "APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)")
+                    .WithHeader("Accept", "audio/mpeg")
+                    .WithHeader("Accept-Encoding", "gzip, deflate, br")
+                    .WithHeader("Accept-Language", "en-US")
+                    .WithHeader("Connection", "keep-alive")
+                    .WithHeader("Host", "slider.kz")
+                    .WithHeader("Upgrade-Insecure-Requests", "1")
+                    .GetStreamAsync(cancellationToken);
         }
     }
 }
