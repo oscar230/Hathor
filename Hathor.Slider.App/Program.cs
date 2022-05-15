@@ -68,15 +68,19 @@ async Task<bool> MainMenu()
             ConsoleHelper.WriteLine($"Downloading {trackDownloadQueue.Count} tracks.");
             foreach (Track track in trackDownloadQueue)
             {
-                ConsoleHelper.WriteLine($"Downloading track: {track.TitArt}");
+                const string mpegExt = ".mp3";
+                string safeTitArtForFileInfo = FilesystemHelper.MakePathSafe(track.TitArt ?? throw new ArgumentNullException(nameof(track.TitArt)));
+                FileInfo trackFileInfo = FilesystemHelper.NextAvailableFilename(new FileInfo($"{FilesystemHelper.DownloadsDirectory}/{safeTitArtForFileInfo}{mpegExt}"));
+                ConsoleHelper.WriteLine($"Downloading track: {track.TitArt} (to file: {trackFileInfo.FullName})");
                 Stream trackStream = await Query.Download(track);
                 ConsoleHelper.WriteLine($"Writing track to disk: {track.TitArt}");
-                using (var fileStream = File.Create($"{track.TitArt}.mp3"))
+                using (var fileStream = File.Create(trackFileInfo.FullName))
                 {
                     await trackStream.CopyToAsync(fileStream);
                 }
-                ConsoleHelper.WriteLine($"Done.");
+                ConsoleHelper.WriteLine($"Done with: {track.TitArt}");
             }
+            trackDownloadQueue = new();
             break;
         case "Display download queue.":
             // Display download queue
@@ -85,7 +89,7 @@ async Task<bool> MainMenu()
             break;
         case "Clear download queue.":
             // Clear download queue
-            ConsoleHelper.WriteLine($"Do you wanna clear/remove/delete {trackDownloadQueue.Count} from the download queue? Then type YES in all caps, otherwise type anything else.");
+            ConsoleHelper.WriteLine($"Do you wanna clear/remove/delete {trackDownloadQueue.Count} tracks from the download queue? Then type YES in all caps, otherwise type anything else.");
             string? answer = Console.ReadLine();
             if (answer is not null && answer.Equals("YES"))
             {
