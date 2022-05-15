@@ -3,25 +3,27 @@
 
 [![Build Status](https://drone.wonky.se/api/badges/oscar230/Hathor/status.svg)](https://drone.wonky.se/oscar230/Hathor)
 
+Hathor contains a number of projects aiming to help DJs aquire, analyze and manage music.
+The repostory contains the projects;
+* API
+* Logicbox
+  * Extends Pioneer's Rekordbox with more logical operators for intelligent playlists.
+* Slider
+  * Wraps [slider](https://slider.kz/) into an C# .NET library.
+* KeyFinder
+  * Based on Ibrahim Sha’ath's [keyfinder](https://www.ibrahimshaath.co.uk/keyfinder/) library.
+  * _I originally developed KeyFinder in 2011 as part of my MSc in Computer Science. The algorithms, design and implementation are described in some detail in my project report, which you can download, though it's a bit heavy going._ - Ibrahim Sha’ath
+  * Uses Aybe's [libKeyFinder.NET](https://github.com/aybe/libKeyFinder.NET) to port keyfinder to C# .NET Core.
+  * Implements models and converters for these musical keys; open key, camelot key and the traditional circle of fifths keys.
+
 ## Using Hathor
 See [releases](https://github.com/oscar230/hathor/releases), choose the latest one and follow the instruction.
 If you're ecnountering problems with exporting Rekordbox's collection as XML, see [this thread over at Denons forums](https://community.enginedj.com/t/no-more-xml-export-in-rekordbox-6-blocks-denon-prime-users-to-access-their-rekordbox-collection/21170/51), for some reason this conversation isn't happening at Pioneers forum.
 
 ## Contribute
 * See [issues on Github](https://github.com/oscar230/hathor/issues) for any open issues, any help is welcomed!
-For file names and directories consider using [Unix File Naming Practices](https://www.december.com/unix/tutor/filenames.html) except for in `WebApi` where [.NET General Naming Conventions](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/general-naming-conventions) are prefered.
-
-### Analysis
-* Analyse network traffic using [Thunder Client by Ranga Vadhineni](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) avaliable in VSCode. Store analytics in the `docs` directory.
-
-### Backend API
-Using a ASP .NET Core 5.0 backend located in `WebApi`.
-
-### Frontend Web
-* Using a web frontend located in `WebUI`.
-  * You do not need to open the [Solution (.sln) file](https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/solution-dot-sln-file?view=vs-2022) to develop the frontend, altough it is included in the sulution for the backend developers using Visual Studio.
-* Target browsers, latest stable version of chrome/[chromium](https://www.chromium.org/).
-* **Need help to get rolling?** Why not use [Material UI](https://mui.com/) along with [Svelte](https://svelte.dev/), or maybe cool [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) by Microsoft with all new fresh and cool [Havit](https://havit.blazor.eu/).
+* Please follow [.NET General Naming Conventions](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/general-naming-conventions).
+* You need to be able to open SLN-sultions.
 
 ## Build
 * **Backend**: open [Solution (.sln) file](https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/solution-dot-sln-file?view=vs-2022) using [Visual Studio (2022 Community is recommended)](https://visualstudio.microsoft.com/).
