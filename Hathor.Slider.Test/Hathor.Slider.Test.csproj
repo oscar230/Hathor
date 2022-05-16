@@ -19,4 +19,6 @@
     <ProjectReference Include="..\Hathor.Slider.Lib\Hathor.Slider.Lib.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties testresources_4searchresponses_4levels_1json__JsonSchema="https://cdn.jsdelivr.net/gh/roadrunner-server/roadrunner@latest/schemas/config/2.0.schema.json" /></VisualStudio></ProjectExtensions>
+
 </Project>
