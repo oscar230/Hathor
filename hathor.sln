@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Logicbox.Test", "Hat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Slider.Test", "Hathor.Slider.Test\Hathor.Slider.Test.csproj", "{1D0F642D-CBF5-41F9-B1FD-EFA9834FDB44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Web", "Hathor.Web\Hathor.Web.csproj", "{30653951-738A-44F6-88D9-3C1A594395AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,10 @@ Global
 		{1D0F642D-CBF5-41F9-B1FD-EFA9834FDB44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D0F642D-CBF5-41F9-B1FD-EFA9834FDB44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D0F642D-CBF5-41F9-B1FD-EFA9834FDB44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30653951-738A-44F6-88D9-3C1A594395AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30653951-738A-44F6-88D9-3C1A594395AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30653951-738A-44F6-88D9-3C1A594395AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30653951-738A-44F6-88D9-3C1A594395AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
