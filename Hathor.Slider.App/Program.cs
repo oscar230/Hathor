@@ -1,10 +1,13 @@
-﻿using Hathor.Common;
+﻿using Flurl.Http;
+using Hathor.Common;
 using Hathor.Common.Helpers;
 using Hathor.Slider.Lib;
 using Hathor.Slider.Lib.Models.Slider;
 
 const string NAME = "Hathor Slider";
-List<Track> trackDownloadQueue = new List<Track>();
+List<Track> _trackDownloadQueue = new();
+FlurlClient _flurlClient = new("https://slider.kz");
+Query _query = new(new LoggerToConsole<Query>(nameof(Query)), _flurlClient);
 
 async Task<bool> MainMenu()
 {
@@ -17,7 +20,7 @@ async Task<bool> MainMenu()
         "Display download queue.",
         "Clear download queue.",
     };
-    string menuSelection = ConsoleHelper.Selection<string>(menuItems.ToList(), "What do you want to do?");
+    string menuSelection = ConsoleHelper.Selection(menuItems.ToList(), "What do you want to do?");
     switch (menuSelection)
     {
         case $"Quit {NAME}.":
@@ -29,10 +32,9 @@ async Task<bool> MainMenu()
             break;
         case "Search.":
             // Search
-            var logger = new LoggerToConsole<Query>("Search and download");
             ConsoleHelper.Write("Enter search term: ");
             var searchTerm = Console.ReadLine();
-            List<Track> tracks = await Query.Search(logger, searchTerm);
+            List<Track> tracks = await _query.Search(searchTerm);
             if (tracks.Any())
             {
                 const string IdAll = "A_L_L";
@@ -46,7 +48,7 @@ async Task<bool> MainMenu()
                     {
                         tracks = tracks.GetRange(0, tracks.Count - 2);
                         ConsoleHelper.WriteLine($"All {tracks} tracks selected for download");
-                        trackDownloadQueue.AddRange(tracks);
+                        _trackDownloadQueue.AddRange(tracks);
                     }
                     else if (selection.Id.Equals(IdNone))
                     {
@@ -54,7 +56,7 @@ async Task<bool> MainMenu()
                     }
                     else
                     {
-                        trackDownloadQueue.Add(selection);
+                        _trackDownloadQueue.Add(selection);
                     }
                 }
             }
@@ -65,14 +67,14 @@ async Task<bool> MainMenu()
             break;
         case "Download.":
             // Download
-            ConsoleHelper.WriteLine($"Downloading {trackDownloadQueue.Count} tracks.");
-            foreach (Track track in trackDownloadQueue)
+            ConsoleHelper.WriteLine($"Downloading {_trackDownloadQueue.Count} tracks.");
+            foreach (Track track in _trackDownloadQueue)
             {
                 const string mpegExt = ".mp3";
                 string safeTitArtForFileInfo = FilesystemHelper.MakePathSafe(track.TitArt ?? throw new ArgumentNullException(nameof(track.TitArt)));
                 FileInfo trackFileInfo = FilesystemHelper.NextAvailableFilename(new FileInfo($"{FilesystemHelper.DownloadsDirectory}/{safeTitArtForFileInfo}{mpegExt}"));
                 ConsoleHelper.WriteLine($"Downloading track: {track.TitArt} (to file: {trackFileInfo.FullName})");
-                Stream trackStream = await Query.Download(track);
+                Stream trackStream = await _query.Download(track);
                 ConsoleHelper.WriteLine($"Writing track to disk: {track.TitArt}");
                 using (var fileStream = File.Create(trackFileInfo.FullName))
                 {
@@ -80,25 +82,25 @@ async Task<bool> MainMenu()
                 }
                 ConsoleHelper.WriteLine($"Done with: {track.TitArt}");
             }
-            trackDownloadQueue = new();
+            _trackDownloadQueue = new();
             break;
         case "Display download queue.":
             // Display download queue
-            ConsoleHelper.WriteList(trackDownloadQueue);
-            ConsoleHelper.WriteLine($"There are {trackDownloadQueue.Count} tracks in the download queue.");
+            ConsoleHelper.WriteList(_trackDownloadQueue);
+            ConsoleHelper.WriteLine($"There are {_trackDownloadQueue.Count} tracks in the download queue.");
             break;
         case "Clear download queue.":
             // Clear download queue
-            ConsoleHelper.WriteLine($"Do you wanna clear/remove/delete {trackDownloadQueue.Count} tracks from the download queue? Then type YES in all caps, otherwise type anything else.");
+            ConsoleHelper.WriteLine($"Do you wanna clear/remove/delete {_trackDownloadQueue.Count} tracks from the download queue? Then type YES in all caps, otherwise type anything else.");
             string? answer = Console.ReadLine();
             if (answer is not null && answer.Equals("YES"))
             {
-                ConsoleHelper.WriteLine($"Cleared {trackDownloadQueue.Count} tracks from the download queue.");
-                trackDownloadQueue = new List<Track>();
+                ConsoleHelper.WriteLine($"Cleared {_trackDownloadQueue.Count} tracks from the download queue.");
+                _trackDownloadQueue = new List<Track>();
             }
             else
             {
-                ConsoleHelper.WriteLine($"Did NOT clear {trackDownloadQueue.Count} tracks from the download queue.");
+                ConsoleHelper.WriteLine($"Did NOT clear {_trackDownloadQueue.Count} tracks from the download queue.");
             }
             break;
         default:
