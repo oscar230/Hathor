@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Hathor.Slider.Test
@@ -13,10 +14,18 @@ namespace Hathor.Slider.Test
     [TestClass]
     public class QueryTest
     {
-        private Logger<Query>? _logger;
-        private HttpTest? _httpTest;
-        private IFlurlClient? _flurlClient;
-        private Query? _query;
+        private Logger<Query> _logger;
+        private HttpTest _httpTest;
+        private IFlurlClient _flurlClient;
+        private Query _query;
+
+        public QueryTest(Logger<Query> logger, HttpTest httpTest, IFlurlClient flurlClient, Query query)
+        {
+            _logger = logger;
+            _httpTest = httpTest;
+            _flurlClient = flurlClient;
+            _query = query;
+        }
 
         [TestInitialize]
         public void Setup()
@@ -30,26 +39,28 @@ namespace Hathor.Slider.Test
         [TestCleanup]
         public void TearDown()
         {
-            if (_query is not null)
-            {
-                _query.Dispose();
-            }
-            if (_flurlClient is not null)
-            {
-                _flurlClient.Dispose();
-            }
-            if (_httpTest is not null)
-            {
-                _httpTest.Dispose();
-            }
+            _query.Dispose();
+            _flurlClient.Dispose();
+            _httpTest.Dispose();
         }
 
         [TestMethod]
-        [DataRow(null)]
+        [DataRow("abcdefg")]
+        [DataRow("Future")]
+        [DataRow("Harry Styles As It Was")]
+        [DataRow("Imagine Dragons X JID")]
         [DataRow("Levels")]
-        public async void Search(string? query)
+        [DataRow(null, "null")]
+        [DataRow("skrillex")]
+        [DataRow("Tu Pîroz Î Û Em Navê Te Bilind Dikin")]
+        [DataRow("VØST Ü")]
+        [DataRow("Лирика")]
+        public async void Search(string query, string? explicitSearchResponsePath = null)
         {
-            List<Track> tracks = await Query.Search(query);
+            string searchResponsePath = $"TestResources\\SearchResponses\\{explicitSearchResponsePath ?? query}.json";
+            string correctResponseAsJson = File.ReadAllText(searchResponsePath);
+            _httpTest.ForCallsTo($"{_flurlClient.BaseUrl}*").WithVerb("GET").RespondWith(correctResponseAsJson, 200);
+            List<Track> tracks = await _query.Search(query);
             Assert.IsNotNull(tracks);
             Assert.IsTrue(tracks.Any());
         }
