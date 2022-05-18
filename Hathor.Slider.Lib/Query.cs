@@ -29,7 +29,7 @@ namespace Hathor.Slider.Lib
         public async Task<List<Track>> Search(string? query)
         {
             TimeSpan timeout = new(0, 0, 10);
-            string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query)}";
+            string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query ?? string.Empty)}";
             try
             {
                 TrackList res = await _flurlClient
