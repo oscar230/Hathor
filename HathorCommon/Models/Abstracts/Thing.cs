@@ -6,7 +6,7 @@ namespace Hathor.Common.Models.Abstracts
     /// https://schema.org/Thing
     /// The most generic type of item.
     /// </summary>
-    internal class Thing
+    internal abstract class Thing
     {
         /// <summary>
         /// An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax.

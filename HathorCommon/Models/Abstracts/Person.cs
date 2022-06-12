@@ -4,7 +4,7 @@
     /// https://schema.org/Person
     /// A person (alive, dead, undead, or fictional).
     /// </summary>
-    internal class Person : Thing
+    internal abstract class Person : Thing
     {
         /// <summary>
         /// An additional name for a Person, can be used for a middle name.

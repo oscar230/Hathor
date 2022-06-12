@@ -4,7 +4,7 @@
     /// https://schema.org/MusicPlaylist
     /// A collection of music tracks in playlist form.
     /// </summary>
-    internal class MusicPlaylist : CreativeWork
+    internal abstract class MusicPlaylist : CreativeWork
     {
         /// <summary>
         /// The number of tracks in this album or playlist.

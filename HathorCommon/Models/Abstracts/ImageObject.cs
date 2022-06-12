@@ -4,7 +4,7 @@
     /// https://schema.org/ImageObject
     /// An image file.
     /// </summary>
-    internal class ImageObject : MediaObject
+    internal abstract class ImageObject : MediaObject
     {
         /// <summary>
         /// The caption for this object. For downloadable machine formats (closed caption, subtitles etc.)

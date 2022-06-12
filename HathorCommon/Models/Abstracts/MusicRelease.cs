@@ -4,7 +4,7 @@
     /// https://schema.org/MusicRelease
     /// A MusicRelease is a specific release of a music album.
     /// </summary>
-    internal class MusicRelease : MusicPlaylist
+    internal abstract class MusicRelease : MusicPlaylist
     {
         /// <summary>
         /// The catalog number for the release.

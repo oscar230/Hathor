@@ -4,7 +4,7 @@
     /// https://schema.org/Organization
     /// An organization such as a school, NGO, corporation, club, etc.
     /// </summary>
-    internal class Organization : Thing
+    internal abstract class Organization : Thing
     {
         /// <summary>
         /// The date that this organization was founded.

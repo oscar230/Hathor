@@ -4,7 +4,7 @@
     /// https://schema.org/MusicAlbum
     /// A collection of music tracks.
     /// </summary>
-    internal class MusicAlbum : MusicPlaylist
+    internal abstract class MusicAlbum : MusicPlaylist
     {
         /// <summary>
         /// Classification of the album by it's type of content: soundtrack, live album, studio album, etc.

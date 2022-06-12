@@ -4,7 +4,7 @@
     /// https://schema.org/MediaObject
     /// A media object, such as an image, video, or audio object embedded in a web page or a downloadable dataset.
     /// </summary>
-    internal class MediaObject : CreativeWork
+    internal abstract class MediaObject : CreativeWork
     {
         /// <summary>
         /// The bitrate of the media object.

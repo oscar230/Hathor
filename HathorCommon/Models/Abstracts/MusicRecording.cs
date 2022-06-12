@@ -4,7 +4,7 @@
     /// https://schema.org/MusicRecording
     /// A music recording (track), usually a single song.
     /// </summary>
-    internal class MusicRecording : CreativeWork
+    internal abstract class MusicRecording : CreativeWork
     {
         /// <summary>
         /// The artist that performed this album or recording.

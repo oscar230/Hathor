@@ -4,7 +4,7 @@
     /// https://schema.org/MusicComposition
     /// A musical composition.
     /// </summary>
-    internal class MusicComposition : CreativeWork
+    internal abstract class MusicComposition : CreativeWork
     {
         /// <summary>
         /// The person or organization who wrote a composition, or who is the composer of a work performed at some event.
