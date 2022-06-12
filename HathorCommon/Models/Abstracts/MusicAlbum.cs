@@ -1,4 +1,6 @@
-﻿namespace Hathor.Common.Models.Abstracts
+﻿using Hathor.Common.Models.Abstracts.Types;
+
+namespace Hathor.Common.Models.Abstracts
 {
     /// <summary>
     /// https://schema.org/MusicAlbum
