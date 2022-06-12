@@ -4,6 +4,9 @@
 [![Build Status](https://drone.wonky.se/api/badges/oscar230/Hathor/status.svg)](https://drone.wonky.se/oscar230/Hathor)
 
 Hathor contains a number of projects aiming to help DJs aquire, analyze and manage music.
+
+[The Kanban board (for long term planning).](https://kanboard.wonky.se/public/board/25740027308e51bf83399425c9fdc7b372795aed6af737fab95d3cd9c4fa)
+
 The repostory contains the projects;
 * API
 * Logicbox
