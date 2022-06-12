@@ -9,7 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Api.Test", "WebApiTe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B7F46E7-C7D7-4135-AC62-36D298648303}"
 	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.drone.yml = .drone.yml
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		codecov.yml = codecov.yml
+		deploy.sh = deploy.sh
+		docker-compose.yml = docker-compose.yml
+		keynotations.txt = keynotations.txt
+		keynotationvalues.txt = keynotationvalues.txt
+		nginx.conf = nginx.conf
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Common", "HathorCommon\Hathor.Common.csproj", "{82481CF1-364B-47CB-B6A6-5FA148F23923}"
@@ -26,15 +36,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.KeyFinder.Lib", "Hat
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Hathor.Api.DB", "Hathor.Api.DB\Hathor.Api.DB.sqlproj", "{CA46167E-C931-44D9-AFF1-3EDCC6D37F93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Common.Test", "Hathor.Common.Test\Hathor.Common.Test.csproj", "{4D0F0D22-3088-4B85-9520-A71DF6EA6AD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Common.Test", "Hathor.Common.Test\Hathor.Common.Test.csproj", "{4D0F0D22-3088-4B85-9520-A71DF6EA6AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.KeyFinder.Test", "Hathor.KeyFinder.Test\Hathor.KeyFinder.Test.csproj", "{DFEC384D-1D86-42EC-885C-5993FABBB8BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.KeyFinder.Test", "Hathor.KeyFinder.Test\Hathor.KeyFinder.Test.csproj", "{DFEC384D-1D86-42EC-885C-5993FABBB8BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Logicbox.Test", "Hathor.Logicbox.Test\Hathor.Logicbox.Test.csproj", "{445D7EE6-6222-45D6-8066-0B58152183C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Logicbox.Test", "Hathor.Logicbox.Test\Hathor.Logicbox.Test.csproj", "{445D7EE6-6222-45D6-8066-0B58152183C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Slider.Test", "Hathor.Slider.Test\Hathor.Slider.Test.csproj", "{1D0F642D-CBF5-41F9-B1FD-EFA9834FDB44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Slider.Test", "Hathor.Slider.Test\Hathor.Slider.Test.csproj", "{1D0F642D-CBF5-41F9-B1FD-EFA9834FDB44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Web", "Hathor.Web\Hathor.Web.csproj", "{30653951-738A-44F6-88D9-3C1A594395AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Web", "Hathor.Web\Hathor.Web.csproj", "{30653951-738A-44F6-88D9-3C1A594395AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Beatport.Lib", "Hathor.Beatport.Lib\Hathor.Beatport.Lib.csproj", "{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +112,10 @@ Global
 		{30653951-738A-44F6-88D9-3C1A594395AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30653951-738A-44F6-88D9-3C1A594395AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30653951-738A-44F6-88D9-3C1A594395AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
