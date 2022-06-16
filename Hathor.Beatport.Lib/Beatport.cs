@@ -1,7 +1,7 @@
 ﻿namespace Hathor.Beatport.Lib
 {
-    public class Class1
+    public class Beatport
     {
-
+        public List<
     }
 }
