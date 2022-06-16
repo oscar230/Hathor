@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hathor.Beatport.Lib\Hathor.Beatport.Lib.csproj" />
     <ProjectReference Include="..\HathorCommon\Hathor.Common.csproj" />
   </ItemGroup>
 
