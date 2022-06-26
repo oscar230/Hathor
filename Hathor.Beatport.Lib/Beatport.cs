@@ -49,6 +49,16 @@ namespace Hathor.Beatport.Lib
             }
         }
 
+        public async Task<Playlist> TopHundredReleases()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Playlist> TopHundredTracks()
+        {
+            throw new NotImplementedException();
+        }
+
         private async Task<HtmlDocument> Download(string uriPath)
         {
             IFlurlRequest request = _flurlClient
