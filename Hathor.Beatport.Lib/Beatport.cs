@@ -18,15 +18,17 @@ namespace Hathor.Beatport.Lib
             _flurlClient = flurlClient;
         }
 
-        public async Task<List<Track>> Search(string searchQuery, int perPage = 25)
+        public async Task<Playlist> Search(string searchQuery, int perPage = 25)
         {
             if (perPage.Equals(25) || perPage.Equals(50) || perPage.Equals(100) || perPage.Equals(150))
             {
-                string pathAndQuery = new($"search/tracks?q={HttpUtility.UrlEncode(searchQuery)}&per-page={perPage}");
+                string pathAndQuery = $"search/tracks?q={HttpUtility.UrlEncode(searchQuery)}&per-page={perPage}";
                 HtmlDocument htmlDocument = await Download(pathAndQuery);
-                BeatportSearchResults beatportSearchResults = new(htmlDocument, UriWithBase(pathAndQuery));
+                Uri uri = UriWithBase(pathAndQuery);
+                BeatportSearchResults beatportSearchResults = new(htmlDocument, uri);
                 List<Track> tracks = beatportSearchResults?.Tracks?.Select(t => t.ToTrack()).ToList() ?? new();
-                return tracks;
+                Playlist playlist = new(uri, $"Search results for {searchQuery}", tracks);
+                return playlist;
             }
             else
             {
@@ -56,7 +58,13 @@ namespace Hathor.Beatport.Lib
 
         public async Task<Playlist> TopHundredTracks()
         {
-            throw new NotImplementedException();
+            string path = "top-100";
+            HtmlDocument htmlDocument = await Download(path);
+            Uri uri = UriWithBase(path);
+            BeatportSearchResults beatportSearchResults = new(htmlDocument, uri);
+            List<Track> tracks = beatportSearchResults?.Tracks?.Select(t => t.ToTrack()).ToList() ?? new();
+            Playlist playlist = new(uri, "Top 100 Tracks.", tracks);
+            return playlist;
         }
 
         private async Task<HtmlDocument> Download(string uriPath)

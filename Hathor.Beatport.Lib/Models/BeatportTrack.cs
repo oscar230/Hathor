@@ -41,7 +41,7 @@ namespace Hathor.Beatport.Lib.Models
             IEnumerable<BeatportArtist>? artists = artistsHtmlNodes is not null ? artistsHtmlNodes.Select(a => new BeatportArtist(a, uri)) : new List<BeatportArtist>();
             IEnumerable<BeatportArtist>? remixers = remixersHtmlNodes is not null ? remixersHtmlNodes.Select(a => new BeatportArtist(a, uri)) : new List<BeatportArtist>();
             HtmlNode releaseHtmlNode = node.SelectSingleNode(".//div[@class='buk-track-artwork-parent']").SelectSingleNode("//a");
-            string key = node.SelectSingleNode(".//p[@class='buk-track-key']").InnerText;
+            HtmlNode? keyHtmlNode = node.SelectSingleNode(".//p[@class='buk-track-key']");
 
             Id = int.Parse(node.Attributes["data-ec-id"].Value);
             Url = new Uri(uri, hrefPathString);
@@ -55,7 +55,7 @@ namespace Hathor.Beatport.Lib.Models
             ReleasedDate = BeatportModelHelper.StringToDateTime(HttpUtility.HtmlDecode(releasedDateString));
             Release = new BeatportRelease(releaseHtmlNode, uri);
             Bpm = default;
-            Key = HttpUtility.HtmlDecode(key);
+            Key = keyHtmlNode is not null ? HttpUtility.HtmlDecode(keyHtmlNode.InnerText) : default;
             Genre = new BeatportGenre(node.SelectSingleNode(".//p[@class='buk-track-genre']").SelectSingleNode("//a"), uri);
             Label = new BeatportLabel(node.SelectSingleNode(".//p[@class='buk-track-labels']").SelectSingleNode("//a"), uri);
         }
