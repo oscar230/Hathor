@@ -69,10 +69,11 @@ namespace Hathor.Beatport.Lib.Models
                 BitRateInBitsPerSecond = default,
                 IsLyricsClean = default,
                 InAlbum = Release.ToAlbum(),
-                Comments = $"Label {Label}. Price {Price}.",
+                Comments = $"Label {Label}. Price {Price}. Version {Version}.",
                 Genres = Genre is not null ? new List<Genre>() { Genre.ToGenre() } : null,
                 Bpm = Bpm is not null ? float.Parse(Bpm) : default,
                 Key = Key,
+                Version = Version,
             };
         }
 

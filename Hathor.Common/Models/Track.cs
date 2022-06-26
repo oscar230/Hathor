@@ -17,17 +17,15 @@
         public IEnumerable<Genre>? Genres { get; set; }
         public float? Bpm { get; set; }
         public string? Key { get; set; }
+        public string? Version { get; set; }
 
         public override string? ToString()
         {
-            const string remixPrefix = "(";
-            const string remixPostfix = " Remix)";
-            const char trackRemixSeparated = ' ';
-            const string noArtistPlaceholder = "NO ARTIST";
-            const string artistTrackSeparated = " - ";
-            string artists = Artists is not null ? string.Join(", ", Artists) : noArtistPlaceholder;
-            string remixers = Remixers is not null ? $"{remixPrefix}{string.Join(' ', Remixers)}{remixPostfix}" : string.Empty;
-            return $"{artists}{artistTrackSeparated}{Title}{trackRemixSeparated}{remixers}";
+            string artists = Artists is not null && Artists.Any() ? string.Join(", ", Artists) : "NO ARTIST";
+            string remixers = Remixers is not null && Remixers.Any() ? $" ({string.Join(' ', Remixers)} Remix)" : string.Empty;
+            string version = !string.IsNullOrWhiteSpace(Version) ? $" ({Version})" : string.Empty;
+            string clean = IsLyricsClean ? $" (Clean)" : string.Empty;
+            return $"{artists} - {Title}{remixers}{version}{clean}";
         }
     }
 }
