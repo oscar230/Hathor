@@ -6,5 +6,9 @@
         internal int ResultsPerPage { get; set; }
         internal int CurrentPage { get; set; }
         internal IEnumerable<Uri>? DjChartUrls { get; set; }
+
+        public BeatportDjChartListingsPage(string html)
+        {
+        }
     }
 }

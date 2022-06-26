@@ -13,5 +13,9 @@
         internal Uri? LabelUrl { get; set; }
         internal string? Catalog { get; set; }
         internal Uri? ArtworkUrl { get; set; }
+
+        public BeatportRelease(string html)
+        {
+        }
     }
 }

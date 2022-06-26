@@ -4,5 +4,9 @@
     {
         internal Uri? Url { get; set; }
         internal string? SearchQuery => Helpers.BeatportModelHelper.SearchResultFromUrl(Url);
+
+        public BeatportSearchResults(string html)
+        {
+        }
     }
 }

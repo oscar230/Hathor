@@ -19,5 +19,9 @@
         internal Uri? GenreUrl { get; set; }
         internal string? Label { get; set; }
         internal Uri? LabelUri { get; set; }
+
+        public BeatportTrack(string html)
+        {
+        }
     }
 }

@@ -12,5 +12,9 @@
         internal string? Description { get; set; }
         internal string? Price { get; set; }
         internal IEnumerable<Uri>? TrackUris { get; set; }
+
+        public BeatportDjChart(string html)
+        {
+        }
     }
 }

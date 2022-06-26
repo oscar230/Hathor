@@ -8,5 +8,9 @@
         internal Uri? ArtworkUrl { get; set; }
         internal IEnumerable<Uri>? TopTenTrackUrls { get; set; }
         internal IEnumerable<Uri>? LatestReleasesUrls { get; set; }
+
+        public BeatportLabel(string html)
+        {
+        }
     }
 }
