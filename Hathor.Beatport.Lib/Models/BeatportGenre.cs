@@ -1,4 +1,6 @@
-﻿namespace Hathor.Beatport.Lib.Models
+﻿using HtmlAgilityPack;
+
+namespace Hathor.Beatport.Lib.Models
 {
     internal class BeatportGenre
     {
@@ -6,7 +8,7 @@
         internal string? Name { get; set; }
         internal Uri? Url { get; set; }
 
-        public BeatportGenre(string html)
+        public BeatportGenre(HtmlDocument htmlDocument)
         {
         }
     }

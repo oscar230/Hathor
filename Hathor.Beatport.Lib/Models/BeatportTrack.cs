@@ -1,4 +1,6 @@
-﻿namespace Hathor.Beatport.Lib.Models
+﻿using HtmlAgilityPack;
+
+namespace Hathor.Beatport.Lib.Models
 {
     internal class BeatportTrack
     {
@@ -20,7 +22,7 @@
         internal string? Label { get; set; }
         internal Uri? LabelUri { get; set; }
 
-        public BeatportTrack(string html)
+        public BeatportTrack(HtmlDocument htmlDocument)
         {
         }
     }

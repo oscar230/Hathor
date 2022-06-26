@@ -1,4 +1,6 @@
-﻿namespace Hathor.Beatport.Lib.Models
+﻿using HtmlAgilityPack;
+
+namespace Hathor.Beatport.Lib.Models
 {
     internal class BeatportDjChart
     {
@@ -13,7 +15,7 @@
         internal string? Price { get; set; }
         internal IEnumerable<Uri>? TrackUris { get; set; }
 
-        public BeatportDjChart(string html)
+        public BeatportDjChart(HtmlDocument htmlDocument)
         {
         }
     }

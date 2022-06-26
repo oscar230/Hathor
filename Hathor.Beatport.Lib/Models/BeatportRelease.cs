@@ -1,4 +1,6 @@
-﻿namespace Hathor.Beatport.Lib.Models
+﻿using HtmlAgilityPack;
+
+namespace Hathor.Beatport.Lib.Models
 {
     internal class BeatportRelease
     {
@@ -14,7 +16,7 @@
         internal string? Catalog { get; set; }
         internal Uri? ArtworkUrl { get; set; }
 
-        public BeatportRelease(string html)
+        public BeatportRelease(HtmlDocument htmlDocument)
         {
         }
     }

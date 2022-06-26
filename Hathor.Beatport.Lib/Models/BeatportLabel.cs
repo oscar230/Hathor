@@ -1,4 +1,6 @@
-﻿namespace Hathor.Beatport.Lib.Models
+﻿using HtmlAgilityPack;
+
+namespace Hathor.Beatport.Lib.Models
 {
     internal class BeatportLabel
     {
@@ -9,7 +11,7 @@
         internal IEnumerable<Uri>? TopTenTrackUrls { get; set; }
         internal IEnumerable<Uri>? LatestReleasesUrls { get; set; }
 
-        public BeatportLabel(string html)
+        public BeatportLabel(HtmlDocument htmlDocument)
         {
         }
     }
