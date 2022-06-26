@@ -7,10 +7,11 @@ namespace Hathor.Beatport.Lib.Models
         internal Uri? Url { get; set; }
         internal int ResultsPerPage { get; set; }
         internal int CurrentPage { get; set; }
-        internal IEnumerable<Uri>? DjChartUrls { get; set; }
+        internal IEnumerable<BeatportDjChart>? DjCharts { get; set; }
 
-        public BeatportDjChartListingsPage(HtmlDocument htmlDocument)
+        internal BeatportDjChartListingsPage(HtmlDocument htmlDocument, Uri uri)
         {
+            throw new NotImplementedException();
         }
     }
 }

@@ -24,5 +24,14 @@ namespace Hathor.Beatport.Lib.Helpers
             string relativeUri = new($"/search?q={searchQuery}");
             return new(baseUrl, relativeUri);
         }
+
+        internal static DateTime StringToDateTime(string date)
+        {
+            string[] dates = date.Split('-');
+            int year = int.Parse(dates[0]);
+            int month = int.Parse(dates[1]);
+            int day = int.Parse(dates[2]);
+            return new DateTime(year, month, day);
+        }
     }
 }

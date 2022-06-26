@@ -1,4 +1,6 @@
-﻿using HtmlAgilityPack;
+﻿using Hathor.Beatport.Lib.Helpers;
+using Hathor.Common.Models;
+using HtmlAgilityPack;
 
 namespace Hathor.Beatport.Lib.Models
 {
@@ -7,23 +9,73 @@ namespace Hathor.Beatport.Lib.Models
         internal int Id { get; set; }
         internal Uri? Url { get; set; }
         internal string? Title { get; set; }
-        internal string? Remixed { get; set; }
+        internal string? Version { get; set; }
         internal string? Price { get; set; }
-        internal string? ArtistName { get; set; }
-        internal int ArtistId { get; set; }
-        internal Uri? ArtistUrl { get; set; }
-        internal Uri? ArtworkUrl { get; set; }
-        internal string? Length { get; set; }
-        internal string? Released { get; set; }
+        internal IEnumerable<BeatportArtist>? Artists { get; set; }
+        internal IEnumerable<BeatportArtist>? Remixers { get; set; }
+        internal BeatportArtwork? Artwork { get; set; }
+        internal TimeSpan? Length { get; set; }
+        internal DateTime? ReleasedDate { get; set; }
+        internal BeatportRelease Release { get; set; }
         internal string? Bpm { get; set; }
         internal string? Key { get; set; }
-        internal string? Genre { get; set; }
-        internal Uri? GenreUrl { get; set; }
-        internal string? Label { get; set; }
-        internal Uri? LabelUri { get; set; }
+        internal BeatportGenre? Genre { get; set; }
+        internal BeatportLabel? Label { get; set; }
 
-        public BeatportTrack(HtmlDocument htmlDocument)
+        public BeatportTrack(HtmlDocument htmlDocument, Uri uri)
         {
+            throw new NotImplementedException();
         }
+
+        public BeatportTrack(HtmlNode node, Uri uri)
+        {
+            string hrefPathString = node.SelectSingleNode(".//p[@class='buk-track-title']").SelectSingleNode("//a").Attributes["href"].Value;
+            string artworkSrcString = node.SelectSingleNode(".//img[@class='buk-track-artwork lazy-load']").Attributes["src"].Value;
+            string releasedDateString = node.SelectSingleNode(".//p[@class='buk-track-released']").InnerText;
+            HtmlNodeCollection? artistsHtmlNodes = node.SelectNodes(".//p[@class='buk-track-artists']/a");
+            HtmlNodeCollection? remixersHtmlNodes = node.SelectNodes(".//p[@class='buk-track-remixers']/a");
+            IEnumerable<BeatportArtist>? artists = artistsHtmlNodes is not null ? artistsHtmlNodes.Select(a => new BeatportArtist(a, uri)) : new List<BeatportArtist>();
+            IEnumerable<BeatportArtist>? remixers = remixersHtmlNodes is not null ? remixersHtmlNodes.Select(a => new BeatportArtist(a, uri)) : new List<BeatportArtist>();
+
+            Id = int.Parse(node.Attributes["data-ec-id"].Value);
+            Url = new Uri(uri, hrefPathString);
+            Title = node.SelectSingleNode(".//span[@class='buk-track-primary-title']").InnerText;
+            Version = node.SelectSingleNode(".//span[@class='buk-track-remixed']").InnerText;
+            Price = node.SelectSingleNode(".//div[@class='buy-button track-buy-button \n']").Attributes["data-price"].Value;
+            Artists = artists;
+            Remixers = remixers;
+            Artwork = new BeatportArtwork(new Uri(artworkSrcString));
+            Length = default;
+            ReleasedDate = BeatportModelHelper.StringToDateTime(releasedDateString);
+            Release = new BeatportRelease(node.SelectSingleNode(".//div[@class='buk-track-artwork-parent']").SelectSingleNode("//a"), uri);
+            Bpm = default;
+            Key = node.SelectSingleNode(".//p[@class='buk-track-key']").InnerText;
+            Genre = new BeatportGenre(node.SelectSingleNode(".//p[@class='buk-track-genre']").SelectSingleNode("//a"), uri);
+            Label = new BeatportLabel(node.SelectSingleNode(".//p[@class='buk-track-labels']").SelectSingleNode("//a"), uri);
+        }
+
+        public Track ToTrack()
+        {
+            return new Track()
+            {
+                Uri = Url,
+                Title = Title,
+                Artists = Artists?.Select(a => a.ToArtist()),
+                Remixers = Remixers?.Select(r => r.ToArtist()),
+                Year = ReleasedDate.HasValue ? (short)ReleasedDate.Value.Year : null,
+                Duration = Length ?? default,
+                FileSizeInBytes = default,
+                SampleRateInHz = default,
+                BitRateInBitsPerSecond = default,
+                IsLyricsClean = default,
+                InAlbum = Release.ToAlbum(),
+                Comments = $"Label {Label}. Price {Price}.",
+                Genres = Genre is not null ? new List<Genre>() { Genre.ToGenre() } : null,
+                Bpm = Bpm is not null ? float.Parse(Bpm) : default,
+                Key = Key,
+            };
+        }
+
+        public override string? ToString() => Title;
     }
 }
