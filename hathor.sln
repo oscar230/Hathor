@@ -20,8 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Common", "HathorCommon\Hathor.Common.csproj", "{82481CF1-364B-47CB-B6A6-5FA148F23923}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Slider.App", "Hathor.Slider.App\Hathor.Slider.App.csproj", "{1603DDF0-7748-46A7-91DD-A55F2E099D78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Slider.Lib", "Hathor.Slider.Lib\Hathor.Slider.Lib.csproj", "{3C79B7B1-BB66-4D9B-901A-9B01B2F06880}"
@@ -44,6 +42,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Beatport.App", "Hath
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{7FD75C47-00EA-474F-98FC-5BB3F4646515}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Common", "Hathor.Common\Hathor.Common.csproj", "{9746A40C-971A-449D-B0F3-10451A1F5CB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,10 +54,6 @@ Global
 		{053C3069-BDF9-40E2-A5F4-15C16CBA367E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{053C3069-BDF9-40E2-A5F4-15C16CBA367E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{053C3069-BDF9-40E2-A5F4-15C16CBA367E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82481CF1-364B-47CB-B6A6-5FA148F23923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82481CF1-364B-47CB-B6A6-5FA148F23923}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82481CF1-364B-47CB-B6A6-5FA148F23923}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82481CF1-364B-47CB-B6A6-5FA148F23923}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1603DDF0-7748-46A7-91DD-A55F2E099D78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1603DDF0-7748-46A7-91DD-A55F2E099D78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1603DDF0-7748-46A7-91DD-A55F2E099D78}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -100,6 +96,10 @@ Global
 		{6065C132-4A2E-4480-873D-C6E7E987B4F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6065C132-4A2E-4480-873D-C6E7E987B4F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6065C132-4A2E-4480-873D-C6E7E987B4F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9746A40C-971A-449D-B0F3-10451A1F5CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9746A40C-971A-449D-B0F3-10451A1F5CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9746A40C-971A-449D-B0F3-10451A1F5CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9746A40C-971A-449D-B0F3-10451A1F5CB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

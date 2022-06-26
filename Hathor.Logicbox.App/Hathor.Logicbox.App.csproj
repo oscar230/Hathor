@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hathor.Common\Hathor.Common.csproj" />
     <ProjectReference Include="..\Hathor.Logicbox.Lib\Hathor.Logicbox.Lib.csproj" />
-    <ProjectReference Include="..\HathorCommon\Hathor.Common.csproj" />
   </ItemGroup>
 
 </Project>

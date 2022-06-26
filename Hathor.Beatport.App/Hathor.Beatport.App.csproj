@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hathor.Beatport.Lib\Hathor.Beatport.Lib.csproj" />
-    <ProjectReference Include="..\HathorCommon\Hathor.Common.csproj" />
+    <ProjectReference Include="..\Hathor.Common\Hathor.Common.csproj" />
   </ItemGroup>
 
 </Project>
