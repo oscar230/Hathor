@@ -14,9 +14,10 @@ async Task<bool> MainMenu()
     Beatport beatport = new(logger, _flurlClient);
     try
     {
-        List<Track> tracks = await beatport.Search("Avicii Levels");
-        ConsoleHelper.WriteLine($"Tracks: {tracks.Count}");
-        ConsoleHelper.WriteList(tracks);
+        List<Genre> genres = await beatport.AllGenres();
+        ConsoleHelper.WriteList(genres);
+        //List<Track> tracks = await beatport.Search("Avicii Levels");
+        //ConsoleHelper.WriteList(tracks);
     }
     catch (Exception ex)
     {

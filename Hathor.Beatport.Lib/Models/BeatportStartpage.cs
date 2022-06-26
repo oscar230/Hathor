@@ -9,19 +9,22 @@ namespace Hathor.Beatport.Lib.Models
         public BeatportStartpage(HtmlDocument htmlDocument, Uri uri)
         {
             List<BeatportGenre> genres = new();
-            HtmlNode listHtmlNode = htmlDocument.DocumentNode.SelectSingleNode(".//ul[@class='genre-drop-list__col']");
-            foreach (HtmlNode genreHtmlNode in listHtmlNode.SelectNodes(".//li[@class='genre-drop-list__item']/a"))
+            HtmlNodeCollection listHtmlNodeCollection = htmlDocument.DocumentNode.SelectNodes(".//ul[@class='genre-drop-list__col']");
+            foreach (HtmlNode listHtmlNode in listHtmlNodeCollection)
             {
-                string href = genreHtmlNode.Attributes["href"].Value;
-                string genreId = href.Split('/').Last();
-                string name = genreHtmlNode.Attributes["data-name"].Value;
-
-                genres.Add(new BeatportGenre()
+                foreach (HtmlNode genreHtmlNode in listHtmlNode.SelectNodes(".//li[@class='genre-drop-list__item']/a"))
                 {
-                    Id = int.Parse(genreId),
-                    Name = name,
-                    Url = new Uri(href)
-                });
+                    string href = genreHtmlNode.Attributes["href"].Value;
+                    string genreId = href.Split('/').Last();
+                    string name = genreHtmlNode.Attributes["data-name"].Value;
+
+                    genres.Add(new BeatportGenre()
+                    {
+                        Id = int.Parse(genreId),
+                        Name = name,
+                        Url = new Uri(uri, href)
+                    });
+                }
             }
             AllGenres = genres;
         }

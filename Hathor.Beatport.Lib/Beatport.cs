@@ -23,7 +23,8 @@ namespace Hathor.Beatport.Lib
             if (perPage.Equals(25) || perPage.Equals(50) || perPage.Equals(100) || perPage.Equals(150))
             {
                 string pathAndQuery = new($"search/tracks?q={HttpUtility.UrlEncode(searchQuery)}&per-page={perPage}");
-                BeatportSearchResults beatportSearchResults = await GetBeatportSearchResults(pathAndQuery);
+                HtmlDocument htmlDocument = await Download(pathAndQuery);
+                BeatportSearchResults beatportSearchResults = new(htmlDocument, UriWithBase(pathAndQuery));
                 List<Track> tracks = beatportSearchResults?.Tracks?.Select(t => t.ToTrack()).ToList() ?? new();
                 return tracks;
             }
@@ -33,46 +34,19 @@ namespace Hathor.Beatport.Lib
             }
         }
 
-        internal async Task<BeatportDjChart> GetBeatportDjChart(string uriPath)
+        public async Task<List<Genre>> AllGenres()
         {
-            HtmlDocument htmlDocument = await Download(uriPath);
-            return new BeatportDjChart(htmlDocument, UriWithBase(uriPath));
-        }
-
-        internal async Task<BeatportDjChartListingsPage> GetBeatportDjChartListingsPage(string uriPath)
-        {
-            HtmlDocument htmlDocument = await Download(uriPath);
-            return new BeatportDjChartListingsPage(htmlDocument, UriWithBase(uriPath));
-        }
-
-        internal async Task<BeatportGenre> GetBeatportGenre(string uriPath)
-        {
-            HtmlDocument htmlDocument = await Download(uriPath);
-            return new BeatportGenre(htmlDocument, UriWithBase(uriPath));
-        }
-
-        internal async Task<BeatportLabel> GetBeatportLabel(string uriPath)
-        {
-            HtmlDocument htmlDocument = await Download(uriPath);
-            return new BeatportLabel(htmlDocument, UriWithBase(uriPath));
-        }
-
-        internal async Task<BeatportRelease> GetBeatportRelease(string uriPath)
-        {
-            HtmlDocument htmlDocument = await Download(uriPath);
-            return new BeatportRelease(htmlDocument, UriWithBase(uriPath));
-        }
-
-        internal async Task<BeatportSearchResults> GetBeatportSearchResults(string uriPath)
-        {
-            HtmlDocument htmlDocument = await Download(uriPath);
-            return new BeatportSearchResults(htmlDocument, UriWithBase(uriPath));
-        }
-
-        internal async Task<BeatportTrack> GetBeatportTrack(string uriPath)
-        {
-            HtmlDocument htmlDocument = await Download(uriPath);
-            return new BeatportTrack(htmlDocument, UriWithBase(uriPath));
+            Uri uri = new Uri(_flurlClient.BaseUrl);
+            HtmlDocument htmlDocument = await Download(string.Empty);
+            BeatportStartpage beatportStartpage = new(htmlDocument, uri);
+            if (beatportStartpage.AllGenres is not null && beatportStartpage.AllGenres.Any())
+            {
+                return beatportStartpage.AllGenres.Select(g => g.ToGenre()).ToList();
+            }
+            else
+            {
+                return Enumerable.Empty<Genre>().ToList();
+            }
         }
 
         private async Task<HtmlDocument> Download(string uriPath)
