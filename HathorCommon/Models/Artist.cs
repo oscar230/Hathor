@@ -7,7 +7,6 @@
         
         public Artist(string? name)
         {
-            Guid = new Guid();
             Name = name;
         }
     }

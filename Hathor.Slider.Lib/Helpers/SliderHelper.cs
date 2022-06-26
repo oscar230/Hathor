@@ -65,7 +65,6 @@ namespace Hathor.Slider.Lib.Helpers
         {
             return new Common.Models.Track()
             {
-                Id = new Guid(),
                 Title = SliderHelper.GetTitle(queriedTrack),
                 Artists = SliderHelper.GetArtistsFromSliderTrack(queriedTrack)
             };

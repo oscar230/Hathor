@@ -3,7 +3,7 @@
     public class Track
     {
         public Uri? Uri { get; set; }
-        public string? Titel { get; set; }
+        public string? Title { get; set; }
         public IEnumerable<Artist>? Artists { get; set; }
         public IEnumerable<Artist>? Remixers { get; set; }
         public short Year { get; set; }

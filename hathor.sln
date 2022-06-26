@@ -40,7 +40,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Web", "Hathor.Web\Ha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Beatport.Lib", "Hathor.Beatport.Lib\Hathor.Beatport.Lib.csproj", "{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Beatport.App", "Hathor.Beatport.App\Hathor.Beatport.App.csproj", "{6065C132-4A2E-4480-873D-C6E7E987B4F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Beatport.App", "Hathor.Beatport.App\Hathor.Beatport.App.csproj", "{6065C132-4A2E-4480-873D-C6E7E987B4F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{7FD75C47-00EA-474F-98FC-5BB3F4646515}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
