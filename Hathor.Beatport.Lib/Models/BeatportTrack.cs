@@ -73,7 +73,6 @@ namespace Hathor.Beatport.Lib.Models
                 FileSizeInBytes = default,
                 SampleRateInHz = default,
                 BitRateInBitsPerSecond = default,
-                IsLyricsClean = false,
                 InAlbum = Release.ToAlbum(),
                 Comments = $"Key {Key}. Version {Version}. Label {Label}. Price {Price}.",
                 Genres = Genre is not null ? new List<Genre>() { Genre.ToGenre() } : null,

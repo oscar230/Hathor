@@ -11,7 +11,7 @@
         public long FileSizeInBytes { get; set; }
         public int SampleRateInHz { get; set; }
         public int BitRateInBitsPerSecond { get; set; }
-        public bool IsLyricsClean { get; set; }
+        public LyricVulgarity LyricVulgarity { get; set; } = LyricVulgarity.Unknown;
         public Album? InAlbum { get; set; }
         public string? Comments { get; set; }
         public IEnumerable<Genre>? Genres { get; set; }
@@ -24,8 +24,8 @@
             string artists = Artists is not null && Artists.Any() ? string.Join(", ", Artists) : "NO ARTIST";
             string remixers = Remixers is not null && Remixers.Any() ? $" ({string.Join(' ', Remixers)} Remix)" : string.Empty;
             string version = !string.IsNullOrWhiteSpace(Version) ? $" ({Version})" : string.Empty;
-            string clean = IsLyricsClean ? $" (Clean)" : string.Empty;
-            return $"{artists} - {Title}{remixers}{version}{clean}";
+            string lyricVulgarity = LyricVulgarity.Equals(LyricVulgarity.Unknown) ? string.Empty : $" ({LyricVulgarity})";
+            return $"{artists} - {Title}{remixers}{version}{lyricVulgarity}";
         }
     }
 }
