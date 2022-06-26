@@ -67,6 +67,17 @@ namespace Hathor.Beatport.Lib
             return playlist;
         }
 
+        public async Task<Playlist> TopHundredHypeTracks()
+        {
+            string path = "hype-100";
+            HtmlDocument htmlDocument = await Download(path);
+            Uri uri = UriWithBase(path);
+            BeatportSearchResults beatportSearchResults = new(htmlDocument, uri);
+            List<Track> tracks = beatportSearchResults?.Tracks?.Select(t => t.ToTrack()).ToList() ?? new();
+            Playlist playlist = new(uri, "Top 100 Hype Tracks.", tracks);
+            return playlist;
+        }
+
         private async Task<HtmlDocument> Download(string uriPath)
         {
             IFlurlRequest request = _flurlClient
