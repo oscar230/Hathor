@@ -9,6 +9,10 @@ namespace Hathor.Beatport.Lib.Models
         internal string? Name { get; set; }
         internal Uri? Url { get; set; }
 
+        public BeatportGenre()
+        {
+        }
+
         public BeatportGenre(HtmlDocument htmlDocument, Uri uri)
         {
             throw new NotImplementedException();
