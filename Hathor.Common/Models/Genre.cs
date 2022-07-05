@@ -6,5 +6,10 @@
         public string? Title { get; set; }
 
         public override string? ToString() => Title;
+
+        public Genre(string? title)
+        {
+            Title = title;
+        }
     }
 }
