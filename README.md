@@ -6,6 +6,7 @@ Hathor contains a number of projects aiming to help DJs aquire, analyze and mana
 Note that this may change.
 
 ![A diagram representing the concept architecture of this project.](https://github.com/oscar230/Hathor/blob/main/docs/concept.drawio.png?raw=true)
+- Documentation on how to aquire music from [slider avaliable here](https://github.com/oscar230/Hathor/blob/main/docs/slider.kz.md).
 
 ## Using withput building binaries
 Console applications are avaliable, these can be used locally.
