@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHxServices();
+builder.Services.AddHxMessenger();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
