@@ -14,7 +14,7 @@ namespace Hathor.Metadata.Lib
             CheckIfFileTypeIsSupported(fileInfo);
             using (TagLib.File audioFile = TagLib.File.Create(fileInfo.FullName))
             {
-                return TagLibMapper.ToTrack(audioFile);
+                return TagMapper.ToTrack(audioFile);
             }
         }
 
@@ -27,7 +27,7 @@ namespace Hathor.Metadata.Lib
             CheckIfFileIsReadOnly(fileInfo);
             using (TagLib.File audioFile = TagLib.File.Create(fileInfo.FullName))
             {
-                TagLibMapper.TrackToFile(audioFile, track);
+                TagMapper.TrackToFile(audioFile, track);
                 audioFile.Save();
             }
         }

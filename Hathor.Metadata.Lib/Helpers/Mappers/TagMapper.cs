@@ -3,7 +3,7 @@ using Hathor.Common.Models;
 
 namespace Hathor.Metadata.Lib.Helpers.Mappers
 {
-    internal static class TagLibMapper
+    internal static class TagMapper
     {
         internal static Track ToTrack(TagLib.File file, Track? overwriteTrack = null)
         {
