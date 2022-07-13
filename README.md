@@ -1,27 +1,18 @@
 # Hathor
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Hathor.svg/440px-Hathor.svg.png" alt="A image of Hathor, a ancient Egyptian godess with a red dress and blue hair, holding a cane." width="30vw"/>
-
-[![Build Status](https://drone.wonky.se/api/badges/oscar230/Hathor/status.svg)](https://drone.wonky.se/oscar230/Hathor)
-
 Hathor contains a number of projects aiming to help DJs aquire, analyze and manage music.
 
-[The Kanban board (for long term planning).](https://kanboard.wonky.se/public/board/25740027308e51bf83399425c9fdc7b372795aed6af737fab95d3cd9c4fa)
-
-The repostory contains the projects;
-* API
-* Logicbox
-  * Extends Pioneer's Rekordbox with more logical operators for intelligent playlists.
-* Slider
-  * Wraps [slider](https://slider.kz/) into an C# .NET library.
-* KeyFinder
-  * Based on Ibrahim Sha’ath's [keyfinder](https://www.ibrahimshaath.co.uk/keyfinder/) library.
-  * _I originally developed KeyFinder in 2011 as part of my MSc in Computer Science. The algorithms, design and implementation are described in some detail in my project report, which you can download, though it's a bit heavy going._ - Ibrahim Sha’ath
-  * Uses Aybe's [libKeyFinder.NET](https://github.com/aybe/libKeyFinder.NET) to port keyfinder to C# .NET Core.
-  * Implements models and converters for these musical keys; open key, camelot key and the traditional circle of fifths keys.
+## Concept architecture
+**This may change.**
+![A diagram representing the concept architecture of this project.](https://github.com/oscar230/Hathor/blob/main/docs/concept.drawio.png?raw=true)
 
 ## Using Hathor
+Console applications are avaliable, these can be used locally.
 See [releases](https://github.com/oscar230/hathor/releases), choose the latest one and follow the instruction.
-If you're ecnountering problems with exporting Rekordbox's collection as XML, see [this thread over at Denons forums](https://community.enginedj.com/t/no-more-xml-export-in-rekordbox-6-blocks-denon-prime-users-to-access-their-rekordbox-collection/21170/51), for some reason this conversation isn't happening at Pioneers forum.
+### Problems with Rekordbox?
+If you're encnountering problems with exporting Rekordbox's collection as XML, see [this thread over at Denons forums](https://community.enginedj.com/t/no-more-xml-export-in-rekordbox-6-blocks-denon-prime-users-to-access-their-rekordbox-collection/21170/51), for some reason this conversation isn't happening at Pioneers forum.
+### Dependencies
+Requires [.NET Runtime 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) for all console apps.
 
 ## Contribute
 * See [issues on Github](https://github.com/oscar230/hathor/issues) for any open issues, any help is welcomed!
