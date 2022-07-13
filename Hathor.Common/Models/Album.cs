@@ -9,6 +9,10 @@
         public IEnumerable<Artist>? Artists { get; set; }
         public IEnumerable<Label>? Labels { get; set; }
 
+        public Album()
+        {
+        }
+
         public Album(string? title)
         {
             Title = title;

@@ -79,7 +79,7 @@ namespace Hathor.Metadata.Lib.Helpers.Mappers
             file.Tag.Comment = track?.Comments ?? string.Empty;
             file.Tag.DateTagged = DateTime.UtcNow;
             file.Tag.Year = track?.Year is not null ? (uint)track.Year : default;
-            file.
+            //file.
             return file;
         }
     }

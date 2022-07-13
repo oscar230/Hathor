@@ -7,6 +7,10 @@
 
         public override string? ToString() => Title;
 
+        public Genre()
+        {
+        }
+
         public Genre(string? title)
         {
             Title = title;
