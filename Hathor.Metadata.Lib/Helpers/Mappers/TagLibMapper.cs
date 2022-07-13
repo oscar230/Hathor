@@ -68,18 +68,20 @@ namespace Hathor.Metadata.Lib.Helpers.Mappers
 
         internal static TagLib.File TrackToFile(TagLib.File file, Track track)
         {
-            IEnumerable<string>? artists = track?.Artists?.Select(a => a.ToString() ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s)) ;
-            IEnumerable<string>? remixers = track?.Remixers?.Select(r => r.Name ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s));
-            IEnumerable<string>? genres = track?.Genres?.Select(g => g.ToString() ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s));
-            file.Tag.Title = track?.Title ?? string.Empty;
+            IEnumerable<string>? artists = track.Artists?.Select(a => a.ToString() ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s));
+            IEnumerable<string>? remixers = track.Remixers?.Select(r => r.Name ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s));
+            IEnumerable<string>? genres = track.Genres?.Select(g => g.ToString() ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s));
+            file.Tag.Title = track.Title ?? string.Empty;
             file.Tag.Performers = artists?.ToArray() ?? Array.Empty<string>();
             file.Tag.AlbumArtists = artists?.ToArray() ?? Array.Empty<string>();
             file.Tag.Genres = genres?.ToArray() ?? Array.Empty<string>();
-            file.Tag.BeatsPerMinute = track?.Bpm is not null ? (uint)track.Bpm : default;
-            file.Tag.Comment = track?.Comments ?? string.Empty;
+            file.Tag.BeatsPerMinute = track.Bpm is not null ? (uint)track.Bpm : default;
+            file.Tag.Comment = string.Join(", ", (new string[] { track.Comments ?? string.Empty, track.Version ?? string.Empty, track.LyricVulgarity != LyricVulgarity.Unknown ? track.LyricVulgarity.ToString() : string.Empty}).Where(t => !string.IsNullOrWhiteSpace(t)));
             file.Tag.DateTagged = DateTime.UtcNow;
-            file.Tag.Year = track?.Year is not null ? (uint)track.Year : default;
-            //file.
+            file.Tag.Year = track.Year is not null ? (uint)track.Year : default;
+            file.Tag.Album = track.InAlbum?.Title ?? string.Empty;
+            file.Tag.BeatsPerMinute = Convert.ToUInt32(track.Bpm ?? 0.0f);
+            file.Tag.InitialKey = track.Key ?? string.Empty;
             return file;
         }
     }
