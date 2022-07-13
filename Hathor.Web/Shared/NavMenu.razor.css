@@ -60,3 +60,9 @@
         display: block;
     }
 }
+
+.nav-icon {
+    font-size: 1.25em;
+    margin-right: 10px;
+    margin-left: 10px;
+}

@@ -10,6 +10,7 @@ builder.Services.AddHxServices();
 builder.Services.AddHxMessenger();
 builder.Services.AddHxMessageBoxHost();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<TrackService>();
 
 var app = builder.Build();
 

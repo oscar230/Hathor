@@ -1,0 +1,24 @@
+﻿@page "/search"
+
+<PageTitle>Search tracks</PageTitle>
+
+@using Hathor.Web.Pages.Components
+@using Hathor.Web.Data
+@inject TrackService TrackService
+
+<h3>Search tracks</h3>
+
+<HxTabPanel InitialActiveTabId="tab0" RenderMode="TabPanelRenderMode.Card">
+	<HxTab Id="tab0">
+		<TitleTemplate>Simple search</TitleTemplate>
+		<Content>
+			<SearchSimple />
+		</Content>
+	</HxTab>
+	<HxTab>
+		<TitleTemplate>Advanced search</TitleTemplate>
+		<Content>
+			<SearchAdvanced />
+		</Content>
+	</HxTab>
+</HxTabPanel>
