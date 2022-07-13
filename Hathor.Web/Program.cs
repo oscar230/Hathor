@@ -1,6 +1,5 @@
 using Hathor.Web.Data;
 using Havit.Blazor.Components.Web;
-using Havit.Blazor.Components.Web.Bootstrap;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -25,6 +25,8 @@ Welcome to your new app.
 	ShowAsync result: @showResult.ToString("g")<br />
 	Confirm result: @confirmResult
 </p>
+<hr />
+<Counter IncrementAmount="10" />
 
 
 @code {
@@ -40,8 +42,7 @@ Welcome to your new app.
 
 		if (firstRender)
 		{
-			Messenger.AddInformation($"Welcome to the {nameof(HxMessenger)} documentation!");
-			Messenger.AddWarning("Setup", "services.AddHxMessenger(); in Startup.cs!\n<HxMessenger /> in MainLayout.razor");
+			Messenger.AddInformation("Welcome!");
 		}
 	}
 
