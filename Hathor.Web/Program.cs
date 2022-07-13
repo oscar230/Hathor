@@ -9,6 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHxServices();
 builder.Services.AddHxMessenger();
+builder.Services.AddHxMessageBoxHost();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();

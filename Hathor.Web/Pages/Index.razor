@@ -15,9 +15,24 @@ Welcome to your new app.
 <HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" Color="ThemeColor.Primary" />
 <hr />
 <HxButton Text="Clear" OnClick="HandleClear" Color="ThemeColor.Secondary" />
+<hr />
+<p>
+	<HxButton Text="MessageBox.ShowAsync()..." OnClick="OpenMessageBox" Color="ThemeColor.Primary" />
+	<HxButton Text="MessageBox.Confirm()..." OnClick="OpenConfirm" Color="ThemeColor.Primary" />
+</p>
+
+<p>
+	ShowAsync result: @showResult.ToString("g")<br />
+	Confirm result: @confirmResult
+</p>
+
 
 @code {
 	[Inject] protected IHxMessengerService Messenger { get; set; }
+    [Inject] protected IHxMessageBoxService MessageBox { get; set; }
+
+    private MessageBoxButtons showResult;
+    private bool? confirmResult;
 
 	protected override void OnAfterRender(bool firstRender)
 	{
@@ -48,5 +63,15 @@ Welcome to your new app.
 	private void HandleClear()
 	{
 		Messenger.Clear();
+	}
+
+	private async Task OpenMessageBox()
+	{
+		showResult = await MessageBox.ShowAsync("Info", "This is the text", MessageBoxButtons.OkCancel);
+	}
+
+	private async Task OpenConfirm()
+	{
+		confirmResult = await MessageBox.ConfirmAsync("Confirm", "Do you really want to ...?");
 	}
 }
