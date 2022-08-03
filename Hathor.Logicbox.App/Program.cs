@@ -1,6 +1,6 @@
 ﻿using Hathor.Common.Helpers;
 using Hathor.Common.Models.Rekordbox;
-using Hathor.Logicbox.Lib.Helpers;
+using Hathor.Logicbox.Lib;
 using System.Reflection;
 
 const string NAME = "Hathor Logicbox";
@@ -14,7 +14,7 @@ void ShowPlaylistTree(PlaylistNode playlistNode, int treeWidth = 0)
     }
     else
     {
-        ConsoleHelper.PrimaryWriteLine(displayText);
+        ConsoleHelper.OKWriteLine(displayText);
     }
     foreach (PlaylistNode currentPlaylistNode in playlistNode.PlaylistNodes ?? throw new Exception())
     {
@@ -27,15 +27,16 @@ void ShowHelp()
     throw new NotImplementedException();
 }
 
-bool MainMenu(Library library)
+bool MainMenu(RekordboxLibrary library)
 {
     string[] menuItems =
     {
         $"Quit {NAME}.",
         "Help.",
         "Show playlists.",
-        "Load tags from playlist folder."
+        "Load \"My Tags\".",
     };
+    ConsoleHelper.WriteLine("Main menu:");
     string menuSelection = ConsoleHelper.Selection<string>(menuItems.ToList(), "What do you want to do?");
     switch (menuSelection)
     {
@@ -48,19 +49,19 @@ bool MainMenu(Library library)
             break;
         case "Show playlists.":
             // Show playlists
-            PlaylistNode? rootPlaylistNode = library.Playlists?.PlaylistNode;
+            PlaylistNode? rootPlaylistNode = library.RootPlaylistNode;
             if (rootPlaylistNode is not null)
             {
                 ShowPlaylistTree(rootPlaylistNode);
             }
             break;
-        case "Load tags from playlist folder.":
+        case "Load \"My Tags\".":
             // Load tags
-            PlaylistNode? rootPlaylistNode2 = library.Playlists?.PlaylistNode;
+            PlaylistNode? rootPlaylistNode2 = library.RootPlaylistNode;
             if (rootPlaylistNode2 is not null)
             {
                 List<PlaylistNode> playlistNodesSelection = new();
-                //ConsoleHelper.Selection();
+                PlaylistNode selectedPlaylistNode = ConsoleHelper.Selection<PlaylistNode>(playlistNodesSelection, "Choose the root folder for your tags playlist.");
             }
             break;
         default:
@@ -70,20 +71,34 @@ bool MainMenu(Library library)
 }
 
 ConsoleHelper.WriteLine($"Welcome to {NAME}.");
-string? runningDirectoryAsString = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-if (runningDirectoryAsString is null)
+
+DirectoryInfo runningDirectory = new(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!);
+string[] allXmlFileNamesInRunningDirectory = Directory.GetFiles(runningDirectory.FullName, "*.xml", SearchOption.AllDirectories);
+string choosenXmlFileName;
+if (allXmlFileNamesInRunningDirectory.Any())
 {
-    throw new Exception("Could not the running process's running directory.");
+    choosenXmlFileName = ConsoleHelper.Selection(allXmlFileNamesInRunningDirectory.ToList(), "Choose you library xml file: ")!;
 }
-DirectoryInfo? runningDirectory = new FileInfo(runningDirectoryAsString).Directory;
-if (runningDirectory is null || !runningDirectory.Exists)
+else
 {
-    throw new DirectoryNotFoundException();
+    ConsoleHelper.WriteLine("Enter a path here or place one or more library xml files in the running directory of this executable.");
+    ConsoleHelper.WriteLine("Library xml file path: ");
+    choosenXmlFileName = Console.ReadLine() ?? string.Empty;
 }
-ConsoleHelper.WriteLine(runningDirectory.FullName);
-string[] xmlFileNames = Directory.GetFiles(runningDirectory.FullName, "*.xml", SearchOption.AllDirectories);
-string xmlFileName = ConsoleHelper.Selection(xmlFileNames.ToList(), "Choose you library xml file: ") ?? string.Empty;
-Library library = RekordboxHelper.GetLibrary(xmlFileName);
-ConsoleHelper.WriteLine($"Loaded the library successfully! The library is from {library.Product?.Name} version {library.Product?.Version} and contains {library.Collection?.Entries} tracks.");
+
+FileInfo choosenXmlFile;
+try
+{
+    choosenXmlFile = new FileInfo(choosenXmlFileName);
+}
+catch (Exception)
+{
+    ConsoleHelper.ErrorWriteLine($"Could not load library xml from path: {choosenXmlFileName}");
+    throw;
+}
+
+RekordboxLibrary library = new(choosenXmlFile);
+ConsoleHelper.OKWriteLine("Loaded the library successfully!");
+ConsoleHelper.WriteLine(library.ToString());
 while (MainMenu(library)) { }
 ConsoleHelper.WriteLine("Bye! :)");
