@@ -1,7 +1,7 @@
 # Slider
 
-## What is this?
-[Slider](https://slider.kz), a music downloading site. Aggregates several other sources for music, thses sources are unknown (but it's probably from [the russian social network VK](https://vk.com/)). The user interface is crap, but the site can be scraped.
+## What is slider?
+[Slider](https://slider.kz), a music downloading site. Aggregates several other sources for music, thses sources are unknown (but it's probably from [the russian social network VK](https://vk.com/), they have a music streaming service). The user interface is crap, but the site can be scraped.
 
 ## Terminology
 * `audios`, an array of several tracks.
@@ -69,3 +69,10 @@ Note that **image** is marked as DISREGARD, thats becouse it does not matter. Th
 The array **artist** (in **similarartists**) contains artists that the service beleive are related to your request, **match** is a float from `0` to `1` that indicates the relationship. In this example *Tim Berg* and *Avicii* have an absolute relationship (of `1`), becouse they are the same person.
 
 The **url** ([https://www.last.fm/music/Avicii](https://www.last.fm/music/Avicii)) contains a lot of metadata for the artist. This may be integrated in the future. Don't trust this site for top played tracks, it's top 10 does not seems to be that accurate.
+
+### Reversing VK
+MP3 downloads from [VK/VKontakte](https://en.wikipedia.org/wiki/VK_(service)) look very similar to slider's downloads. Sliders backend have to use VK as a repository. Here are some examples of VK audio download links. Note that these links have already been [url decoded](https://www.urldecoder.org/).
+- `https://cs3-1v4.vkuseraudio.net/p2/c49f9ece675317.mp3?extra=hDmOUgRWCu_tTz7OLYqsZUCCeqG9FiVLkvFTaJUDmYQqDJqeB7iW9hcrH2-XRg4UkYpFg4IqNLNrmP2tiwlBtYsUkfP6nLQ-kogH3fVylbunHL2LBIV8wf2p2ueOlno6GVn9yxMYi4EGeAz3orPFW1I&long_chunk=1&cc_key=`
+- `https://cs3-6v4.vkuseraudio.net/p1/04ef07876b9289.mp3?extra=sD9GKkqjitNS83awImyVUJZCMOmOYSvg-xLJvLWZj43VvRuBPaMMbfziCrAtre_I2WbhBWYIPPh9vV4gEfX93sYYtww1lmN66lY7RwFPJWrzctXDSnXQdqlTUbnofP-fwXuJdObJEu0C-CJXdpZ6K4A&long_chunk=1&cc_key=`
+- `https://cs3-5v4.vkuseraudio.net/p3/f67cd2fa9c29f6.mp3?extra=V_r_HxFZSiIlKr5RBTCb307xBfpgdk_gy9cSZGa1qCb0_6CBitdni0eMx7gzCGbAHxEOl_YYbv5-yovK7WPOPQF7iHMm1Z0QBuVRFGTKZec2FnbIZc3bx0aIJ4MQLVB1n1NjbvnWpcrUmGn2gNFwOsY&long_chunk=1&cc_key=`
+This repo may be a good place to start for inspiration [python273/vk_api](https://github.com/python273/vk_api) or maybe this blog [Four ways to get VK audio or "this is not a bug, but a feature](https://itnan.ru/post.php?c=1&p=519302).
