@@ -3,6 +3,10 @@ using Hathor.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// SQL
+string databaseConnection = builder.Configuration.GetConnectionString("HathorConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(databaseConnection));
+
 builder.Services.AddSingleton<IFlurlClientFactory, PerBaseUrlFlurlClientFactory>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -19,6 +23,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Auth
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
