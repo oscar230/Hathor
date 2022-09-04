@@ -38,8 +38,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Beatport.Lib", "Hath
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Beatport.App", "Hathor.Beatport.App\Hathor.Beatport.App.csproj", "{6065C132-4A2E-4480-873D-C6E7E987B4F4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{7FD75C47-00EA-474F-98FC-5BB3F4646515}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Common", "Hathor.Common\Hathor.Common.csproj", "{9746A40C-971A-449D-B0F3-10451A1F5CB7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Metadata.Lib", "Hathor.Metadata.Lib\Hathor.Metadata.Lib.csproj", "{27C48873-0C21-4ECE-A37B-3F7911C594C7}"
