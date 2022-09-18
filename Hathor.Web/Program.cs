@@ -1,7 +1,16 @@
 using Flurl.Http.Configuration;
 using Hathor.Web.Data;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Adds logging
+var serilog = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(serilog);
 
 // Add services to the container.
 builder.Services.AddSingleton<IFlurlClientFactory, PerBaseUrlFlurlClientFactory>();
