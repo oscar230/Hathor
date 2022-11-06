@@ -1,5 +1,7 @@
 using Flurl.Http.Configuration;
+using Hathor.Metadata.Lib;
 using Hathor.Web.Data;
+using Hathor.Web.Services;
 using Havit.Blazor.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -31,6 +33,10 @@ builder.Services.AddHxServices();
 builder.Services.AddHxMessenger();
 builder.Services.AddHxMessageBoxHost();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<BeatportService>();
+builder.Services.AddSingleton<MetadataService>();
+builder.Services.AddSingleton<RekordboxService>();
+builder.Services.AddSingleton<SliderService>();
 
 var app = builder.Build();
 
