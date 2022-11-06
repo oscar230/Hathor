@@ -43,10 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Repository\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Models\Abstracts\CreativeWork.cs" />
     <None Include="Models\Abstracts\ImageObject.cs" />
     <None Include="Models\Abstracts\MediaObject.cs" />
