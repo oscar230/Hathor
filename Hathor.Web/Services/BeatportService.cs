@@ -1,4 +1,5 @@
 ﻿using Flurl.Http;
+using Flurl.Http.Configuration;
 using Hathor.Web.Mappers;
 using Hathor.Web.Models;
 using Hathor.Web.Models.Beatport;
@@ -9,13 +10,15 @@ namespace Hathor.Web.Services
 {
     public class BeatportService
     {
+        private const string BaseUrl = "https://www.beatport.com/";
         private readonly ILogger<BeatportService> _logger;
         private readonly IFlurlClient _flurlClient;
 
-        public BeatportService(ILogger<BeatportService> logger, IFlurlClient flurlClient)
+        public BeatportService(ILogger<BeatportService> logger, IFlurlClientFactory flurlClientFactory)
         {
             _logger = logger;
-            _flurlClient = flurlClient;
+            Uri baseUrl = new(BaseUrl);
+            _flurlClient = flurlClientFactory.Get(baseUrl);
         }
 
         public async Task<Playlist> Search(string searchQuery, int perPage = 25)

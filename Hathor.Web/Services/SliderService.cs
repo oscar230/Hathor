@@ -1,4 +1,5 @@
 ﻿using Flurl.Http;
+using Flurl.Http.Configuration;
 using Hathor.Web.Models.Slider;
 using System.Web;
 
@@ -6,22 +7,16 @@ namespace Hathor.Web.Services
 {
     public class SliderService : IDisposable
     {
-        private const string BASE_URL = "https://slider.kz/";
+        private const string BaseUrl = "https://slider.kz/";
 
         private readonly ILogger<SliderService> _logger;
         private readonly IFlurlClient _flurlClient;
 
-        public SliderService(ILogger<SliderService> logger, IFlurlClient flurlClient)
+        public SliderService(ILogger<SliderService> logger, IFlurlClientFactory flurlClientFactory)
         {
-            if (flurlClient.BaseUrl is null)
-            {
-                throw new ArgumentException($"Parameter {nameof(flurlClient)} is missing the attribute {nameof(IFlurlClient.BaseUrl)}.");
-            }
-            else
-            {
-                _logger = logger;
-                _flurlClient = flurlClient;
-            }
+            Uri baseUrl = new(BaseUrl);
+            _flurlClient = flurlClientFactory.Get(baseUrl);
+            _logger = logger;
         }
 
         public async Task<IEnumerable<SliderTrack>> Search(string? query)
