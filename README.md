@@ -15,6 +15,7 @@
 	- [Add New File (64-bit)](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.AddNewFile64) (optional)
 - [.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
     - [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet)
+    - Install EF with `dotnet tool install --global dotnet-ef`.
 ## Using
 See [releases](https://github.com/oscar230/hathor/releases).
 ### Problems with Rekordbox?

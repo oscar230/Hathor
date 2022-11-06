@@ -1,10 +1,20 @@
-﻿namespace Hathor.Web.Models
+﻿using Hathor.Web.Extensions;
+using Hathor.Web.Helpers;
+using Hathor.Web.Models.Abstracts.DB;
+using System.ComponentModel.DataAnnotations;
+
+namespace Hathor.Web.Models
 {
-    public class Album
+    public class Album : SourcedFromWeb
     {
-        public Uri? Uri { get; set; }
+        private const int TitleMaxLength = 200;
+
+        [Required]
+        [MaxLength(TitleMaxLength)]
         public string? Title { get; set; }
-        public Uri? Artwork { get; set; }
+
+        [Url]
+        public Uri? ArtworkSourceAsUrl { get; set; }
         public IEnumerable<Track>? Tracks { get; set; }
         public IEnumerable<Artist>? Artists { get; set; }
         public IEnumerable<Label>? Labels { get; set; }
@@ -13,14 +23,13 @@
         {
         }
 
-        public Album(string? title)
+        public Album(
+            Uri? sourceAsUrl,
+            string? title,
+            IEnumerable<Track>? tracks,
+            IEnumerable<Artist>? artists) : base(sourceAsUrl)
         {
-            Title = title;
-        }
-
-        public Album(string? title, IEnumerable<Track>? tracks, IEnumerable<Artist>? artists)
-        {
-            Title = title;
+            Title = StringHelpers.Shorten(title, TitleMaxLength);
             Tracks = tracks;
             Artists = artists;
         }

@@ -1,4 +1,4 @@
-﻿namespace Hathor.Web.Models
+﻿namespace Hathor.Web.Models.Abstracts.NNode
 {
     public interface INNode
     {

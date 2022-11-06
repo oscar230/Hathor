@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hathor.Web.Models
+﻿namespace Hathor.Web.Models.Abstracts.NNode
 {
-    public class NNode : INNode
+    public abstract class NNode : INNode
     {
         private readonly NNode? _parent;
         private readonly List<NNode> _children;
@@ -176,9 +170,9 @@ namespace Hathor.Web.Models
             else if (rootNode.Children.Count() <= 2)
             {
                 return rootNode.Children.Count().Equals(2) ?
-                    (
+                    
                         IsBinaryTree(rootNode.Children.ElementAt(0)) && IsBinaryTree(rootNode.Children.ElementAt(1))
-                    ) :
+                     :
                     IsBinaryTree(rootNode.Children.First());
             }
             // Have more than 2 nodes, it's not a binary tree

@@ -1,4 +1,4 @@
-﻿using Hathor.Common.Models.Abstracts.Types;
+﻿using Hathor.Web.Models.Abstracts.Types;
 
 namespace Hathor.Web.Models.Abstracts
 {

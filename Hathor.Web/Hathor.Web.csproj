@@ -9,13 +9,78 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Abstracts\CreativeWork.cs" />
+    <Compile Remove="Models\Abstracts\ImageObject.cs" />
+    <Compile Remove="Models\Abstracts\MediaObject.cs" />
+    <Compile Remove="Models\Abstracts\MusicAlbum.cs" />
+    <Compile Remove="Models\Abstracts\MusicComposition.cs" />
+    <Compile Remove="Models\Abstracts\MusicGroup.cs" />
+    <Compile Remove="Models\Abstracts\MusicPlaylist.cs" />
+    <Compile Remove="Models\Abstracts\MusicRecording.cs" />
+    <Compile Remove="Models\Abstracts\MusicRelease.cs" />
+    <Compile Remove="Models\Abstracts\Organization.cs" />
+    <Compile Remove="Models\Abstracts\Person.cs" />
+    <Compile Remove="Models\Abstracts\Thing.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Flurl.Http" Version="3.2.4" />
     <PackageReference Include="Havit.Blazor.Components.Web.Bootstrap" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Serilog" Version="2.12.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Models\Abstracts\CreativeWork.cs" />
+    <None Include="Models\Abstracts\ImageObject.cs" />
+    <None Include="Models\Abstracts\MediaObject.cs" />
+    <None Include="Models\Abstracts\MusicAlbum.cs" />
+    <None Include="Models\Abstracts\MusicComposition.cs" />
+    <None Include="Models\Abstracts\MusicGroup.cs" />
+    <None Include="Models\Abstracts\MusicPlaylist.cs" />
+    <None Include="Models\Abstracts\MusicRecording.cs" />
+    <None Include="Models\Abstracts\MusicRelease.cs" />
+    <None Include="Models\Abstracts\Organization.cs" />
+    <None Include="Models\Abstracts\Person.cs" />
+    <None Include="Models\Abstracts\Thing.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\UserAgents\Android.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\UserAgents\Chrome.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\UserAgents\Edge.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\UserAgents\Firefox.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\UserAgents\IE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\UserAgents\Opera.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\UserAgents\Safari.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

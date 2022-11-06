@@ -1,6 +1,7 @@
 using Flurl.Http.Configuration;
 using Hathor.Web.Data;
 using Havit.Blazor.Components.Web;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,15 @@ builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(serilog);
 
 // Add services to the container.
+string connectionString = builder.Configuration.GetConnectionString("Default");
+if (!string.IsNullOrWhiteSpace(connectionString))
+{
+    builder.Services.AddSqlServer<HathorContext>(connectionString);
+}
+else
+{
+    throw new ArgumentException("The appsettings value for key \"ConnectionStrings:Default\" is not set.");
+}
 builder.Services.AddSingleton<IFlurlClientFactory, PerBaseUrlFlurlClientFactory>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();

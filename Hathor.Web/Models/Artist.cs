@@ -1,17 +1,24 @@
-﻿namespace Hathor.Web.Models
+﻿using Hathor.Web.Helpers;
+using Hathor.Web.Models.Abstracts.DB;
+using System.ComponentModel.DataAnnotations;
+
+namespace Hathor.Web.Models
 {
-    public class Artist
+    public class Artist : SourcedFromWeb
     {
-        public Uri? Uri { get; set; }
+        private const int NameMaxLength = 150;
+
+        [Required]
+        [MaxLength(NameMaxLength)]
         public string? Name { get; set; }
 
         public Artist()
         {
         }
 
-        public Artist(string? name)
+        public Artist(Uri? sourceAsUrl, string? name) : base(sourceAsUrl)
         {
-            Name = name;
+            Name = StringHelpers.Shorten(name, NameMaxLength);
         }
 
         public override string? ToString() => Name;

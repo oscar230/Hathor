@@ -1,9 +1,24 @@
-﻿namespace Hathor.Web.Models
+﻿using Hathor.Web.Helpers;
+using Hathor.Web.Models.Abstracts.DB;
+using System.ComponentModel.DataAnnotations;
+
+namespace Hathor.Web.Models
 {
-    public class Label
+    public class Label : SourcedFromWeb
     {
-        public Uri? Uri { get; set; }
+        private const int TitleMaxLength = 150;
+
+        [Required]
+        [MaxLength(TitleMaxLength)]
         public string? Title { get; set; }
-        public Uri? Artwork { get; set; }
+
+        [Url]
+        public Uri? ArtworkSourceAsUrl { get; set; }
+
+        public Label(Uri? sourceAsUrl, string? title, Uri? artwork) : base(sourceAsUrl)
+        {
+            Title = StringHelpers.Shorten(title, TitleMaxLength);
+            ArtworkSourceAsUrl = artwork;
+        }
     }
 }
