@@ -1,11 +1,10 @@
 ﻿using Flurl.Http;
-using Hathor.Beatport.Lib.Models;
-using Hathor.Common.Models;
+using Hathor.Web.Models;
+using Hathor.Web.Models.Beatport;
 using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
 using System.Web;
 
-namespace Hathor.Beatport.Lib
+namespace Hathor.Web.Services
 {
     public class Beatport
     {
@@ -38,7 +37,7 @@ namespace Hathor.Beatport.Lib
 
         public async Task<List<Genre>> AllGenres()
         {
-            Uri uri = new Uri(_flurlClient.BaseUrl);
+            Uri uri = new(_flurlClient.BaseUrl);
             HtmlDocument htmlDocument = await Download(string.Empty);
             BeatportStartpage beatportStartpage = new(htmlDocument, uri);
             if (beatportStartpage.AllGenres is not null && beatportStartpage.AllGenres.Any())

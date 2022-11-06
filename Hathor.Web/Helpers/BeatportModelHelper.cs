@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace Hathor.Beatport.Lib.Helpers
+namespace Hathor.Web.Helpers
 {
     internal static class BeatportModelHelper
     {
