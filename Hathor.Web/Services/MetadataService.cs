@@ -1,9 +1,8 @@
-﻿using Hathor.Common.Models;
-using Hathor.Metadata.Lib.Helpers.Mappers;
+﻿using Hathor.Web.Models;
 
 namespace Hathor.Metadata.Lib
 {
-    public class AudioFile
+    public class MetadataService
     {
         private readonly string[] supportedFileExtension = new string[] { "mp3" };
         public Track Read(string filePath) => Read(new FileInfo(filePath));
@@ -14,7 +13,7 @@ namespace Hathor.Metadata.Lib
             CheckIfFileTypeIsSupported(fileInfo);
             using (TagLib.File audioFile = TagLib.File.Create(fileInfo.FullName))
             {
-                return TagMapper.ToTrack(audioFile);
+                return MetadataTagMapper.ToTrack(audioFile);
             }
         }
 
@@ -27,7 +26,7 @@ namespace Hathor.Metadata.Lib
             CheckIfFileIsReadOnly(fileInfo);
             using (TagLib.File audioFile = TagLib.File.Create(fileInfo.FullName))
             {
-                TagMapper.TrackToFile(audioFile, track);
+                MetadataTagMapper.TrackToFile(audioFile, track);
                 audioFile.Save();
             }
         }

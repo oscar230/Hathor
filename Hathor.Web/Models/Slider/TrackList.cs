@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Hathor.Slider.Lib.Models.Slider
+namespace Hathor.Web.Models.Slider
 {
     public class TrackList
     {

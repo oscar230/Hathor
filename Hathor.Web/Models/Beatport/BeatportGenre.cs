@@ -1,5 +1,4 @@
-﻿using Hathor.Common.Models;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
 namespace Hathor.Web.Models.Beatport
 {
@@ -32,7 +31,7 @@ namespace Hathor.Web.Models.Beatport
         {
             return new Genre()
             {
-                Uri = Url,
+                SourceAsUrl = Url,
                 Title = Name,
             };
         }

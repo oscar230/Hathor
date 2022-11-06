@@ -1,9 +1,8 @@
-﻿using Hathor.Common.Helpers;
-using Hathor.Common.Models.Rekordbox;
+﻿using Hathor.Web.Models.Rekordbox;
 
-namespace Hathor.Logicbox.Lib.Helpers
+namespace Hathor.Web.Helpers
 {
-    internal class LoadHelper
+    internal class RekordboxHelper
     {
         internal static Library LoadLibrary(FileInfo libraryFileInfo)
         {

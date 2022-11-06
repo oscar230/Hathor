@@ -1,19 +1,17 @@
 ﻿using Flurl.Http;
-using Hathor.Slider.Lib.Helpers;
-using Hathor.Slider.Lib.Models.Slider;
-using Microsoft.Extensions.Logging;
+using Hathor.Web.Models.Slider;
 using System.Web;
 
-namespace Hathor.Slider.Lib
+namespace Hathor.Web.Services
 {
-    public class Query : IDisposable
+    public class SliderService : IDisposable
     {
         private const string BASE_URL = "https://slider.kz/";
 
-        private readonly ILogger<Query> _logger;
+        private readonly ILogger<SliderService> _logger;
         private readonly IFlurlClient _flurlClient;
 
-        public Query(ILogger<Query> logger, IFlurlClient flurlClient)
+        public SliderService(ILogger<SliderService> logger, IFlurlClient flurlClient)
         {
             if (flurlClient.BaseUrl is null)
             {
@@ -26,7 +24,7 @@ namespace Hathor.Slider.Lib
             }
         }
 
-        public async Task<List<Track>> Search(string? query)
+        public async Task<IEnumerable<SliderTrack>> Search(string? query)
         {
             TimeSpan timeout = new(0, 0, 10);
             string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query ?? string.Empty)}";
@@ -43,7 +41,7 @@ namespace Hathor.Slider.Lib
                     .WithHeader("Host", "slider.kz")
                     .WithHeader("Upgrade-Insecure-Requests", "1")
                     .GetJsonAsync<TrackList>();
-                List<Track> tracks = res?.SearchResponse?.SliderTracks ?? new List<Track>();
+                IEnumerable<SliderTrack> tracks = res?.SearchResponse?.SliderTracks ?? new List<SliderTrack>();
                 _logger.LogDebug($"Slider query found {tracks.Count()} tracks for query {query}.");
                 if (tracks.Any())
                 {
@@ -54,10 +52,10 @@ namespace Hathor.Slider.Lib
             {
                 _logger.LogWarning($"Search tracks failed!\nError: {ex.Message}");
             }
-            return new();
+            return Enumerable.Empty<SliderTrack>();
         }
 
-        public async Task<Stream> Download(Track track, CancellationToken cancellationToken = default) => await Download(track.DownloadPathAndQuery, cancellationToken);
+        public async Task<Stream> Download(SliderTrack track, CancellationToken cancellationToken = default) => await Download(track.DownloadPathAndQuery, cancellationToken);
 
         public async Task<Stream> Download(string pathAndQuery, CancellationToken cancellationToken = default)
         {

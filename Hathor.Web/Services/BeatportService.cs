@@ -1,4 +1,5 @@
 ﻿using Flurl.Http;
+using Hathor.Web.Mappers;
 using Hathor.Web.Models;
 using Hathor.Web.Models.Beatport;
 using HtmlAgilityPack;
@@ -6,12 +7,12 @@ using System.Web;
 
 namespace Hathor.Web.Services
 {
-    public class Beatport
+    public class BeatportService
     {
-        private readonly ILogger<Beatport> _logger;
+        private readonly ILogger<BeatportService> _logger;
         private readonly IFlurlClient _flurlClient;
 
-        public Beatport(ILogger<Beatport> logger, IFlurlClient flurlClient)
+        public BeatportService(ILogger<BeatportService> logger, IFlurlClient flurlClient)
         {
             _logger = logger;
             _flurlClient = flurlClient;
@@ -25,7 +26,7 @@ namespace Hathor.Web.Services
                 HtmlDocument htmlDocument = await Download(pathAndQuery);
                 Uri uri = UriWithBase(pathAndQuery);
                 BeatportSearchResults beatportSearchResults = new(htmlDocument, uri);
-                List<Track> tracks = beatportSearchResults?.Tracks?.Select(t => t.ToTrack()).ToList() ?? new();
+                List<Track> tracks = beatportSearchResults?.Tracks?.Select(beatportTrack => BeatportMapper.ToTrack(beatportTrack)).ToList() ?? new();
                 Playlist playlist = new(uri, $"Search results for {searchQuery}", tracks);
                 return playlist;
             }
@@ -61,7 +62,7 @@ namespace Hathor.Web.Services
             HtmlDocument htmlDocument = await Download(path);
             Uri uri = UriWithBase(path);
             BeatportSearchResults beatportSearchResults = new(htmlDocument, uri);
-            List<Track> tracks = beatportSearchResults?.Tracks?.Select(t => t.ToTrack()).ToList() ?? new();
+            List<Track> tracks = beatportSearchResults?.Tracks?.Select(beatportTrack => BeatportMapper.ToTrack(beatportTrack)).ToList() ?? new();
             Playlist playlist = new(uri, "Top 100 Tracks.", tracks);
             return playlist;
         }
@@ -72,7 +73,7 @@ namespace Hathor.Web.Services
             HtmlDocument htmlDocument = await Download(path);
             Uri uri = UriWithBase(path);
             BeatportSearchResults beatportSearchResults = new(htmlDocument, uri);
-            List<Track> tracks = beatportSearchResults?.Tracks?.Select(t => t.ToTrack()).ToList() ?? new();
+            List<Track> tracks = beatportSearchResults?.Tracks?.Select(beatportTrack => BeatportMapper.ToTrack(beatportTrack)).ToList() ?? new();
             Playlist playlist = new(uri, "Top 100 Hype Tracks.", tracks);
             return playlist;
         }

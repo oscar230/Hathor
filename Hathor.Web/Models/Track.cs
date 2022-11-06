@@ -46,22 +46,22 @@ namespace Hathor.Web.Models
         public string? Version { get; set; }
 
         public Track(
-            Uri? sourceAsUrl,
-            string? title,
-            IEnumerable<Artist>? artists,
-            IEnumerable<Artist>? remixers,
-            short? year,
-            TimeSpan duration,
-            long fileSizeInBytes,
-            int sampleRateInHz,
-            int bitRateInBitsPerSecond,
-            LyricVulgarity? lyricVulgarity,
-            Album? inAlbum,
-            string? comments,
-            IEnumerable<Genre>? genres,
-            float? bpm,
-            string? key,
-            string? version) : base(sourceAsUrl)
+            Uri? sourceAsUrl = null,
+            string? title = null,
+            IEnumerable<Artist>? artists = null,
+            IEnumerable<Artist>? remixers = null,
+            short? year = null,
+            TimeSpan? duration = null,
+            long? fileSizeInBytes = null,
+            int? sampleRateInHz = null,
+            int? bitRateInBitsPerSecond = null,
+            LyricVulgarity? lyricVulgarity = null,
+            Album? inAlbum = null,
+            string? comments = null,
+            IEnumerable<Genre>? genres = null,
+            float? bpm = null,
+            string? key = null,
+            string? version = null) : base(sourceAsUrl)
         {
             Title = StringHelpers.Shorten(title, TitleMaxLength);
             Artists = artists;

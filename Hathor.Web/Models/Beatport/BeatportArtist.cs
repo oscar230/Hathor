@@ -1,5 +1,4 @@
-﻿using Hathor.Common.Models;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
 namespace Hathor.Web.Models.Beatport
 {
@@ -33,7 +32,7 @@ namespace Hathor.Web.Models.Beatport
             return new Artist()
             {
                 Name = Name,
-                Uri = Url
+                SourceAsUrl = Url
             };
         }
 

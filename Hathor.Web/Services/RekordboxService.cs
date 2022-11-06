@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hathor.Common.Models.Rekordbox;
-using Hathor.Logicbox.Lib.Helpers;
+﻿using Hathor.Web.Helpers;
+using Hathor.Web.Models.Rekordbox;
 
-namespace Hathor.Logicbox.Lib
+namespace Hathor.Web.Services
 {
-    public class RekordboxLibrary
+    public class RekordboxService
     {
         private readonly Library _library;
 
-        public RekordboxLibrary(FileInfo fileInfo)
+        public RekordboxService(FileInfo fileInfo)
         {
-            _library = LoadHelper.LoadLibrary(fileInfo);
+            _library = RekordboxHelper.LoadLibrary(fileInfo);
         }
 
         public List<Track> Tracks => _library.Collection?.Tracks ?? new List<Track>();

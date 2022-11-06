@@ -1,4 +1,4 @@
-﻿using Hathor.Common.Models;
+﻿using Hathor.Web.Mappers;
 using HtmlAgilityPack;
 
 namespace Hathor.Web.Models.Beatport
@@ -25,11 +25,11 @@ namespace Hathor.Web.Models.Beatport
         {
             return new Playlist()
             {
-                Uri = Url,
+                SourceAsUrl = Url,
                 Title = Title,
                 Description = $"Beatport DJ Chart by {CreatedByArtist?.Name ?? "NO NAME"} at date {DateCreated}.",
-                Tracks = Tracks?.Select(t => t.ToTrack()),
-                Artwork = Artwork?.GetFullSize() ?? null,
+                Tracks = Tracks?.Select(beatportTrack => BeatportMapper.ToTrack(beatportTrack)),
+                ArtworkSourceAsUrl = Artwork?.GetFullSize() ?? null,
             };
         }
 

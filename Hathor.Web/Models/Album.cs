@@ -1,5 +1,4 @@
-﻿using Hathor.Web.Extensions;
-using Hathor.Web.Helpers;
+﻿using Hathor.Web.Helpers;
 using Hathor.Web.Models.Abstracts.DB;
 using System.ComponentModel.DataAnnotations;
 
@@ -24,10 +23,10 @@ namespace Hathor.Web.Models
         }
 
         public Album(
-            Uri? sourceAsUrl,
-            string? title,
-            IEnumerable<Track>? tracks,
-            IEnumerable<Artist>? artists) : base(sourceAsUrl)
+            Uri? sourceAsUrl = null,
+            string? title = null,
+            IEnumerable<Track>? tracks = null,
+            IEnumerable<Artist>? artists = null) : base(sourceAsUrl)
         {
             Title = StringHelpers.Shorten(title, TitleMaxLength);
             Tracks = tracks;

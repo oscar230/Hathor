@@ -1,4 +1,4 @@
-﻿using Hathor.Common.Models;
+﻿using Hathor.Web.Models;
 
 namespace Hathor.Web.Helpers
 {

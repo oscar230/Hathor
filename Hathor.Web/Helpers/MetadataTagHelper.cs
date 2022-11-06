@@ -1,22 +1,44 @@
-﻿using Hathor.Common.Helpers;
-using Hathor.Common.Models;
+﻿using Hathor.Web.Models;
+using System.Linq;
 
-namespace Hathor.Metadata.Lib.Helpers.Mappers
+namespace Hathor.Web.Helpers
 {
-    internal static class TagMapper
+    internal static class MetadataTagHelper
     {
-        internal static Track ToTrack(TagLib.File file, Track? overwriteTrack = null)
+        internal static Track ToTrack(TagLib.File file, Uri? sourceAsUrl, Track? overwriteTrack = null)
         {
             const char artistSeparator = ',';
-            IEnumerable<Artist> artists = file.Tag.Performers.Any() ? file.Tag.Performers.Select(a => new Artist(a)) : (file.Tag.AlbumArtists.Select(a => new Artist(a)) ?? Array.Empty<Artist>());
-            IEnumerable<Artist> remixers = file.Tag.RemixedBy.Contains(artistSeparator).Equals(0) ? new Artist[] { new Artist(file.Tag.RemixedBy) } : file.Tag.RemixedBy.Split(artistSeparator).Where(r => r.Length > 0).Select(r => new Artist(r));
-            IEnumerable<Genre> genres = file.Tag.Genres.Select(g => new Genre(g));
+            IEnumerable<Artist> artists;
+            if (file.Tag.Performers.Any())
+            {
+                artists = file.Tag.Performers.Select(artistName => new Artist(sourceAsUrl, artistName));
+            }
+            else
+            {
+                artists = file.Tag.AlbumArtists.Select(artistName => new Artist(sourceAsUrl, artistName));
+            }
+            IEnumerable<Artist> remixers;
+            if (file.Tag.RemixedBy.Contains(artistSeparator).Equals(0))
+            {
+                remixers = new Artist[]
+                {
+                    new Artist(sourceAsUrl, file.Tag.RemixedBy)
+                };
+            }
+            else
+            {
+                remixers = file.Tag.RemixedBy
+                    .Split(artistSeparator)
+                    .Where(remixerName => remixerName.Length > 0)
+                    .Select(remixerName => new Artist(sourceAsUrl, remixerName));
+            }
+            IEnumerable<Genre> genres = file.Tag.Genres.Select(genreTitle => new Genre(sourceAsUrl, genreTitle));
             string? version = TrackHelper.GetVersion(file.Name);
             if (overwriteTrack is null)
             {
                 return new Track()
                 {
-                    Uri = default,
+                    SourceAsUrl = sourceAsUrl,
                     Title = file.Tag.Title,
                     Artists = artists,
                     Remixers = remixers,
@@ -26,7 +48,7 @@ namespace Hathor.Metadata.Lib.Helpers.Mappers
                     SampleRateInHz = file.Properties.AudioSampleRate,
                     BitRateInBitsPerSecond = file.Properties.AudioBitrate,
                     LyricVulgarity = TrackHelper.GetLyricVulgarity(file.Name),
-                    InAlbum = file.Tag.Album.Any() ? new Album(file.Tag.Album) : default,
+                    InAlbum = file.Tag.Album.Any() ? new Album(sourceAsUrl, file.Tag.Album) : default,
                     Comments = file.Properties.Description,
                     Genres = genres,
                     Bpm = file.Tag.BeatsPerMinute,
@@ -52,7 +74,7 @@ namespace Hathor.Metadata.Lib.Helpers.Mappers
                 overwriteTrack.LyricVulgarity = TrackHelper.GetLyricVulgarity(file.Name);
                 if (file.Tag.Album.Any())
                 {
-                    overwriteTrack.InAlbum = new Album(file.Tag.Album);
+                    overwriteTrack.InAlbum = new Album(sourceAsUrl, file.Tag.Album);
                 }
                 overwriteTrack.Comments = file.Properties.Description;
                 overwriteTrack.Genres = genres;

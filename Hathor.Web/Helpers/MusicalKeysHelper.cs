@@ -1,4 +1,4 @@
-﻿using Hathor.Common.Models.MusicalKeys;
+﻿using Hathor.Web.Models.MusicalKeys;
 
 namespace Hathor.Web.Helpers
 {

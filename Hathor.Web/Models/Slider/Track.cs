@@ -1,9 +1,9 @@
-﻿using Hathor.Slider.Lib.Helpers;
+﻿using Hathor.Web.Helpers;
 using Newtonsoft.Json;
 
-namespace Hathor.Slider.Lib.Models.Slider
+namespace Hathor.Web.Models.Slider
 {
-    public class Track
+    public class SliderTrack
     {
         [JsonProperty("id")]
         public string? Id { get; set; }
@@ -19,18 +19,6 @@ namespace Hathor.Slider.Lib.Models.Slider
 
         [JsonProperty("extra")]
         public object? ExtraInformation { get; set; }
-
-        public override int GetHashCode()
-        {
-            if (Id is not null)
-            {
-                return Id.GetHashCode();
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(Id));
-            }
-        }
 
         public override string? ToString() => $"[{new TimeSpan(0, 0, (int)Duration).ToString(@"mm\:ss")}] {TitArt}";
 

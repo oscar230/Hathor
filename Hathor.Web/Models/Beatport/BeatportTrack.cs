@@ -1,5 +1,4 @@
-﻿using Hathor.Beatport.Lib.Helpers;
-using Hathor.Common.Models;
+﻿using Hathor.Web.Helpers;
 using HtmlAgilityPack;
 using System.Web;
 
@@ -58,28 +57,6 @@ namespace Hathor.Web.Models.Beatport
             Key = keyHtmlNode is not null ? HttpUtility.HtmlDecode(keyHtmlNode.InnerText) : default;
             Genre = new BeatportGenre(node.SelectSingleNode(".//p[@class='buk-track-genre']").SelectSingleNode("//a"), uri);
             Label = new BeatportLabel(node.SelectSingleNode(".//p[@class='buk-track-labels']").SelectSingleNode("//a"), uri);
-        }
-
-        public Track ToTrack()
-        {
-            return new Track()
-            {
-                Uri = Url,
-                Title = Title,
-                Artists = Artists?.Select(a => a.ToArtist()),
-                Remixers = Remixers?.Select(r => r.ToArtist()),
-                Year = ReleasedDate.HasValue ? (short)ReleasedDate.Value.Year : null,
-                Duration = Length ?? default,
-                FileSizeInBytes = default,
-                SampleRateInHz = default,
-                BitRateInBitsPerSecond = default,
-                InAlbum = Release.ToAlbum(),
-                Comments = $"Key {Key}. Version {Version}. Label {Label}. Price {Price}.",
-                Genres = Genre is not null ? new List<Genre>() { Genre.ToGenre() } : null,
-                Bpm = Bpm is not null ? float.Parse(Bpm) : default,
-                Key = Key,
-                Version = Version,
-            };
         }
 
         public override string? ToString() => Title;

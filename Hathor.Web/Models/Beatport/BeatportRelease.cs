@@ -1,4 +1,4 @@
-﻿using Hathor.Common.Models;
+﻿using Hathor.Web.Mappers;
 using HtmlAgilityPack;
 
 namespace Hathor.Web.Models.Beatport
@@ -32,10 +32,10 @@ namespace Hathor.Web.Models.Beatport
         {
             return new Album()
             {
-                Uri = Url,
+                SourceAsUrl = Url,
                 Title = Title,
-                Artwork = Artwork?.GetFullSize() ?? null,
-                Tracks = Tracks?.Select(t => t.ToTrack()),
+                ArtworkSourceAsUrl = Artwork?.GetFullSize() ?? null,
+                Tracks = Tracks?.Select(beatportTrack => BeatportMapper.ToTrack(beatportTrack)),
                 Artists = null,
                 Labels = null
             };

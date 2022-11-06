@@ -1,11 +1,12 @@
-﻿using HtmlAgilityPack;
+﻿using Hathor.Web.Helpers;
+using HtmlAgilityPack;
 
 namespace Hathor.Web.Models.Beatport
 {
     internal class BeatportSearchResults
     {
         internal Uri? Url { get; set; }
-        internal string? SearchQuery => Helpers.BeatportModelHelper.SearchResultFromUrl(Url);
+        internal string? SearchQuery => BeatportModelHelper.SearchResultFromUrl(Url);
         internal IEnumerable<BeatportTrack>? Tracks { get; set; }
 
         public BeatportSearchResults(HtmlDocument htmlDocument, Uri uri)
