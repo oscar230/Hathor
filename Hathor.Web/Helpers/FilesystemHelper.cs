@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Hathor.Common.Helpers
+namespace Hathor.Web.Helpers
 {
     public static class FilesystemHelper
     {

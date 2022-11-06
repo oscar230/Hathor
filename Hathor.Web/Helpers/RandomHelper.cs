@@ -1,4 +1,4 @@
-﻿namespace Hathor.Common.Helpers
+﻿namespace Hathor.Web.Helpers
 {
     public class RandomHelper
     {

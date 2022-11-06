@@ -1,6 +1,6 @@
 ﻿using Hathor.Common.Models;
 
-namespace Hathor.Common.Helpers
+namespace Hathor.Web.Helpers
 {
     public static class TrackHelper
     {

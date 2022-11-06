@@ -1,6 +1,6 @@
 ﻿using Hathor.Common.Models.MusicalKeys;
 
-namespace Hathor.Common.Helpers
+namespace Hathor.Web.Helpers
 {
     public static class MusicalKeysHelper
     {
