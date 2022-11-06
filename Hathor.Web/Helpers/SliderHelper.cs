@@ -68,7 +68,7 @@ namespace Hathor.Web.Helpers
 
         public static IEnumerable<Track> GetTracks(IEnumerable<SliderTrack> sliderTracks, Uri? sourceAsUrl)
         {
-            return sliderTracks.Select(sliderTrack => SliderMapper.Map(sliderTrack, sourceAsUrl));
+            return sliderTracks.Select(sliderTrack => SliderMapper.MapToTrack(sliderTrack, sourceAsUrl));
         }
 
         public static IEnumerable<Artist>? GetRemixers(SliderTrack track)

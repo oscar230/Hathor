@@ -7,10 +7,10 @@ namespace Hathor.Web.Services
     {
         private readonly Library _library;
 
-        public RekordboxService(FileInfo fileInfo)
-        {
-            _library = RekordboxHelper.LoadLibrary(fileInfo);
-        }
+        //public RekordboxService(FileInfo fileInfo)
+        //{
+        //    _library = RekordboxHelper.LoadLibrary(fileInfo);
+        //}
 
         public List<Track> Tracks => _library.Collection?.Tracks ?? new List<Track>();
 

@@ -1,5 +1,7 @@
 ﻿using Flurl.Http;
 using Flurl.Http.Configuration;
+using Hathor.Web.Helpers;
+using Hathor.Web.Mappers;
 using Hathor.Web.Models.Slider;
 using System.Web;
 
@@ -25,7 +27,7 @@ namespace Hathor.Web.Services
             string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query ?? string.Empty)}";
             try
             {
-                TrackList res = await _flurlClient
+                IFlurlRequest request = _flurlClient
                     .Request(pathAndQuery)
                     .WithTimeout(timeout)
                     .WithHeader("User-Agent", "APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)")
@@ -34,14 +36,12 @@ namespace Hathor.Web.Services
                     .WithHeader("Accept-Language", "en-US")
                     .WithHeader("Connection", "keep-alive")
                     .WithHeader("Host", "slider.kz")
-                    .WithHeader("Upgrade-Insecure-Requests", "1")
-                    .GetJsonAsync<TrackList>();
-                IEnumerable<SliderTrack> tracks = res?.SearchResponse?.SliderTracks ?? new List<SliderTrack>();
+                    .WithHeader("Upgrade-Insecure-Requests", "1");
+                IFlurlResponse response = await request.GetAsync();
+                TrackList trackList = await response.GetJsonAsync<TrackList>();
+                IEnumerable<SliderTrack> tracks = SliderMapper.MapToSliderTracks(trackList);
                 _logger.LogDebug($"Slider query found {tracks.Count()} tracks for query {query}.");
-                if (tracks.Any())
-                {
-                    return tracks;
-                }
+                return tracks;
             }
             catch (Exception ex)
             {

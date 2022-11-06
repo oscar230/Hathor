@@ -1,0 +1,41 @@
+﻿@page "/Slider"
+
+<PageTitle>Slider</PageTitle>
+
+@using Hathor.Web.Models.Slider
+@using Hathor.Web.Services
+@inject SliderService sliderService
+
+<h1>Slider</h1>
+
+@if (tracks is null)
+{
+    <p><em>Loading tracks...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Track</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var track in tracks)
+            {
+                <tr>
+                    <td>@track.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<SliderTrack>? tracks = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        tracks = await sliderService.Search("Hathor");
+    }
+}

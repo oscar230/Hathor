@@ -6,7 +6,7 @@ namespace Hathor.Web.Mappers
 {
     public static class SliderMapper
     {
-        public static Track Map(SliderTrack track, Uri? sourceAsUrl)
+        public static Track MapToTrack(SliderTrack track, Uri? sourceAsUrl)
         {
             return new Track(
                 sourceAsUrl: sourceAsUrl,
@@ -14,6 +14,20 @@ namespace Hathor.Web.Mappers
                 artists: SliderHelper.GetArtistsFromSliderTrack(sourceAsUrl, track),
                 remixers: SliderHelper.GetRemixers(track),
                 duration: SliderHelper.GetDuration(track));
+        }
+
+        public static IEnumerable<SliderTrack> MapToSliderTracks(TrackList trackList)
+        {
+            IEnumerable<SliderTrack> tracks;
+            if (trackList?.SearchResponse?.SliderTracks is not null && trackList.SearchResponse.SliderTracks.Any())
+            {
+                tracks = trackList.SearchResponse.SliderTracks;
+            }
+            else
+            {
+                tracks = Enumerable.Empty<SliderTrack>();
+            }
+            return tracks;
         }
     }
 }
