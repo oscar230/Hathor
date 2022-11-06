@@ -3,7 +3,7 @@ using Hathor.Common.Models;
 using HtmlAgilityPack;
 using System.Web;
 
-namespace Hathor.Beatport.Lib.Models
+namespace Hathor.Web.Models.Beatport
 {
     internal class BeatportTrack
     {

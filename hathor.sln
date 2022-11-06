@@ -32,11 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Slider.Test", "Hatho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Beatport.Lib", "Hathor.Beatport.Lib\Hathor.Beatport.Lib.csproj", "{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Common", "Hathor.Common\Hathor.Common.csproj", "{9746A40C-971A-449D-B0F3-10451A1F5CB7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Metadata.Lib", "Hathor.Metadata.Lib\Hathor.Metadata.Lib.csproj", "{27C48873-0C21-4ECE-A37B-3F7911C594C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hathor.Web", "Hathor.Web\Hathor.Web.csproj", "{3942E271-1FC9-4101-8D22-C04D1E58049D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hathor.Web", "Hathor.Web\Hathor.Web.csproj", "{3942E271-1FC9-4101-8D22-C04D1E58049D}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Hathor.Database", "Hathor.Database\Hathor.Database.sqlproj", "{C6D7733B-533B-450E-ACE1-6A92A573DD53}"
 EndProject
@@ -74,10 +72,6 @@ Global
 		{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FCD5DB9-EF0D-4B60-AE0D-3CE4071096D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9746A40C-971A-449D-B0F3-10451A1F5CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9746A40C-971A-449D-B0F3-10451A1F5CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9746A40C-971A-449D-B0F3-10451A1F5CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9746A40C-971A-449D-B0F3-10451A1F5CB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27C48873-0C21-4ECE-A37B-3F7911C594C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27C48873-0C21-4ECE-A37B-3F7911C594C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27C48873-0C21-4ECE-A37B-3F7911C594C7}.Release|Any CPU.ActiveCfg = Release|Any CPU

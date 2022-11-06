@@ -1,7 +1,7 @@
 ﻿using Hathor.Common.Models;
 using HtmlAgilityPack;
 
-namespace Hathor.Beatport.Lib.Models
+namespace Hathor.Web.Models.Beatport
 {
     internal class BeatportDjChart
     {

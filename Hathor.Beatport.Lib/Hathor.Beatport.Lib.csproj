@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hathor.Common\Hathor.Common.csproj" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
