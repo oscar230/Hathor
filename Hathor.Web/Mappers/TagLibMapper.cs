@@ -1,11 +1,11 @@
-﻿using Hathor.Web.Models;
-using System.Linq;
+﻿using Hathor.Web.Helpers;
+using Hathor.Web.Models;
 
-namespace Hathor.Web.Helpers
+namespace Hathor.Web.Mappers
 {
-    internal static class MetadataTagHelper
+    internal class TagLibMapper
     {
-        internal static Track ToTrack(TagLib.File file, Uri? sourceAsUrl, Track? overwriteTrack = null)
+        internal static Track ToTrack(Uri? sourceAsUrl, TagLib.File file, Track? overwriteTrack = null)
         {
             const char artistSeparator = ',';
             IEnumerable<Artist> artists;
@@ -88,23 +88,23 @@ namespace Hathor.Web.Helpers
             }
         }
 
-        internal static TagLib.File TrackToFile(TagLib.File file, Track track)
+        internal static TagLib.File ToTagLibFile(TagLib.File baseTagLibFile, Track track)
         {
             IEnumerable<string>? artists = track.Artists?.Select(a => a.ToString() ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s));
             IEnumerable<string>? remixers = track.Remixers?.Select(r => r.Name ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s));
             IEnumerable<string>? genres = track.Genres?.Select(g => g.ToString() ?? string.Empty).Where(s => !string.IsNullOrWhiteSpace(s));
-            file.Tag.Title = track.Title ?? string.Empty;
-            file.Tag.Performers = artists?.ToArray() ?? Array.Empty<string>();
-            file.Tag.AlbumArtists = artists?.ToArray() ?? Array.Empty<string>();
-            file.Tag.Genres = genres?.ToArray() ?? Array.Empty<string>();
-            file.Tag.BeatsPerMinute = track.Bpm is not null ? (uint)track.Bpm : default;
-            file.Tag.Comment = string.Join(", ", (new string[] { track.Comments ?? string.Empty, track.Version ?? string.Empty, track.LyricVulgarity != LyricVulgarity.Unknown ? track.LyricVulgarity.ToString() : string.Empty}).Where(t => !string.IsNullOrWhiteSpace(t)));
-            file.Tag.DateTagged = DateTime.UtcNow;
-            file.Tag.Year = track.Year is not null ? (uint)track.Year : default;
-            file.Tag.Album = track.InAlbum?.Title ?? string.Empty;
-            file.Tag.BeatsPerMinute = Convert.ToUInt32(track.Bpm ?? 0.0f);
-            file.Tag.InitialKey = track.Key ?? string.Empty;
-            return file;
+            baseTagLibFile.Tag.Title = track.Title ?? string.Empty;
+            baseTagLibFile.Tag.Performers = artists?.ToArray() ?? Array.Empty<string>();
+            baseTagLibFile.Tag.AlbumArtists = artists?.ToArray() ?? Array.Empty<string>();
+            baseTagLibFile.Tag.Genres = genres?.ToArray() ?? Array.Empty<string>();
+            baseTagLibFile.Tag.BeatsPerMinute = track.Bpm is not null ? (uint)track.Bpm : default;
+            baseTagLibFile.Tag.Comment = string.Join(", ", (new string[] { track.Comments ?? string.Empty, track.Version ?? string.Empty, track.LyricVulgarity != LyricVulgarity.Unknown ? track.LyricVulgarity.ToString() : string.Empty }).Where(t => !string.IsNullOrWhiteSpace(t)));
+            baseTagLibFile.Tag.DateTagged = DateTime.UtcNow;
+            baseTagLibFile.Tag.Year = track.Year is not null ? (uint)track.Year : default;
+            baseTagLibFile.Tag.Album = track.InAlbum?.Title ?? string.Empty;
+            baseTagLibFile.Tag.BeatsPerMinute = Convert.ToUInt32(track.Bpm ?? 0.0f);
+            baseTagLibFile.Tag.InitialKey = track.Key ?? string.Empty;
+            return baseTagLibFile;
         }
     }
 }

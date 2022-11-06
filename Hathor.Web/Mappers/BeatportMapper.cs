@@ -1,7 +1,5 @@
-﻿using Flurl;
-using Hathor.Web.Models;
+﻿using Hathor.Web.Models;
 using Hathor.Web.Models.Beatport;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Hathor.Web.Mappers
 {

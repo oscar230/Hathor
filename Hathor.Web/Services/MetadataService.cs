@@ -1,4 +1,5 @@
-﻿using Hathor.Web.Models;
+﻿using Hathor.Web.Mappers;
+using Hathor.Web.Models;
 
 namespace Hathor.Metadata.Lib
 {
@@ -13,7 +14,7 @@ namespace Hathor.Metadata.Lib
             CheckIfFileTypeIsSupported(fileInfo);
             using (TagLib.File audioFile = TagLib.File.Create(fileInfo.FullName))
             {
-                return MetadataTagMapper.ToTrack(audioFile);
+                return TagLibMapper.ToTrack(null, audioFile); // TODO Url shall not be null
             }
         }
 
@@ -26,7 +27,7 @@ namespace Hathor.Metadata.Lib
             CheckIfFileIsReadOnly(fileInfo);
             using (TagLib.File audioFile = TagLib.File.Create(fileInfo.FullName))
             {
-                MetadataTagMapper.TrackToFile(audioFile, track);
+                TagLibMapper.ToTagLibFile(audioFile, track);
                 audioFile.Save();
             }
         }
