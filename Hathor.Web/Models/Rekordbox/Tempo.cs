@@ -1,10 +1,13 @@
-﻿using System.Xml.Serialization;
+﻿using Hathor.Web.Models.Abstracts.DB;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace Hathor.Web.Models.Rekordbox
 {
-	[XmlRoot(ElementName = "TEMPO")]
-	public class Tempo
-	{
+    [Table("RekordboxTempos")]
+    [XmlRoot(ElementName = "TEMPO")]
+	public class Tempo : Base
+    {
 		[XmlAttribute(AttributeName = "Inizio")]
 		public string? Inizio { get; set; }
 

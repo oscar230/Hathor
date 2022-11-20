@@ -1,10 +1,11 @@
 ﻿using Hathor.Web.Helpers;
 using Hathor.Web.Models.Abstracts.DB;
-using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hathor.Web.Models
 {
+    [Table("Playlists")]
     public class Playlist : SourcedFromWeb
     {
         private const int TitleMaxLength = 150;

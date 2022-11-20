@@ -1,9 +1,12 @@
-﻿using System.Xml.Serialization;
+﻿using Hathor.Web.Models.Abstracts.DB;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace Hathor.Web.Models.Rekordbox
 {
-	[XmlRoot(ElementName = "NODE")]
-	public class PlaylistNode
+    [Table("RekordboxPlaylistNodes")]
+    [XmlRoot(ElementName = "NODE")]
+	public class PlaylistNode : Base
 	{
 		[XmlElement(ElementName = "NODE")]
 		public List<PlaylistNode>? PlaylistNodes { get; set; }
@@ -22,11 +25,13 @@ namespace Hathor.Web.Models.Rekordbox
 
 		[XmlAttribute(AttributeName = "Entries")]
 		public string? Entries { get; set; }
-
-		[XmlIgnore]
+        
+		[NotMapped]
+        [XmlIgnore]
 		public bool IsFolder => Entries is null;
 
-		[XmlIgnore]
+        [NotMapped]
+        [XmlIgnore]
 		public bool IsPlaylist => Entries is not null;
 	}
 }

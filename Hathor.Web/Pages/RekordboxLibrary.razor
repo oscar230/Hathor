@@ -1,0 +1,85 @@
+﻿@page "/Library"
+@using Hathor.Web.Services
+@using RLibrary = Models.Rekordbox.Library
+@inject IHxMessengerService MessengerService
+@inject RekordboxService RekordboxService
+
+<h3>Upload a Rekorbox export</h3>
+<p>Upload a Rekordbox export as an xml-file. To aquire this file; In rekordbox choose <i>File > Export Collection in XML format</i>.</p>
+
+
+<HxInputFile @ref="hxInputFileComponent" Label="Select export files" UploadUrl="/RekordboxLibrary" OnFileUploaded="FileUploaded" OnProgress="Progress" />
+<br />
+<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="OnClickUploadButton" CssClass="my-2" />
+<HxButton Text="Clear" Color="ThemeColor.Secondary" OnClick="OnClickClearButton" CssClass="my-2" Enabled="@buttonClearEnabled" />
+@if (uploadProgress is not null)
+{
+    <p>Uploaded @uploadProgress.UploadedBytes out of @uploadProgress.UploadSize bytes.</p>
+    if (uploadProgress.UploadedBytes == uploadProgress.UploadSize)
+    {
+        <p>Processing file, please wait...</p>
+    }
+}
+
+<h3>Imported libraries</h3>
+<HxGrid TItem="RLibrary" Responsive="true" DataProvider="GetGridData" PageSize="10">
+    <Columns>
+        <HxGridColumn TItem="RLibrary" HeaderText="Upload date" ItemTextSelector="@(item => item.UploadDateTimeOffset.ToString())" SortString="@nameof(RLibrary.UploadDateTimeOffset)" IsDefaultSortColumn="true" />
+        <HxGridColumn TItem="RLibrary" HeaderText="Id" ItemTextSelector="@(item => item.Id.ToString().Split('-')[0])" SortString="@nameof(RLibrary.Id)" />
+        <HxGridColumn TItem="RLibrary" HeaderText="Rekordbox version" ItemTextSelector="@(item => item.Version)" SortString="@nameof(RLibrary.Version)" />
+    </Columns>
+</HxGrid>
+
+@code
+{
+    private HxInputFile? hxInputFileComponent;
+    private bool buttonClearEnabled = false;
+    private UploadProgressEventArgs? uploadProgress;
+
+    private void FileUploaded(FileUploadedEventArgs fileUploaded)
+    {
+        if (string.IsNullOrWhiteSpace(fileUploaded.ResponseText))
+        {
+            MessengerService.AddInformation($"{fileUploaded.OriginalFileName} uploaded.");
+        }
+        else
+        {
+            MessengerService.AddInformation($"{fileUploaded.OriginalFileName} uploaded.", fileUploaded.ResponseText);
+        }
+        buttonClearEnabled = false;
+        uploadProgress = null;
+    }
+
+    private Task<GridDataProviderResult<RLibrary>> GetGridData(GridDataProviderRequest<RLibrary> request)
+    {
+        List<RLibrary> libraries = RekordboxService.Libraries(50);
+        return Task.FromResult<GridDataProviderResult<RLibrary>>(new()
+        {
+            Data = libraries,
+            TotalCount = libraries.Count()
+        });
+    }
+
+    private async Task OnClickUploadButton(MouseEventArgs mouseEventArgs)
+    {
+        if (hxInputFileComponent is not null)
+        {
+            await hxInputFileComponent.StartUploadAsync();
+            buttonClearEnabled = false;
+        }
+    }
+
+    private async Task OnClickClearButton(MouseEventArgs mouseEventArgs)
+    {
+        if (hxInputFileComponent is not null)
+        {
+            await hxInputFileComponent.ResetAsync();
+            buttonClearEnabled = false;
+        }
+    }
+
+    private void Progress(UploadProgressEventArgs uploadProgress)
+    {
+        this.uploadProgress = uploadProgress;
+    }
+}

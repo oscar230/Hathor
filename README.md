@@ -16,6 +16,15 @@
 - [.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
     - [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet)
     - Install EF with `dotnet tool install --global dotnet-ef`.
+### EF
+Create migration
+```ps
+dotnet ef migrations add MIGRATION_NAME --context HathorContext
+```
+Update database
+```ps
+dotnet ef database update --context HathorContext
+```
 ## Using
 See [releases](https://github.com/oscar230/hathor/releases).
 ### Problems with Rekordbox?

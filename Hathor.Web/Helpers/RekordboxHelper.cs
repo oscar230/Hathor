@@ -4,9 +4,15 @@ namespace Hathor.Web.Helpers
 {
     internal class RekordboxHelper
     {
-        internal static Library LoadLibrary(FileInfo libraryFileInfo)
+        /// <summary>
+        /// Creates a Rekordbox library from a HTTP form file.
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        internal static Library CreateLibrary(IFormFile formFile)
         {
-            return XmlHelper.Deserialize<Library>(libraryFileInfo);
+            Stream stream = formFile.OpenReadStream();
+            return XmlHelper.Deserialize<Library>(stream);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Hathor.Web.Models;
+using Hathor.Web.Models.Rekordbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hathor.Web.Data
@@ -15,5 +16,6 @@ namespace Hathor.Web.Data
         //public DbSet<Label> Labels => Set<Label>();
         //public DbSet<Playlist> Playlists => Set<Playlist>();
         //public DbSet<Track> Tracks => Set<Track>();
+        public DbSet<Library> Libraries => Set<Library>();
     }
 }

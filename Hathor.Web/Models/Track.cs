@@ -1,9 +1,11 @@
 ﻿using Hathor.Web.Helpers;
 using Hathor.Web.Models.Abstracts.DB;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hathor.Web.Models
 {
+    [Table("Tracks")]
     public class Track : SourcedFromWeb
     {
         private const int TitleMaxLength = 300;

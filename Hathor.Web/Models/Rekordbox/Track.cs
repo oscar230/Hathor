@@ -1,16 +1,23 @@
-﻿using System.Xml.Serialization;
+﻿using Hathor.Web.Models.Abstracts.DB;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace Hathor.Web.Models.Rekordbox
 {
+    [Table("RekordboxTracks")]
+    [Index(nameof(TrackID), nameof(Artist), nameof(Name), nameof(Remixer), nameof(Genre))]
 	[XmlRoot(ElementName = "TRACK")]
-	public class Track
-	{
+	public class Track : Base
+    {
 		[XmlElement(ElementName = "TEMPO")]
 		public Tempo? TEMPO { get; set; }
 
 		[XmlElement(ElementName = "POSITION_MARK")]
 		public List<PositionMark>? PositionMarks { get; set; }
 
+		[Required]
 		[XmlAttribute(AttributeName = "TrackID")]
 		public string? TrackID { get; set; }
 

@@ -1,9 +1,12 @@
-﻿using System.Xml.Serialization;
+﻿using Hathor.Web.Models.Abstracts.DB;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace Hathor.Web.Models.Rekordbox
 {
-	[XmlRoot(ElementName = "POSITION_MARK")]
-	public class PositionMark
+    [Table("RekordboxPositionMarks")]
+    [XmlRoot(ElementName = "POSITION_MARK")]
+	public class PositionMark : Base
 	{
 		[XmlAttribute(AttributeName = "Name")]
 		public string? Name { get; set; }

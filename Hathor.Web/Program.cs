@@ -1,9 +1,8 @@
 using Flurl.Http.Configuration;
-using Hathor.Metadata.Lib;
 using Hathor.Web.Data;
 using Hathor.Web.Services;
 using Havit.Blazor.Components.Web;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,17 +25,25 @@ else
 {
     throw new ArgumentException("The appsettings value for key \"ConnectionStrings:Default\" is not set.");
 }
+
 builder.Services.AddSingleton<IFlurlClientFactory, PerBaseUrlFlurlClientFactory>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHxServices();
 builder.Services.AddHxMessenger();
 builder.Services.AddHxMessageBoxHost();
-builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddSingleton<BeatportService>();
-builder.Services.AddSingleton<MetadataService>();
-builder.Services.AddSingleton<RekordboxService>();
-builder.Services.AddSingleton<SliderService>();
+
+builder.Services.AddScoped<RekordboxService>();
+builder.Services.AddScoped<SliderService>();
+
+builder.Services.AddControllers();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+}
 
 var app = builder.Build();
 
@@ -56,5 +63,13 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+app.MapControllers();
+
+
+if (builder.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.Run();

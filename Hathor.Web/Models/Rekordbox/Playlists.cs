@@ -1,8 +1,11 @@
-﻿using System.Xml.Serialization;
+﻿using Hathor.Web.Models.Abstracts.DB;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace Hathor.Web.Models.Rekordbox
 {
-    public class Playlists
+    [Table("RekordboxPlaylists")]
+    public class Playlists : Base
     {
         [XmlElement(ElementName = "NODE")]
         public PlaylistNode? PlaylistNode { get; set; }
