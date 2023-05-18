@@ -3,12 +3,15 @@ using Flurl.Http.Configuration;
 using Hathor.Web.Helpers;
 using Hathor.Web.Mappers;
 using Hathor.Web.Models.Slider;
+using System.Text;
 using System.Web;
 
 namespace Hathor.Web.Services
 {
     public class SliderService : IDisposable
     {
+        public static char SearchSeperator = '§';
+        public static Encoding SearchEncoding = Encoding.UTF8;
         private const string BaseUrl = "https://slider.kz/";
 
         private readonly ILogger<SliderService> _logger;
@@ -21,10 +24,10 @@ namespace Hathor.Web.Services
             _logger = logger;
         }
 
-        public async Task<IEnumerable<SliderTrack>> Search(string? query)
+        public async Task<IEnumerable<SliderTrack>> Search(string query)
         {
             TimeSpan timeout = new(0, 0, 10);
-            string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query ?? string.Empty)}";
+            string pathAndQuery = $"vk_auth.php?q={HttpUtility.UrlEncode(query, Encoding.UTF8)}";
             try
             {
                 IFlurlRequest request = _flurlClient
@@ -45,7 +48,7 @@ namespace Hathor.Web.Services
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"Search tracks failed!\nError: {ex.Message}");
+                throw new Exception($"Search tracks failed.", ex);
             }
             return Enumerable.Empty<SliderTrack>();
         }

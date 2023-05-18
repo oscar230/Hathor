@@ -1,41 +1,160 @@
-﻿@page "/Slider"
-
-<PageTitle>Slider</PageTitle>
+﻿@page "/slider"
+@page "/slider/{Query}"
 
 @using Hathor.Web.Models.Slider
 @using Hathor.Web.Services
+@using System.Text;
+@using System.Web;
 @inject SliderService sliderService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
+<PageTitle>Slider</PageTitle>
 <h1>Slider</h1>
 
-@if (tracks is null)
+@if (string.IsNullOrWhiteSpace(Query))
 {
-    <p><em>Loading tracks...</em></p>
+    <HxTabPanel InitialActiveTabId="SingleSearchTab">
+        <HxTab Id="SingleSearchTab" Title="Search one track">
+            <Content>
+                <HxInputText @bind-Value="@SingleSearchTabValue" Label="Search one track" Placeholder="Write any text, like Avicii - Levels" />
+                <HxSubmit Color="ThemeColor.Primary" OnClick="SearchSubmit"><HxIcon Icon="BootstrapIcon.Search" style="margin-right: 5px" />Search</HxSubmit>
+            </Content>
+        </HxTab>
+        <HxTab Id="MultipleSearchTab" Title="Search multiple tracks">
+            <Content>
+                <HxInputTextArea @bind-Value="@MultipleSearchTabValue" Label="Search multiple tracks" Placeholder="Write text with line breaks.\nLike this for example:\nAvicii - Level\ndisturbed - sound of silence" />
+                <HxSubmit Color="ThemeColor.Primary" OnClick="SearchSubmit"><HxIcon Icon="BootstrapIcon.Search" style="margin-right: 5px" />Search</HxSubmit>
+            </Content>
+        </HxTab>
+    </HxTabPanel>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Track</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var track in tracks)
-            {
-                <tr>
-                    <td>@track.ToString()</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <p>You searched for:</p>
+    <ul>
+        @foreach (var item in HttpUtility.UrlDecode(Query, SliderService.SearchEncoding).Split(SliderService.SearchSeperator))
+        {
+            <li>
+                <p>@(item)</p>
+            </li>
+        }
+    </ul>
+    <br />
+
+    if (_tracks is not null && _tracks.Any())
+    {
+        <HxGrid @ref="TracksGridComponent" TItem="SliderTrack" Responsive="true" DataProvider="GetGridData" PageSize="10">
+	        <Columns>
+                <HxGridColumn HeaderText="Title" ItemTextSelector="@(item => item.TitArt)" SortKeySelector="@(item => item.TitArt)" IsDefaultSortColumn="true" />
+                <HxContextMenuGridColumn Context="item">
+                    <HxButton OnClick="@(() => Download(item))" Color="ThemeColor.Primary">Download</HxButton>
+                </HxContextMenuGridColumn>
+	        </Columns>
+        </HxGrid>
+    }
+    else if (_tracks is not null)
+    {
+        <p><HxIcon Icon="BootstrapIcon.Stop"/> No tracks found.</p>
+    }
+    else
+    {
+        <HxSpinner Color="ThemeColor.Primary" />
+        <p><HxIcon Icon="BootstrapIcon.Search"/> Searching...</p>
+    }
 }
 
 @code {
-    private IEnumerable<SliderTrack>? tracks = null;
+    [Inject]
+    protected IHxMessengerService Messenger { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    [Parameter]
+    public string Query { get; set; }
+
+    private string? SingleSearchTabValue;
+    private string? MultipleSearchTabValue;
+    private HxGrid<SliderTrack> TracksGridComponent;
+
+    private List<SliderTrack>? _tracks = null;
+
+    protected override async void OnParametersSet()
     {
-        tracks = await sliderService.Search("Hathor");
+        await Search();
+    }
+
+    private async Task Search()
+    {
+        if (!string.IsNullOrEmpty(Query))
+        {
+            var queries = HttpUtility.UrlDecode(Query, SliderService.SearchEncoding).Split(SliderService.SearchSeperator);
+            var tracks = new List<SliderTrack>();
+            foreach (var query in queries)
+            {
+                try
+                {
+                    var newTracks = await sliderService.Search(query);
+                    tracks.AddRange(newTracks);
+                }
+                catch (Exception ex)
+                {
+                    Messenger.AddError("Search failed", ex.Message);
+                }
+            }
+            _tracks = tracks;
+            await TracksGridComponent.RefreshDataAsync();
+        }
+    }
+
+    private async Task GoToSearch(IEnumerable<string> queries)
+    {
+        string uriQuery = string.Join(SliderService.SearchSeperator, queries);
+        uriQuery = HttpUtility.UrlEncode(uriQuery, SliderService.SearchEncoding);
+        NavigationManager.NavigateTo($"/slider/{uriQuery}");
+    }
+
+    private async Task SearchSubmit()
+    {
+        if (SingleSearchTabValue is not null || MultipleSearchTabValue is not null)
+        {
+            var queries = new List<string>();
+            if (SingleSearchTabValue is not null)
+            {
+                queries.Add(SingleSearchTabValue);
+            }
+            else if (MultipleSearchTabValue is not null)
+            {
+                queries.AddRange(MultipleSearchTabValue.Split("\n"));
+            }
+            else
+            {
+                Messenger.AddError("Cannot serach", "Unkown error");
+                return;
+            }
+            await GoToSearch(queries);
+        }
+        else
+        {
+            Messenger.AddWarning("Cannot serach", "Please insert a serach query");
+        }
+    }
+
+    private async Task MultipleSearchTabSubmit()
+    {
+    }
+
+    private async Task<GridDataProviderResult<SliderTrack>> GetGridData(GridDataProviderRequest<SliderTrack> request)
+    {
+        if (_tracks is not null)
+        {
+            return request.ApplyTo(_tracks);
+        }
+        Messenger.AddError("Failed to display searched tracks.", "Unkown error.");
+        return request.ApplyTo(Enumerable.Empty<SliderTrack>());
+    }
+
+    private async Task Download(SliderTrack track, CancellationToken cancellationToken = default)
+    {
+        var stream = await sliderService.Download(track, cancellationToken);
+        await JS.InvokeVoidAsync("downloadFileFromStream", $"{track.TitArt}.mp3", stream);
     }
 }

@@ -1,5 +1,6 @@
 using Flurl.Http.Configuration;
 using Hathor.Web.Data;
+using Hathor.Web.Extensions;
 using Hathor.Web.Services;
 using Havit.Blazor.Components.Web;
 using Microsoft.OpenApi.Models;
@@ -72,4 +73,5 @@ if (builder.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//app.ValidateContextConnection();
 app.Run();
