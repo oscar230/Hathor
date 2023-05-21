@@ -22,6 +22,7 @@ namespace Hathor.Web.Models.Slider
 
         public override string? ToString() => $"[{new TimeSpan(0, 0, (int)Duration).ToString(@"mm\:ss")}] {TitArt}";
 
-        public string DownloadPathAndQuery => SliderHelper.DownloadPathAndQuery(this);
+        public string DownloadAudioUrl => SliderHelper.DownloadAudioUrl(this);
+        public string PreviewAudioUrl => SliderHelper.PreviewAudioUrl(this);
     }
 }

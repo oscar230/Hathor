@@ -9,11 +9,20 @@ namespace Hathor.Web.Helpers
     {
         private const string ArtistTrackSeparator = " - ";
         private const char ARTISTS_SEPARATOR = ',';
+        private const string BaseUrl = "https://slider.kz/";
 
-        public static string DownloadPathAndQuery(Models.Slider.SliderTrack sliderTrack)
+        public static string DownloadAudioUrl(Models.Slider.SliderTrack sliderTrack, string baseUrl = BaseUrl)
         {
             var extraQuery = sliderTrack.ExtraInformation is not null ? HttpUtility.UrlEncode(sliderTrack.ExtraInformation.ToString()) : "null";
-            return $"download/{sliderTrack.Id}/{sliderTrack.Duration}/{sliderTrack.Url}/{HttpUtility.UrlEncode(sliderTrack.TitArt)}.mp3?extra={extraQuery}";
+            return $"{baseUrl}download/{AudioUrl(sliderTrack)}?extra={extraQuery}";
+        }
+        public static string PreviewAudioUrl(Models.Slider.SliderTrack sliderTrack, string baseUrl = BaseUrl)
+        {
+            return $"{baseUrl}{AudioUrl(sliderTrack)}";
+        }
+        private static string AudioUrl(Models.Slider.SliderTrack sliderTrack)
+        {
+            return $"{sliderTrack.Id}/{sliderTrack.Duration}/{sliderTrack.Url}/{HttpUtility.UrlEncode(sliderTrack.TitArt)}.mp3";
         }
 
         public static string GetTitle(SliderTrack sliderTrack)

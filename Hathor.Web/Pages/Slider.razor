@@ -31,49 +31,30 @@
 }
 else
 {
-    <p>You searched for:</p>
-    <ul>
-        @foreach (var item in HttpUtility.UrlDecode(Query, SliderService.SearchEncoding).Split(SliderService.SearchSeperator))
-        {
-            <li>
-                <p>@(item)</p>
-            </li>
-        }
-    </ul>
-    <br />
-
-    if (_tracks is not null && _tracks.Any())
-    {
-        <HxGrid @ref="TracksGridComponent" TItem="SliderTrack" Responsive="true" DataProvider="GetGridData" PageSize="10">
-	        <Columns>
-                <HxGridColumn HeaderText="Title" ItemTextSelector="@(item => item.TitArt)" SortKeySelector="@(item => item.TitArt)" IsDefaultSortColumn="true" />
-                <HxContextMenuGridColumn Context="item">
-                    <HxButton OnClick="@(() => Download(item))" Color="ThemeColor.Primary">Download</HxButton>
-                </HxContextMenuGridColumn>
-	        </Columns>
-        </HxGrid>
-    }
-    else if (_tracks is not null)
-    {
-        <p><HxIcon Icon="BootstrapIcon.Stop"/> No tracks found.</p>
-    }
-    else
-    {
-        <HxSpinner Color="ThemeColor.Primary" />
-        <p><HxIcon Icon="BootstrapIcon.Search"/> Searching...</p>
-    }
+    <p>Searched for: @(HttpUtility.UrlDecode(Query, SliderService.SearchEncoding))</p>
+#pragma warning disable CS8625
+    <HxGrid @ref="TracksGridComponent" TItem="SliderTrack" Responsive="true" DataProvider="GetGridData" PageSize="10">
+        <Columns>
+            <HxGridColumn HeaderText="Title" ItemTextSelector="@(item => item.TitArt)" SortKeySelector="@(item => item.TitArt)" IsDefaultSortColumn="true" />
+            <HxContextMenuGridColumn Context="item">
+                <HxButton OnClick="@(() => Download(item))" Color="ThemeColor.Primary">Download</HxButton>
+                <audio controls src="@(item.PreviewAudioUrl)" type="audio/mp3" />
+            </HxContextMenuGridColumn>
+        </Columns>
+    </HxGrid>
+#pragma warning restore CS8625
 }
 
 @code {
     [Inject]
-    protected IHxMessengerService Messenger { get; set; }
+    protected IHxMessengerService? Messenger { get; set; }
 
     [Parameter]
     public string Query { get; set; }
 
     private string? SingleSearchTabValue;
     private string? MultipleSearchTabValue;
-    private HxGrid<SliderTrack> TracksGridComponent;
+    private HxGrid<SliderTrack>? TracksGridComponent;
 
     private List<SliderTrack>? _tracks = null;
 
@@ -86,6 +67,7 @@ else
     {
         if (!string.IsNullOrEmpty(Query))
         {
+            _tracks = null;
             var queries = HttpUtility.UrlDecode(Query, SliderService.SearchEncoding).Split(SliderService.SearchSeperator);
             var tracks = new List<SliderTrack>();
             foreach (var query in queries)
@@ -138,23 +120,12 @@ else
         }
     }
 
-    private async Task MultipleSearchTabSubmit()
-    {
-    }
-
-    private async Task<GridDataProviderResult<SliderTrack>> GetGridData(GridDataProviderRequest<SliderTrack> request)
-    {
-        if (_tracks is not null)
-        {
-            return request.ApplyTo(_tracks);
-        }
-        Messenger.AddError("Failed to display searched tracks.", "Unkown error.");
-        return request.ApplyTo(Enumerable.Empty<SliderTrack>());
-    }
+    private async Task<GridDataProviderResult<SliderTrack>> GetGridData(GridDataProviderRequest<SliderTrack> request) => request.ApplyTo(_tracks);
 
     private async Task Download(SliderTrack track, CancellationToken cancellationToken = default)
     {
-        var stream = await sliderService.Download(track, cancellationToken);
-        await JS.InvokeVoidAsync("downloadFileFromStream", $"{track.TitArt}.mp3", stream);
+        Messenger.AddInformation("Downloading track", track.TitArt);
+        //var stream = await sliderService.Download(track, cancellationToken);
+        //await JS.InvokeVoidAsync("downloadFileFromStream", $"{track.TitArt}.mp3", stream);
     }
 }

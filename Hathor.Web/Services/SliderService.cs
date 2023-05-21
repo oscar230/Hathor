@@ -53,7 +53,7 @@ namespace Hathor.Web.Services
             return Enumerable.Empty<SliderTrack>();
         }
 
-        public async Task<Stream> Download(SliderTrack track, CancellationToken cancellationToken = default) => await Download(track.DownloadPathAndQuery, cancellationToken);
+        public async Task<Stream> Download(SliderTrack track, CancellationToken cancellationToken = default) => await Download(track.DownloadAudioUrl, cancellationToken);
 
         public async Task<Stream> Download(string pathAndQuery, CancellationToken cancellationToken = default)
         {
