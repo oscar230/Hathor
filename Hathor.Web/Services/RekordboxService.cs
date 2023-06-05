@@ -1,47 +1,36 @@
-﻿using Hathor.Web.Data;
-using Hathor.Web.Helpers;
+﻿using Hathor.Web.Helpers;
 using Hathor.Web.Models.Rekordbox;
 
 namespace Hathor.Web.Services
 {
     public class RekordboxService
     {
-        private readonly ILogger<RekordboxService> _logger;
-        private readonly HathorContext _context;
+        private readonly List<Library> _libraries = new();
 
-        public RekordboxService(ILogger<RekordboxService> logger, HathorContext hathorContext)
+        public Library? ParseAndAdd(IFormFile formFile)
         {
-            _logger = logger;
-            _context = hathorContext;
-        }
-
-        public void AddLibrary(IFormFile formFile)
-        {
-            Library library = RekordboxHelper.CreateLibrary(formFile);
-            library.UploadDateTimeOffset = DateTimeOffset.UtcNow;
-            _context.Libraries.Add(library);
-            _context.SaveChanges();
-        }
-
-        public List<Library> Libraries(int pageSize, DateTimeOffset? latestDateTime = null)
-        {
-            latestDateTime ??= DateTimeOffset.UtcNow;
-            IQueryable<Library> libraries = _context.Libraries
-                .OrderBy(e => e.UploadDateTimeOffset)
-                .Where(e => e.UploadDateTimeOffset <= latestDateTime);
-            if (libraries.Any() && libraries.Count() >= pageSize)
+            var library = RekordboxHelper.ParseLibrary(formFile);
+            if (library is not null)
             {
-                libraries = libraries.Take(pageSize);
+                Add(library);
+                return library;
             }
-            return libraries.ToList();
+            else
+            {
+                return null;
+            }
         }
 
-        //public List<Track> Tracks => _library.Collection?.Tracks ?? new List<Track>();
+        public void Add(Library library) => _libraries.Add(library);
 
-        //public List<Track> TracksNeverPlayed => Tracks.Where(t => t.PlayCount is not null && t.PlayCount.Equals("0")).ToList();
+        public IEnumerable<Library> GetAll(int pageSize, DateTimeOffset? from = null, DateTimeOffset? to = null)
+        {
+            bool filterByDate = from is not null || to is not null;
+            from ??= DateTimeOffset.MinValue;
+            to ??= DateTimeOffset.MaxValue;
+            return _libraries.Where(l => filterByDate && l.UploadDateTimeOffset >= from && l.UploadDateTimeOffset <= to).Take(pageSize);
+        }
 
-        //public PlaylistNode? RootPlaylistNode => _library.Playlists?.PlaylistNode;
-
-        //public override string ToString() => $"The library is from {_library.Product?.Name} version {_library.Product?.Version} and contains {_library.Collection?.Entries} tracks.";
+        public bool Any() => _libraries.Any();
     }
 }

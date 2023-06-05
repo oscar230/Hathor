@@ -1,85 +1,71 @@
 ﻿@page "/Library"
+@using Hathor.Web.Models.Rekordbox;
 @using Hathor.Web.Services
-@using RLibrary = Models.Rekordbox.Library
 @inject IHxMessengerService MessengerService
 @inject RekordboxService RekordboxService
 
-<h3>Upload a Rekorbox export</h3>
-<p>Upload a Rekordbox export as an xml-file. To aquire this file; In rekordbox choose <i>File > Export Collection in XML format</i>.</p>
-
-
-<HxInputFile @ref="hxInputFileComponent" Label="Select export files" UploadUrl="/RekordboxLibrary" OnFileUploaded="FileUploaded" OnProgress="Progress" />
-<br />
-<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="OnClickUploadButton" CssClass="my-2" />
-<HxButton Text="Clear" Color="ThemeColor.Secondary" OnClick="OnClickClearButton" CssClass="my-2" Enabled="@buttonClearEnabled" />
-@if (uploadProgress is not null)
-{
-    <p>Uploaded @uploadProgress.UploadedBytes out of @uploadProgress.UploadSize bytes.</p>
-    if (uploadProgress.UploadedBytes == uploadProgress.UploadSize)
-    {
-        <p>Processing file, please wait...</p>
-    }
-}
-
-<h3>Imported libraries</h3>
-<HxGrid TItem="RLibrary" Responsive="true" DataProvider="GetGridData" PageSize="10">
-    <Columns>
-        <HxGridColumn TItem="RLibrary" HeaderText="Upload date" ItemTextSelector="@(item => item.UploadDateTimeOffset.ToString())" SortString="@nameof(RLibrary.UploadDateTimeOffset)" IsDefaultSortColumn="true" />
-        <HxGridColumn TItem="RLibrary" HeaderText="Id" ItemTextSelector="@(item => item.Id.ToString().Split('-')[0])" SortString="@nameof(RLibrary.Id)" />
-        <HxGridColumn TItem="RLibrary" HeaderText="Rekordbox version" ItemTextSelector="@(item => item.Version)" SortString="@nameof(RLibrary.Version)" />
-    </Columns>
-</HxGrid>
+<PageTitle>Rekorbox</PageTitle>
+<div class="container">
+    <div class="row">
+        <HxTabPanel @ref="hxTabPanel" InitialActiveTabId="uploadTab">
+            <HxTab Id="uploadTab" Order="1" Title="Upload library">
+                <Content>
+                    <h1>Upload a Rekorbox export</h1>
+                    <p>Upload a Rekordbox export as an xml-file. To aquire this file; In rekordbox choose <i>File > Export Collection in XML format</i>.</p>
+                    <HxInputFileDropZone @ref="hxInputFileDropZone" UploadUrl="/RekordboxLibrary/" OnFileUploaded="FileUploaded" OnChange="FileInputChanged" Accept=".xml" Multiple />
+                </Content>
+            </HxTab>
+            <HxTab Id="viewTab" Order="2" Title="View libraries">
+                <Content>
+                    <HxGrid @ref="hxGrid" TItem="Library" DataProvider="GetGridData" Responsive="true" PageSize="25">
+                        <Columns>
+                            <HxGridColumn ItemTextSelector="@(item => item.UploadDateTimeOffset.ToString())" SortKeySelector="@(item => item.UploadDateTimeOffset)" SortDirection="Havit.Collections.SortDirection.Descending" HeaderText="Upload date and time" />
+                            <HxGridColumn ItemTextSelector="@(item => item.Collection.Entries)" SortKeySelector="@(item => item.Collection.Entries)" HeaderText="Number of tracks" />
+                        </Columns>
+                    </HxGrid>
+                </Content>
+            </HxTab>
+        </HxTabPanel>
+    </div>
+</div>
 
 @code
 {
-    private HxInputFile? hxInputFileComponent;
-    private bool buttonClearEnabled = false;
-    private UploadProgressEventArgs? uploadProgress;
+    private HxGrid<Library>? hxGrid = null;
+    private HxTabPanel? hxTabPanel = null;
+    private HxInputFileDropZone? hxInputFileDropZone;
+
+    //protected override void OnInitialized()
+    //{
+    //}
+
+    //public override async Task SetParametersAsync(ParameterView parameters)
+    //{
+        
+    //}
 
     private void FileUploaded(FileUploadedEventArgs fileUploaded)
     {
-        if (string.IsNullOrWhiteSpace(fileUploaded.ResponseText))
-        {
-            MessengerService.AddInformation($"{fileUploaded.OriginalFileName} uploaded.");
-        }
-        else
-        {
-            MessengerService.AddInformation($"{fileUploaded.OriginalFileName} uploaded.", fileUploaded.ResponseText);
-        }
-        buttonClearEnabled = false;
-        uploadProgress = null;
+        MessengerService.AddInformation($"{fileUploaded.OriginalFileName} uploaded.", fileUploaded.ResponseText);
     }
 
-    private Task<GridDataProviderResult<RLibrary>> GetGridData(GridDataProviderRequest<RLibrary> request)
+    private async void FileInputChanged(InputFileChangeEventArgs inputFileChange)
     {
-        List<RLibrary> libraries = RekordboxService.Libraries(50);
-        return Task.FromResult<GridDataProviderResult<RLibrary>>(new()
+        const string? accessToken = null;
+        MessengerService.AddInformation("Change", inputFileChange.FileCount.ToString());
+        if (hxInputFileDropZone is not null)
+        {
+            UploadCompletedEventArgs uploadCompletedEventArgs = await hxInputFileDropZone.UploadAsync(accessToken);
+        }
+    }
+
+    private Task<GridDataProviderResult<Library>> GetGridData(GridDataProviderRequest<Library> request)
+    {
+        var libraries = RekordboxService.GetAll(50);
+        return Task.FromResult<GridDataProviderResult<Library>>(new()
         {
             Data = libraries,
             TotalCount = libraries.Count()
         });
-    }
-
-    private async Task OnClickUploadButton(MouseEventArgs mouseEventArgs)
-    {
-        if (hxInputFileComponent is not null)
-        {
-            await hxInputFileComponent.StartUploadAsync();
-            buttonClearEnabled = false;
-        }
-    }
-
-    private async Task OnClickClearButton(MouseEventArgs mouseEventArgs)
-    {
-        if (hxInputFileComponent is not null)
-        {
-            await hxInputFileComponent.ResetAsync();
-            buttonClearEnabled = false;
-        }
-    }
-
-    private void Progress(UploadProgressEventArgs uploadProgress)
-    {
-        this.uploadProgress = uploadProgress;
     }
 }
